@@ -1,0 +1,26 @@
+.pg-Container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.frm-Container {
+  /* Inherit .navbar padding for consistent look */
+  padding: .5rem 1rem;
+}
+
+.frm-Category {
+  padding: .25rem;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+
+  width: 100%;
+  border-bottom: 2px white solid;
+}
+
+.frm-Category h2 {
+  /* We don't want any margins */
+  margin: 0;
+}
