@@ -18,13 +18,19 @@
     </head>
 
     <body>
+        <!-- Reserved for the home page nav bar   -->
+
+        <!-- end of nav bar    -->
+
+        <!--   profile template starts here-->
         <div class="container mt-0">
           <div class=" shadow-sm row bg-light ml-0 mr-0 pt-4 pb-3 pl-0">
             <!-- user photo -->
             <img src="https://images.unsplash.com/photo-1445583934509-4ad5ffe6ef08?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" class="shadow-lg rounded-circle ml-5 " id="userPhoto" width="100px" height="90px">
             <h3 class="pt-4 pl-3">Username</h3>
            </div>
-            <!-- nav for profile and settings -->
+
+            <!-- nav buttons for profile and settings -->
            <div class=" shadow-sm row bg-light  ml-0 mr-0  pl-0">
              <ul class="nav nav-tabs ml-5">
                   <li class="nav-item">
@@ -35,6 +41,19 @@
                   </li>
               </ul>
            </div>
+
+          <div class="row pb-2">
+                <div class="col mt-4">
+                       <div class="col"></div>
+                  <div class="shadow card mt-2 ">
+                    <h5 class="card-header">About</h5>
+                    <div class="card-body">
+                      <p class="card-text">Some story about the user  describing themselves to other users  .</p>
+                    </div>
+                  </div>
+                </div>
+           </div>
+           <!--  Displayable charts -->
            <div class="row pb-2">
                 <div class="col mt-4">
                   <div class="shadow card mt-2  ml-0">
@@ -54,6 +73,7 @@
                   </div>
                 </div>
            </div>
+
            <div class="row pb-2">
                 <div class="col mt-4">
                        <div class="col"></div>
@@ -63,10 +83,18 @@
                       <canvas id="stepsChart"></canvas>
                     </div>
                   </div>
-
                 </div>
            </div>
+
+           <!-- chart generator code -->
+           <script src="../static/chartGenerator.js"></script>
         </div>
-          <script src="../static/chartGenerator.js"></script>
+
+        <!--   profile template END here-->
+
+        <!-- Reserved for the home footer   -->
+
+        <!-- footer  END here  -->
+
     </body>
 </html>
