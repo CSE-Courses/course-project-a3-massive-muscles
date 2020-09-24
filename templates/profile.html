@@ -18,14 +18,14 @@
     </head>
 
     <body>
-        <div class="container-fluid">
-          <div class="row bg-light p-2">
+        <div class="container">
+          <div class=" shadow-sm row bg-light ml-0 mr-0 pt-4 pb-3 pl-0">
             <!-- user photo -->
-            <img src="https://images.unsplash.com/photo-1445583934509-4ad5ffe6ef08?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" class="rounded-circle ml-5" id="userPhoto" width="100px" height="90px">
+            <img src="https://images.unsplash.com/photo-1445583934509-4ad5ffe6ef08?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" class="shadow-lg rounded-circle ml-5 " id="userPhoto" width="100px" height="90px">
             <h3 class="pt-4 pl-3">Username</h3>
            </div>
-           <div class="row bg-light p-2">
             <!-- nav for profile and settings -->
+           <div class=" shadow-sm row bg-light  ml-0 mr-0  pl-0">
              <ul class="nav nav-tabs ml-5">
                   <li class="nav-item">
                     <a class="nav-link active" href="profile.html">status</a>
@@ -35,29 +35,38 @@
                   </li>
               </ul>
            </div>
-           <div class="row p-2">
-               <!-- charts -->
-               <div class="container ml-5">
-                  <div class="card mt-2 ">
+           <div class="row pb-2">
+                <div class="col mt-4">
+                  <div class="shadow card mt-2  ml-0">
                     <h5 class="card-header">BMI chart</h5>
                     <div class="card-body">
                       <canvas id="BMIChart" class=""></canvas>
                     </div>
                   </div>
-                  <div class="card mt-2 ">
+                </div>
+
+                <div class="col mt-4">
+                  <div class="shadow card mt-2 ">
                     <h5 class="card-header">Calorie intake chart</h5>
                     <div class="card-body">
                       <canvas id="calorieIntakeChart"></canvas>
                     </div>
                   </div>
-                  <div class="card mt-2 ">
+                </div>
+           </div>
+           <div class="row pb-2">
+                <div class="col mt-4">
+                       <div class="col"></div>
+                  <div class="shadow card mt-2 ">
                     <h5 class="card-header">Daily steps chart</h5>
                     <div class="card-body">
                       <canvas id="stepsChart"></canvas>
                     </div>
                   </div>
-            </div>
-          </div>
+
+                </div>
+           </div>
+        </div>
           <script src="../static/chartGenerator.js"></script>
     </body>
 </html>
