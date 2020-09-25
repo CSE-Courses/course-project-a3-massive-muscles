@@ -1,22 +1,33 @@
 /*CSS DOCUMENT*/
 
 /* banner styling */
-.banner {
-    width: 1225px;
-    height: 166px;
-    opacity: 1;
-    border-radius: 20px;
-    border: 2px solid black
+
+:root {
+    --main-theme-color: #072861;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body{
-    background:#5986bd; /* grey-blue background */
+    overflow-x: hidden;
+    background:#4e9cf5; 
     color: #950C3E;
-    background-image: url("placeholder");
     background-size:cover;
     background-repeat:no-repeat;
-    background-position:center center; /* center bg image */
-    }
+}
+
+.banner {
+    opacity: 80%;
+    width: 1225px;
+    height: 166px;
+    top: 200px; left: 50vw;
+    transform: translate(-50%,-50%);
+    position: fixed;
+    border-radius: 20px;
+    border: 2px solid white;
+    box-shadow: .1rem 0 3rem black;
+}
 
 /* placeholder */
 img {
@@ -36,31 +47,38 @@ img.thumb {
 p,h1,h3 {
     text-align: center;
 }
-/* title/smaller div styling */
-#wrapper2 {
-    border-radius: 15px;
-    padding: 1px;
-    opacity: .95;
-    background:#2066a1;
-    width:225px;
-    margin-left:auto;
-    margin-right:auto;
-    color:white;
+
+#bgAnimation {
+    z-index: -2;
+    position: absolute;
+    display: block;
+    min-width: 100%;
+    min-height: 100vh;
+    top: 0; left: 0; right: 0; bottom: 0;
 }
+
+.blobContainer {
+    /* top: 50vh; left: 50vw; */
+    margin: 260px 0 0 0;
+}
+
 /* larger div styling */
 #wrapper {
     border-radius: 15px;
-    padding-top: 1px;
-    padding-left: 14px;
-    padding-right: 14px;
-    padding-bottom: 14px;
+    padding: 10px 14px 14px 14px;
+    margin: 30px auto 30px auto;
     opacity: .85;
-    background:#2066a1;
+    background: var(--main-theme-color);
     width:650px;
-    height:175px;
-    margin-left:auto;
-    margin-right:auto;
+    height:150px;
     color:white;
+    transition: all .3s;
+}
+
+#wrapper:hover {
+    transform: scale(1.05);
+    box-shadow: .1rem 0 3rem black;
+    cursor: default;
 }
 
 footer{
@@ -68,9 +86,8 @@ footer{
     bottom:0;
     margin:0px;
     position:fixed;
-    /* _position:absolute;*/
     height:60px;
-    background:#2066a1;
+    background:var(--main-theme-color);
     color:#FFFFFF;
     width:100%;
     text-align:center;
@@ -78,5 +95,26 @@ footer{
 }
 
 #loginBody {
-    background:#2066a1;
+    background:var(--main-theme-color);
+}
+
+.accountBtn {
+    color: white;
+    border: 1px solid var(--main-theme-color);
+}
+
+@media screen and (max-width: 1200px) {
+    #bgAnimation {
+        opacity: 0;
+    }
+    .banner {
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #wrapper{
+        width: 450;
+        height: 100;
+    }
 }

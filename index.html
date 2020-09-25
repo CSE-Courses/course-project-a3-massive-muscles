@@ -9,11 +9,12 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="CSS/muscleDesign.css">
+        <link rel="stylesheet" type="text/css" href="CSS/main.css">
 
     </head>
     <body>
 <!-- NAVBAR START... basic navbar from https://getbootstrap.com/docs/4.0/components/navbar/ -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <a class="navbar-brand" href="#">Massive Muscles</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -41,50 +42,53 @@
             <!-- dropdown item end -->
                 </ul>
             <!-- right aligned login/signup buttons -->
-                <a href="#login" class="btn btn-secondary my-2 my-sm-0 mr-2">Sign in</a> <!-- the mr-2 is the space between buttons -->
-                <a href="#register" class="btn btn-success my-2 my-sm-0">Sign up</a>
+                <a href="#login" class="accountBtn btn my-2 my-sm-0 mr-2">Log in</a> <!-- the mr-2 is the space between buttons -->
+                <a href="#register" class="accountBtn btn my-2 my-sm-0">Register</a>
             </div>
         </nav>
     <!-- NAVBAR END -->
 
         <div id="page">
         <!-- banner w/ styling -->
-            <img class="banner" src="muscleBanner.jpg">
-            <div id="wrapper2">
-                <h1>Welcome!</h1>
-            </div> 
-
-            <div id="wrapper">
-                <div id="content">
-                    <p><h2>Calorie Tracker</h2>
-                    [description of the calorie tracker and subsequent features] 
-                
-                    <a href="#calories" class="btn btn-dark"> Calorie Tracker </a></p>
+            <!-- <img class="banner" src="muscleBanner.jpg"> -->
+            <div class="blobContainer">
+                <div id="wrapper">
+                    <div id="content">
+                        <p><h2>Calorie Tracker</h2>
+                        [description of the calorie tracker and subsequent features] 
+                    
+                        <a href="#calories" class="btn btn-dark"> Calorie Tracker </a></p>
+                    </div>
+                </div>
+                <div id="wrapper">
+                    <div id="content">
+                        <p><h2>BMI and Body Fat Calculator</h2>
+                        [description of the bmi/body fat calculator and subsequent features] 
+                    
+                        <a href="#calculator" class="btn btn-dark"> BMI / BF Calculator </a></p>
+                    </div>
+                </div>
+                <div id="wrapper">
+                    <div id="content">
+                        <p><h2>Timer</h2>
+                        [description of the timer and subsequent features] 
+                    
+                        <a href="#timer" class="btn btn-dark"> Timer </a></p>
+                    </div>
                 </div>
             </div>
-            <div id="wrapper">
-                <div id="content">
-                    <p><h2>BMI and Body Fat Calculator</h2>
-                    [description of the bmi/body fat calculator and subsequent features] 
-                
-                    <a href="#calculator" class="btn btn-dark"> BMI / BF Calculator </a></p>
-                </div>
-            </div>
-            <div id="wrapper">
-                <div id="content">
-                    <p><h2>Timer</h2>
-                    [description of the timer and subsequent features] 
-                
-                    <a href="#timer" class="btn btn-dark"> Timer </a></p>
-                </div>
-            </div>
-
-        <!-- page div end -->
         </div>
+        <!-- Background Animation -->
+        <div id="bgAnimation"></div>
         <!-- put page footer here -->
         <footer>
             www.massivemuscles.com
         </footer>
+        <!-- Vanta BG Animation plugin -->
+        <script src="JS/p5.min.js"></script>
+        <script src="JS/vanta.topology.min.js"></script>
+        <!-- Main JS -->
+        <script src="JS/main.js"></script>
         <!-- jQuery & Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
