@@ -10,6 +10,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="CSS/muscleDesign.css">
         <link rel="stylesheet" type="text/css" href="CSS/main.css">
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     </head>
     <body>
@@ -21,7 +23,7 @@
             </button>
         <!-- navbar contents/items start here: -->
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
@@ -35,22 +37,21 @@
                         Health Tools
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Track Calories</a>
-                            <a class="dropdown-item" href="#">Calculate BMI or Body Fat</a>
+                            <a class="dropdown-item" href="healthTracker.html">Track Calories</a>
+                            <a class="dropdown-item" href="healthTracker.html">Calculate BMI or Body Fat</a>
                         </div>
                     </li>
             <!-- dropdown item end -->
                 </ul>
             <!-- right aligned login/signup buttons -->
-                <a href="#login" class="accountBtn btn my-2 my-sm-0 mr-2">Log in</a> <!-- the mr-2 is the space between buttons -->
-                <a href="#register" class="accountBtn btn my-2 my-sm-0">Register</a>
+                <a href="login.html" class="accountBtn btn mr-2">Log in</a> <!-- the mr-2 is the space between buttons -->
+                <a href="login.html" class="accountBtn btn">Register</a>
             </div>
         </nav>
     <!-- NAVBAR END -->
-
         <div id="page">
         <!-- banner w/ styling -->
-            <!-- <img class="banner" src="muscleBanner.jpg"> -->
+            <img class="banner" src="muscleBanner.jpg">
             <div class="blobContainer">
                 <div id="wrapper">
                     <div id="content">

@@ -1,6 +1,5 @@
-/*CSS DOCUMENT*/
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Krona+One&family=Roboto+Mono&family=Share+Tech+Mono&family=Pacifico&family=Permanent+Marker&display=swap');
 
-/* banner styling */
 
 :root {
     --main-theme-color: #072861;
@@ -57,28 +56,41 @@ p,h1,h3 {
     top: 0; left: 0; right: 0; bottom: 0;
 }
 
-.blobContainer {
-    /* top: 50vh; left: 50vw; */
-    margin: 260px 0 0 0;
-}
 
 /* larger div styling */
 #wrapper {
     border-radius: 15px;
     padding: 10px 14px 14px 14px;
     margin: 30px auto 30px auto;
-    opacity: .85;
     background: var(--main-theme-color);
     width:650px;
     height:150px;
     color:white;
     transition: all .3s;
+    box-shadow: .1rem 0 1rem #000;
+    display: flex;
+    flex-direction: column;
+    transition: .2s;
+    scroll-snap-align: start;
+    clear: both;
+    position: relative;
+    cursor: default;
+}
+
+.blobContainer {
+    margin: 40vh 0 0 0;
+}
+
+#wrapper:focus-within~#wrapper, #wrapper:hover~#wrapper {
+    transform: translateY(130px);
 }
 
 #wrapper:hover {
     transform: scale(1.05);
-    box-shadow: .1rem 0 3rem black;
-    cursor: default;
+}
+
+#wrapper:not(:first-child) {
+    margin-top: -100px;
 }
 
 footer{
@@ -100,7 +112,6 @@ footer{
 
 .accountBtn {
     color: white;
-    border: 1px solid var(--main-theme-color);
 }
 
 @media screen and (max-width: 1200px) {

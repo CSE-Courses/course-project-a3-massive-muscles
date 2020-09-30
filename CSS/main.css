@@ -2,6 +2,9 @@
 * Universal styling for each page on the web app
 */
 
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Krona+One&family=Roboto+Mono&family=Share+Tech+Mono&family=Pacifico&family=Permanent+Marker&display=swap');
+
 
 /* Scrollbar */
 *::-webkit-scrollbar {
