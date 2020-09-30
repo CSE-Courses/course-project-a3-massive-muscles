@@ -11,7 +11,7 @@
 body{
     overflow-x: hidden;
     background:#4e9cf5; 
-    color: #950C3E;
+    color: whitesmoke;
     background-size:cover;
     background-repeat:no-repeat;
 }
@@ -134,4 +134,12 @@ footer{
     left: 25%;
     top: 35%;
     position: absolute;
+}
+
+#loginBody {
+    font-family: monospace;
+}
+
+.navbar {
+    background: var(--main-theme-color);
 }
