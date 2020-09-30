@@ -49,36 +49,108 @@
             </div>
         </nav>
     <!-- NAVBAR END -->
+
         <div id="page">
         <!-- banner w/ styling -->
             <img class="banner" src="muscleBanner.jpg">
             <div class="blobContainer">
                 <div id="wrapper">
                     <div id="content">
-                        <p><h2>Calorie Tracker</h2>
-                        [description of the calorie tracker and subsequent features] 
-                    
-                        <a href="#calories" class="btn btn-dark"> Calorie Tracker </a></p>
+                        <p><h2>Calorie Tracker</h2><br>
+                        <!-- Button for calorie modal -->
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#calorieModal">
+                          Learn More
+                        </button></p>
                     </div>
                 </div>
                 <div id="wrapper">
                     <div id="content">
-                        <p><h2>BMI and Body Fat Calculator</h2>
-                        [description of the bmi/body fat calculator and subsequent features] 
-                    
-                        <a href="#calculator" class="btn btn-dark"> BMI / BF Calculator </a></p>
+                        <p><h2>BMI and Body Fat Calculator</h2><br>
+                        <!-- Button for BMI/BF modal -->
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#bmiModal">
+                          Learn More
+                        </button></p>
                     </div>
                 </div>
                 <div id="wrapper">
                     <div id="content">
-                        <p><h2>Timer</h2>
-                        [description of the timer and subsequent features] 
-                    
-                        <a href="#timer" class="btn btn-dark"> Timer </a></p>
+                        <p><h2>Timer</h2><br>
+                        <!-- Button for Timer modal -->
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#timerModal">
+                          Learn More
+                        </button></p>
                     </div>
                 </div>
             </div>
         </div>
+
+    <!-- START Calories Modal -->
+    <div class="modal fade" id="calorieModal" tabindex="-1" role="dialog" aria-labelledby="calorie_modal_title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Calorie Tracker</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            [description of this feature]
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-primary">Go to Calorie Tracker</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END Calories Modal -->
+
+    <!-- START Calculator(BMI/BF) Modal -->
+    <div class="modal fade" id="bmiModal" tabindex="-1" role="dialog" aria-labelledby="bmi_modal_title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">BMI and Body Fat Calculator</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            [description of this feature]
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-primary">Go to Calculator</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END Calculator(BMI/BF) Modal -->
+
+    <!-- START Timer Modal -->
+    <div class="modal fade" id="timerModal" tabindex="-1" role="dialog" aria-labelledby="timer_modal_title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Timer</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            [description of this feature]
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-primary">Go to Timer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END Timer Modal -->
+
+
         <!-- Background Animation -->
         <div id="bgAnimation"></div>
         <!-- put page footer here -->

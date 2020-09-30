@@ -10,8 +10,7 @@
 
 body{
     overflow-x: hidden;
-    background:#4e9cf5; 
-    color: #950C3E;
+    background:#4e9cf5;
     background-size:cover;
     background-repeat:no-repeat;
 }
@@ -75,6 +74,10 @@ p,h1,h3 {
     clear: both;
     position: relative;
     cursor: default;
+}
+
+#content{
+    text-align: center;
 }
 
 .blobContainer {
