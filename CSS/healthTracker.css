@@ -139,8 +139,8 @@ html body{
     margin-top: 7px;
 }
 .navHover a:first-child + a + a::after {
-    content: 'Health Calculator';
-    margin-left: -35px;
+    content: 'PROFILE';
+    margin-left: -30px;
     margin-top: 7px;
 }
 
