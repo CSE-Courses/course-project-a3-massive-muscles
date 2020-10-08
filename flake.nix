@@ -49,6 +49,12 @@
           postcss-cli = callPackage ./nix/npm/postcss-cli.nix { };
           postcss-preset-env = callPackage ./nix/npm/postcss-preset-env.nix { };
 
+          a3-massive-muscles = callPackage ./nix {
+            inherit (nodePackages) html-minifier;
+          } {
+            src = ./.;
+          };
+
         };
 
       # Provide some binary packages for selected system types.
@@ -56,13 +62,17 @@
         with nixpkgsFor.${system};
         {
 
-          inherit yarn2nix
-            cssnano postcss-cli postcss-preset-env;
+          inherit
+            yarn2nix
+            cssnano postcss-cli postcss-preset-env
+            a3-massive-muscles;
 
           inherit (nodePackages)
             html-minifier;
 
         });
+
+      defaultPackage = forAllSystems (system: self.packages.${system}.a3-massive-muscles);
 
       checks = forAllSystems (system: self.packages.${system});
 
