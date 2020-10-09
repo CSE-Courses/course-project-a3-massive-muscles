@@ -52,7 +52,10 @@ stdenv.mkDerivation {
   '';
 
   installPhase = ''
-    mv --verbose --no-target-directory public $out
+    # Workaround for https://github.com/actions/upload-artifact/issues/92
+    mkdir -p $out/dist
+
+    mv --verbose --no-target-directory public $out/dist
   '';
 
   fixupPhase = ''
@@ -69,9 +72,9 @@ stdenv.mkDerivation {
       --use cssnano --use postcss-preset-env
 
     # Transpile Javascript for maximum compatibility
-    babel.js $out/JS --out-dir $out/JS
+    babel.js $out --out-dir $out
 
     # Compress Javascript
-    find $out/JS -type f -name '*.js' -exec uglifyjs "{}" --compress --mangle --output "{}" \;
+    find $out -type f -name '*.js' -exec uglifyjs "{}" --compress --mangle --output "{}" \;
   '';
 }
