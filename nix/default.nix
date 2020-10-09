@@ -1,12 +1,13 @@
 { stdenv, runCommand
 , html-minifier, postcss-cli
-, postcss-preset-env
+, cssnano, postcss-preset-env
 }:
 
 { src }:
 let
   node_modules = runCommand "a3-massive-muscles-node_modules" {} ''
     mkdir -p $out
+    ln -s ${cssnano} $out/cssnano
     ln -s ${postcss-preset-env} $out/postcss-preset-env
   '';
 
@@ -47,6 +48,6 @@ stdenv.mkDerivation {
 
     postcss "$out/**/*.css" \
       --replace --no-map --verbose \
-      --use postcss-preset-env
+      --use cssnano --use postcss-preset-env
   '';
 }
