@@ -48,6 +48,7 @@
           babel-cli = callPackage ./nix/npm/babel-cli.nix { };
           babel-core = callPackage ./nix/npm/babel-core.nix { };
           babel-preset-env = callPackage ./nix/npm/babel-preset-env.nix { };
+          babel-plugin-proposal-class-properties = callPackage ./nix/npm/babel-plugin-proposal-class-properties.nix { };
           cssnano = callPackage ./nix/npm/cssnano.nix { inherit (final) yarn2nix; };
           postcss-cli = callPackage ./nix/npm/postcss-cli.nix { };
           postcss-preset-env = callPackage ./nix/npm/postcss-preset-env.nix { };
@@ -69,6 +70,7 @@
             yarn2nix
             cssnano postcss-cli postcss-preset-env
             babel-cli babel-core babel-preset-env
+            babel-plugin-proposal-class-properties
             a3-massive-muscles;
 
           inherit (nodePackages)
