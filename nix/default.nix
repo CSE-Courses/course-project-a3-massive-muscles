@@ -42,8 +42,13 @@ stdenv.mkDerivation {
   buildPhase = ''
     # Copy over assets
     mkdir -p public
-    cp *.html public
-    cp -r CSS JS public
+
+    for file in $(find \( -name '*.html' -or -name '*.js' -or -name '*.css' \)); do
+      new_dir=public/$(dirname $file)
+
+      mkdir -p $new_dir
+      cp $file public/$file
+    done
   '';
 
   installPhase = ''
