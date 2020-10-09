@@ -1,6 +1,8 @@
 { stdenv, runCommand
 , html-minifier, postcss-cli
 , cssnano, postcss-preset-env
+, babel-cli, babel-core, babel-preset-env
+, babel-plugin-proposal-class-properties
 }:
 
 { src }:
@@ -9,6 +11,11 @@ let
     mkdir -p $out
     ln -s ${cssnano} $out/cssnano
     ln -s ${postcss-preset-env} $out/postcss-preset-env
+
+    mkdir -p "$out/@babel"
+    ln -s ${babel-core} "$out/@babel/core"
+    ln -s ${babel-preset-env} "$out/@babel/preset-env"
+    ln -s ${babel-plugin-proposal-class-properties} "$out/@babel/plugin-proposal-class-properties"
   '';
 
   # Basically like a LD_LIBRARY_PATH for Node.js if you don't know
@@ -22,10 +29,14 @@ stdenv.mkDerivation {
 
   configurePhase = ''
     export NODE_PATH="${NODE_PATH}''${NODE_PATH:+:}$NODE_PATH"
+
+    # Babel seems to not look at NODE_PATH so we plug it in as well
+    ln -s ${node_modules} node_modules
   '';
 
   nativeBuildInputs = [
     html-minifier postcss-cli
+    babel-cli
   ];
 
   buildPhase = ''
@@ -49,5 +60,7 @@ stdenv.mkDerivation {
     postcss "$out/**/*.css" \
       --replace --no-map --verbose \
       --use cssnano --use postcss-preset-env
+
+    babel.js $out/JS --out-dir $out/JS
   '';
 }
