@@ -51,18 +51,22 @@ stdenv.mkDerivation {
   '';
 
   fixupPhase = ''
+    # Minify HTML
     html-minifier --file-ext html --input-dir $out --output-dir $out \
       --collapse-whitespace --decode-entities --minify-css --minify-js \
       --remove-comments --remove-optional-tags --remove-redundant-attributes \
       --remove-script-type-attributes --remove-style-link-type-attributes --use-short-doctype \
       --trim-custom-fragments --ignore-custom-fragments '/<script> <\/script>/'
 
+    # Compress and polyfill CSS
     postcss "$out/**/*.css" \
       --replace --no-map --verbose \
       --use cssnano --use postcss-preset-env
 
+    # Transpile Javascript for maximum compatibility
     babel.js $out/JS --out-dir $out/JS
 
+    # Compress Javascript
     find $out/JS -type f -name '*.js' -exec uglifyjs "{}" --compress --mangle --output "{}" \;
   '';
 }
