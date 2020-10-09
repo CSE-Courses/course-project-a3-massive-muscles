@@ -59,6 +59,9 @@
           inherit yarn2nix
             cssnano postcss-cli postcss-preset-env;
 
+          inherit (nodePackages)
+            html-minifier;
+
         });
 
       checks = forAllSystems (system: self.packages.${system});
