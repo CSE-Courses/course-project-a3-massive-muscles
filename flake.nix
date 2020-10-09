@@ -46,6 +46,7 @@
             { pkgs = import inputs.yarn2nix-nixpkgs { inherit system; config = { }; }; };
 
           babel-cli = callPackage ./nix/npm/babel-cli.nix { };
+          babel-core = callPackage ./nix/npm/babel-core.nix { };
           cssnano = callPackage ./nix/npm/cssnano.nix { inherit (final) yarn2nix; };
           postcss-cli = callPackage ./nix/npm/postcss-cli.nix { };
           postcss-preset-env = callPackage ./nix/npm/postcss-preset-env.nix { };
@@ -66,7 +67,7 @@
           inherit
             yarn2nix
             cssnano postcss-cli postcss-preset-env
-            babel-cli
+            babel-cli babel-core
             a3-massive-muscles;
 
           inherit (nodePackages)
