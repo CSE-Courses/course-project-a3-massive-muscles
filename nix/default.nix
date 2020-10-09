@@ -1,5 +1,5 @@
 { stdenv, runCommand
-, postcss-cli
+, html-minifier, postcss-cli
 , postcss-preset-env
 }:
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [
-    postcss-cli
+    html-minifier postcss-cli
   ];
 
   buildPhase = ''
@@ -39,6 +39,12 @@ stdenv.mkDerivation {
   '';
 
   fixupPhase = ''
+    html-minifier --file-ext html --input-dir $out --output-dir $out \
+      --collapse-whitespace --decode-entities --minify-css --minify-js \
+      --remove-comments --remove-optional-tags --remove-redundant-attributes \
+      --remove-script-type-attributes --remove-style-link-type-attributes --use-short-doctype \
+      --trim-custom-fragments --ignore-custom-fragments '/<script> <\/script>/'
+
     postcss "$out/**/*.css" \
       --replace --no-map --verbose \
       --use postcss-preset-env
