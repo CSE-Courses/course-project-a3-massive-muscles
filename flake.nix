@@ -52,6 +52,8 @@
           cssnano = callPackage ./nix/npm/cssnano.nix { inherit (final) yarn2nix; };
           postcss-cli = callPackage ./nix/npm/postcss-cli.nix { };
           postcss-preset-env = callPackage ./nix/npm/postcss-preset-env.nix { };
+          uglifyjs = callPackage ./nix/npm/uglifyjs.nix { };
+          uglify-js = uglifyjs; # Compatibility with node package name
 
           a3-massive-muscles = callPackage ./nix {
             inherit (nodePackages) html-minifier;
@@ -70,7 +72,7 @@
             yarn2nix
             cssnano postcss-cli postcss-preset-env
             babel-cli babel-core babel-preset-env
-            babel-plugin-proposal-class-properties
+            babel-plugin-proposal-class-properties uglifyjs
             a3-massive-muscles;
 
           inherit (nodePackages)
