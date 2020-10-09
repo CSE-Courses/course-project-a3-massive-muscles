@@ -1,12 +1,19 @@
 { template, depsPath, pname, version, sha256 }:
-{ runCommand, callPackage, fetchurl, yarn2nix }:
+{ lib, runCommand, callPackage, fetchurl, yarn2nix }:
 
 with yarn2nix.nixLib;
 
 let
-  source = runCommand "npmjs-${pname}-${version}" {
+  valid_pname = lib.strings.sanitizeDerivationName pname;
+  # reverseList is potentially extremely problematic, but it should work fine
+  name_split = lib.reverseList (builtins.split "/" pname);
+  # Should be split into [ pkg_name "" pkg_group ], one empty element for match
+  pkg_group = if builtins.length name_split == 3 then builtins.elemAt name_split 2 else "";
+  pkg_name = builtins.elemAt name_split 0;
+
+  source = runCommand "npmjs-${valid_pname}-${version}" {
     src = fetchurl {
-      url = "https://registry.npmjs.org/${pname}/-/${pname}-${version}.tgz";
+      url = "https://registry.npmjs.org/${lib.optionalString (pkg_group != "") "${pkg_group}/"}${pkg_name}/-/${pkg_name}-${version}.tgz";
       inherit sha256;
     };
   } ''
