@@ -2,7 +2,7 @@
 , html-minifier, postcss-cli
 , cssnano, postcss-preset-env
 , babel-cli, babel-core, babel-preset-env
-, babel-plugin-proposal-class-properties
+, babel-plugin-proposal-class-properties, uglify-js
 }:
 
 { src }:
@@ -36,7 +36,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     html-minifier postcss-cli
-    babel-cli
+    babel-cli uglify-js
   ];
 
   buildPhase = ''
@@ -62,5 +62,7 @@ stdenv.mkDerivation {
       --use cssnano --use postcss-preset-env
 
     babel.js $out/JS --out-dir $out/JS
+
+    find $out/JS -type f -name '*.js' -exec uglifyjs "{}" --compress --mangle --output "{}" \;
   '';
 }
