@@ -64,3 +64,8 @@ body {
   flex-direction: column;
   justify-content: flex-end;
 }
+
+/* Bootstrap fixes */
+.navbar {
+  z-index: 100;
+}
