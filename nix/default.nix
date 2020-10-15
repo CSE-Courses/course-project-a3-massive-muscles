@@ -43,11 +43,11 @@ stdenv.mkDerivation {
     # Copy over assets
     mkdir -p public
 
-    for file in $(find \( -name '*.html' -or -name '*.js' -or -name '*.css' \)); do
-      new_dir=public/$(dirname $file)
+    find \( -name '*.html' -or -name '*.js' -or -name '*.css' \) | while read -r file; do
+      new_dir="public/$(dirname "$file")"
 
-      mkdir -p $new_dir
-      cp $file public/$file
+      mkdir -p "$new_dir"
+      cp "$file" "public/$file"
     done
   '';
 
@@ -67,9 +67,9 @@ stdenv.mkDerivation {
       --trim-custom-fragments --ignore-custom-fragments '/<script> <\/script>/'
 
     # Compress and polyfill CSS
-    postcss "$out/**/*.css" \
-      --replace --no-map --verbose \
-      --use cssnano --use postcss-preset-env
+    find $out -name '*.css' | while read -r file; do
+      postcss "$file" --replace --no-map --verbose --use cssnano --use postcss-preset-env
+    done
 
     # Transpile Javascript for maximum compatibility
     babel.js $out --out-dir $out
