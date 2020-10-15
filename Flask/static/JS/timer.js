@@ -59,3 +59,15 @@ class TimerComponent {
     }
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const timer_element = document.querySelector(".tmr-Container");
+  const timer = new TimerComponent(timer_element);
+
+  timer.reset(); // Ensure initial state
+  const timer_start = timer_element.querySelector(".tmr-Action_Start");
+  const timer_stop = timer_element.querySelector(".tmr-Action_Stop");
+
+  timer_start.addEventListener("click", () => timer.start());
+  timer_stop.addEventListener("click", () => timer.reset());
+})
