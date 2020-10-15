@@ -1,37 +1,66 @@
-// Typing Animation for website
-var options = {
-  strings: ['Hi, my name is'],
-  typeSpeed: 50,
-  backSpeed: 30,
-  cursorChar: '_',
-  startDelay: 3000,
-};
-var typed = new Typed('.introTyping', options);
-
-
-// Mobile hamburger button to display nav
-var $hamburger = $(".hamburger");
-$hamburger.on("click", function(e) {
-    let $sidenav = $('.sidenav');
-    if ($hamburger.hasClass("is-active")) {
-        $sidenav.css("visibility","hidden");
-    }
-    else $sidenav.css("visibility","visible");
-    // Toggle active class
-    $hamburger.toggleClass("is-active");
-});
-// To make the hamburger work with no resizing bugs I 
-// have to control the visibility of the nav with 
-// javascript and no media queries.
-$(window).resize(function() {
-    if ($('body').width() > 700) {
-        console.log($('body').width())
-        $('.sidenav').css("visibility","visible");
-    }  
-    if ($('body').width() < 700) {
-        $('.sidenav').css("visibility","hidden");
-        if($hamburger.hasClass("is-active")) {
-            $hamburger.toggleClass("is-active");
+// Health Tracker Vue app and methods
+var myapp = new Vue({
+    el: '#trackerContainer',
+    data: {
+        newDescription: '',
+        newCalories: '',
+        newFat: '',
+        newCarbs: '',
+        newProtein: '',
+        totalCalories: '',
+        totalFat: '',
+        totalCarbs: '',
+        totalProtein: '',
+        entries: [
+            { id: 3, description:'This is an item', calories: 223, fat: 12, carbs: 30, protein: 10 },
+            { id: 2, description:'This is also an item', calories: 50, fat: 1, carbs: 10, protein: 1 },
+            { id: 1, description:'Hey, me, too!', calories: 175, fat: 3, carbs: 15, protein: 8 }
+        ],
+    },
+    methods: {
+        addEntry: function () {
+            var description = this.newDescription.trim(),
+            calories = Math.abs(parseInt(this.newCalories.trim())) || 0,
+            fat = Math.abs(parseInt(this.newFat.trim())) || 0,
+            carbs = Math.abs(parseInt(this.newCarbs.trim())) || 0,
+            protein = Math.abs(parseInt(this.newProtein.trim())) || 0;
+            if (description && calories) {
+                this.entries.push({ id: this.entries.length + 1, description: description, calories: calories, fat: fat, carbs: carbs, protein: protein });
+                console.log(this.entries);
+                this.newDescription = '';
+                this.newCalories = '';
+                this.newFat = '';
+                this.newCarbs = '';
+                this.newProtein = '';
+                calculateTotals(this);
+            } 
+            else {
+                alert("Description and Calorie Count required.");
+            }
+        },
+        removeEntry: function (index) {
+            this.entries.splice(index, 1);
+            calculateTotals(this);
+        },
+        saveEntry: function() {
+            calculateTotals(this);
         }
     }
 });
+
+function calculateTotals(app) {
+    app.totalCalories = parseTotals(app.entries, 'calories');
+    app.totalFat = parseTotals(app.entries, 'fat');
+    app.totalCarbs = parseTotals(app.entries, 'carbs');
+    app.totalProtein = parseTotals(app.entries, 'protein');
+}
+  
+calculateTotals(myapp);
+
+function parseTotals(array, element) {
+    var sum = 0;
+    array.forEach(function(entry) {
+        sum = sum + parseInt(entry[element]);
+    }, sum, element)
+    return sum;
+}
