@@ -13,9 +13,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../../Flask/static/CSS/components/timer.css">
+  <link rel="stylesheet" href="../../static/CSS/timer.css">
 
-  <script src="../../Flask/static/JS/components/timer.js"></script>
+  <script src="../../static/JS/timer.js"></script>
   <script>
     let TIMER;
 
@@ -35,40 +35,40 @@
   </script>
 </head>
 <body>
-    <!-- NAVBAR START... basic navbar from https://getbootstrap.com/docs/4.0/components/navbar/ -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">Massive Muscles</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+  <!-- NAVBAR START... basic navbar from https://getbootstrap.com/docs/4.0/components/navbar/ -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">Massive Muscles</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <!-- navbar contents/items start here: -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/Flask/templates/web/index.html">Home <span class="sr-only">(current)</span></a>
-                </li>
-            <!-- regular navbar items -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Timer</a>
-                </li>
-            <!-- dropdown item start -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Health Tools
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/Flask/templates/web/healthTracker.html">Track Calories</a>
-                        <a class="dropdown-item" href="/Flask/templates/web/healthTracker.html">Calculate BMI or Body Fat</a>
-                    </div>
-                </li>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/Flask/templates/web/index.html">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <!-- regular navbar items -->
+        <li class="nav-item">
+          <a class="nav-link" href="#">Timer</a>
+        </li>
+        <!-- dropdown item start -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Health Tools
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/Flask/templates/web/healthTracker.html">Track Calories</a>
+            <a class="dropdown-item" href="/Flask/templates/web/healthTracker.html">Calculate BMI or Body Fat</a>
+          </div>
+        </li>
         <!-- dropdown item end -->
-            </ul>
-        <!-- right aligned login/signup buttons -->
-            <a href="/Flask/templates/web/login.html" class="accountBtn btn mr-2">Log in</a> <!-- the mr-2 is the space between buttons -->
-            <a href="/Flask/templates/web/profile.html" class="accountBtn btn">Register</a>
-        </div>
-    </nav>
-<!-- NAVBAR END -->
+      </ul>
+      <!-- right aligned login/signup buttons -->
+      <a href="/Flask/templates/web/login.html" class="accountBtn btn mr-2">Log in</a> <!-- the mr-2 is the space between buttons -->
+      <a href="/Flask/templates/web/profile.html" class="accountBtn btn">Register</a>
+    </div>
+  </nav>
+  <!-- NAVBAR END -->
 
   <!-- ../../components/timer.j2 -->
   <div class="container-sm text-center tmr-Container">
