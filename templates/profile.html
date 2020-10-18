@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>profile page</title>
+
+        <!--    bootstrap CSS from CDN -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <!-- Local style sheets -->
+        <link rel="stylesheet" type="text/css" href="/CSS/profile.css">
+        <link rel="stylesheet" type="text/css" href="/CSS/main.css">
+
+        <!--    bootstrap java script from CDN-->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+        <!--    bootstrap chart.js script from CDN-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    </head>
+
+    <body>
+        <!-- Reserved for the home page nav bar   -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="/index.html">Massive Muscles</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <!-- navbar contents/items start here: -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                <!-- regular navbar items -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/test/frontend/timer.html">Timer</a>
+                    </li>
+                <!-- dropdown item start -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Health Tools
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/healthTracker.html">Track Calories</a>
+                            <a class="dropdown-item" href="/healthTracker.html">Calculate BMI or Body Fat</a>
+                        </div>
+                    </li>
+            <!-- dropdown item end -->
+                </ul>
+            <!-- right aligned login/signup buttons -->
+                <a href="/login.html" class="accountBtn btn mr-2">Log in</a> <!-- the mr-2 is the space between buttons -->
+                <a href="/templates/profile.html" class="accountBtn btn">Register</a>
+            </div>
+        </nav>
+        <!-- end of nav bar    -->
+
+        <!--   profile template starts here-->
+        <div class="container mt-0">
+          <div class=" shadow-sm row bg-light ml-0 mr-0 pt-4 pb-3 pl-0">
+            <!-- user photo -->
+            <img src="https://images.unsplash.com/photo-1445583934509-4ad5ffe6ef08?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" class="shadow-lg rounded-circle ml-5 " id="userPhoto" width="100px" height="90px">
+            <h3 class="pt-4 pl-3">Username</h3>
+           </div>
+
+            <!-- nav buttons for profile and settings -->
+           <div class=" shadow-sm row bg-light  ml-0 mr-0  pl-0">
+             <ul class="nav nav-tabs ml-5">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="profile.html">status</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link " href="edit.html">edit profile</a>
+                  </li>
+              </ul>
+           </div>
+
+          <div class="row pb-2">
+                <div class="col mt-4">
+                       <div class="col"></div>
+                  <div class="shadow card mt-2 ">
+                    <h5 class="card-header">About</h5>
+                    <div class="card-body">
+                      <p class="card-text">Some story about the user  describing themselves to other users  .</p>
+                    </div>
+                  </div>
+                </div>
+           </div>
+           <!--  Displayable charts -->
+           <div class="row pb-2">
+                <div class="col mt-4">
+                  <div class="shadow card mt-2  ml-0">
+                    <h5 class="card-header">BMI chart</h5>
+                    <div class="card-body">
+                      <canvas id="BMIChart" class=""></canvas>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col mt-4">
+                  <div class="shadow card mt-2 ">
+                    <h5 class="card-header">Calorie intake chart</h5>
+                    <div class="card-body">
+                      <canvas id="calorieIntakeChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+           </div>
+
+           <div class="row pb-2">
+                <div class="col mt-4">
+                       <div class="col"></div>
+                  <div class="shadow card mt-2 ">
+                    <h5 class="card-header">Daily steps chart</h5>
+                    <div class="card-body">
+                      <canvas id="stepsChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+           </div>
+
+           <!-- chart generator code -->
+           <script src="../JS/chartGenerator.js"></script>
+        </div>
+
+        <!--   profile template END here-->
+
+        <!-- Reserved for the home footer   -->
+
+        <!-- footer  END here  -->
+
+    </body>
+</html>

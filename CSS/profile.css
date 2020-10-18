@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Krona+One&family=Roboto+Mono&family=Share+Tech+Mono&family=Pacifico&family=Permanent+Marker&display=swap');
+:root {
+    --main-theme-color: #4e9cf5;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: var(--main-theme-color);
+}
