@@ -1,22 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Krona+One&family=Roboto+Mono&family=Share+Tech+Mono&family=Pacifico&family=Permanent+Marker&display=swap');
 
-@font-face {
-    font-family: Poppins-Regular;
-    src: url('../fonts/poppins/Poppins-Regular.ttf'); 
-  }
-  @font-face {
-    font-family: Poppins-Medium;
-    src: url('../fonts/poppins/Poppins-Medium.ttf'); 
-  }
-  @font-face {
-    font-family: Poppins-Bold;
-    src: url('../fonts/poppins/Poppins-Bold.ttf'); 
-  }
-  @font-face {
-    font-family: Poppins-SemiBold;
-    src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
-  }
-
 :root {
     --main-theme-color: #4e9cf5;
     margin: 0;
@@ -26,10 +9,6 @@
 
 html body{
     background-color: var(--main-theme-color);
-    min-width: 100vw;
-    min-height: 110vh;
-    max-height: 110vh;
-    overflow: hidden;
 }
 
 /* Scrollbar */
@@ -98,18 +77,8 @@ html body{
     color: var(--main-theme-color);
 }
 
-
-.sidenav img {
-    top: -1px; left: -10px;
-    width: 79px;
-    height: 79px;
-    z-index: 1;
-    position: fixed;
-}
-
 .sidenav h1 {
     top: 80px; left: 3px;
-    font-family: 'Permanent Marker', cursive;
     font-size: 25px;
     color: var(--main-theme-color);
     z-index: 100;
@@ -166,7 +135,6 @@ html body{
 
 
 p {
-	font-family: Poppins-Regular;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -221,7 +189,6 @@ button:hover {
 
 .contact100-form-title {
   display: block;
-  font-family: Poppins-Bold;
   font-size: 39px;
   color: #333333;
   line-height: 1.2;
@@ -240,7 +207,6 @@ button:hover {
 }
 
 .label-input100 {
-  font-family: Poppins-Regular;
   font-size: 13px;
   color: #666666;
   line-height: 1.5;
@@ -251,15 +217,11 @@ button:hover {
   display: block;
   width: 100%;
   background: transparent;
-  font-family: Poppins-Medium;
   font-size: 18px;
   color: #333333;
   line-height: 1.2;
   padding: 0 5px;
 }
-
-
-
 
 textarea.input100 {
   min-height: 110px;
@@ -297,16 +259,10 @@ textarea.input100 {
   padding: 0 20px;
   width: 100%;
   height: 50px;
-
-  font-family: Poppins-Medium;
   font-size: 16px;
   color: white;
   line-height: 1.2;
 }
-
-/* .wrap-contact100-form-btn:hover .contact100-form-bgbtn {
-  left: 0;
-} */
 
 .contact100-form-btn i {
   transition: all 0.4s;
@@ -367,7 +323,6 @@ textarea.input100 {
 }
 
 .select2-results__options {
-  font-family: Poppins-Regular;
   font-size: 15px;
   color: #333333;
   line-height: 1.2;
@@ -376,12 +331,189 @@ textarea.input100 {
 .select2-search--dropdown .select2-search__field {
   border: 1px solid #aaa;
   outline: none;
-  font-family: Poppins-Regular;
   font-size: 15px;
   color: #333333;
   line-height: 1.2;
 }
 
+/*  Health Tracker */
+#trackerContainer {
+    margin: 15% auto;
+    top: 50%; left: 50%;
+    width: 640px;
+    padding: 1rem 2rem;
+    background: #fafafa;
+    box-shadow: -.1rem 0rem 2rem #000;
+    border-radius: 5px;
+}
+.title {
+    font-weight: 100;
+    color: var(--main-theme-color);
+    margin:-1rem -2rem 1rem;
+    padding: 1rem 2rem;
+    background:#072861;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    position: relative;
+    text-align: center;
+    overflow:hidden;
+}
+
+.title .fa {
+    color: var(--main-theme-color);
+    position: absolute;
+    left: 1rem;
+    top: -.1rem;
+    font-size: 4rem;
+}
+
+.entry, .new {
+    font-size: 0;
+    position: relative;
+}
+
+.entry + .entry {
+    margin-top: 2.25%;
+}
+
+.long, .short {
+    font-size: .8rem;
+    display:inline-block;
+    margin: 0 2.25% 0 0;
+}
+
+.header {
+    margin: -1rem -2rem 1rem;
+    border-bottom: 1px solid white;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.header .long, .header .short {
+    font-size: .65rem;
+}
+
+.long { 
+    width: 40%; 
+}
+
+.short {
+    width: 12%;
+}
+.short:last-child {
+    margin-right: 0;
+}
+
+.totals {
+    color: rgba(black, .65);
+    margin: 1.5rem -2rem;
+    background:rgba(black, .075);
+    border-bottom: 1px solid lightgray;
+    white-space: nowrap;
+    border-left: 0;
+    border-right: 0;
+    padding: 1rem 2rem;
+}
+
+.totals .long, .totals .short {
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+
+.totals .long {
+    font-weight: 400;
+    text-align: right;
+}
+
+.totals .short {
+    text-align: center;
+}
+
+.fade-transition {
+    transition: all .3s ease;
+    opacity: 1;
+    height: 1.5rem;
+}
+
+.fade-enter, .fade-leave {
+    opacity: 0;
+    height: 0;
+}
+
+input {
+    transition: all .15s ease-in-out;
+    margin: 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    padding: .15rem;
+    color: rgba(black, .5);
+}
+
+input:hover {
+    color: rgba(black, .75);
+    border-color: rgba(black, .75);
+}
+
+input:focus {
+    outline: none;
+    border-bottom: 3px solid black;
+    margin-bottom: -2px;
+}
+
+.material-button, .material-delete {
+    transition: all .15s ease-in-out;
+    background: hsla(159,54%,76%,1);
+    border: none;
+    background:#072861;
+    font-size: 3rem;
+    position: absolute;
+    right: -3.25rem;
+    top: -.75rem;
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    line-height: 4rem;
+    border-radius: 50%;
+    color: #fafafa;
+}
+
+.material-button:hover {
+    background: var(--main-theme-color);
+    cursor: pointer;
+}
+.material-button:active, .material-delete:active {
+    top:-.7rem;
+    outline: 0;
+    box-shadow: none;
+}
+
+.material-delete {
+    font-size: 1rem;
+    line-height: 1rem;
+    height: 2rem;
+    width: 2rem;
+    top: 0;
+    right: -1.5rem;
+    transform: rotate(45deg);
+    background: none;
+    color: lightgray;
+    box-shadow: none;
+}
+.material-delete:hover {
+    background: #072861;
+    color: #fafafa;
+    box-shadow: none;
+    cursor: pointer;
+}
+.material-delete:active {
+    color: #B71C1C;
+    background: transparent;
+    top: 0;
+}
+
+/* Media Queries */
 @media screen and (max-width: 1200px) {
     .ytVid {width: 350px; height: 200px;}
 }
