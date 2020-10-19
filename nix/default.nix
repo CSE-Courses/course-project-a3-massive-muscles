@@ -61,10 +61,9 @@ stdenv.mkDerivation {
   fixupPhase = ''
     # Minify HTML
     html-minifier --file-ext html --input-dir $out --output-dir $out \
-      --collapse-whitespace --decode-entities --minify-css --minify-js \
-      --remove-comments --remove-optional-tags --remove-redundant-attributes \
-      --remove-script-type-attributes --remove-style-link-type-attributes --use-short-doctype \
-      --trim-custom-fragments --ignore-custom-fragments '/<script> <\/script>/'
+      --use-short-doctype \
+      --remove-comments --decode-entities --remove-redundant-attributes \
+      --remove-script-type-attributes --remove-style-link-type-attributes
 
     # Compress and polyfill CSS
     find $out -name '*.css' | while read -r file; do
