@@ -54,6 +54,7 @@
           postcss-preset-env = callPackage ./nix/npm/postcss-preset-env.nix { };
           uglifyjs = callPackage ./nix/npm/uglifyjs.nix { };
           uglify-js = uglifyjs; # Compatibility with node package name
+          selenium-webdriver = callPackage ./nix/npm/selenium-webdriver.nix { };
 
           a3-massive-muscles = callPackage ./nix {
             inherit (nodePackages) html-minifier;
@@ -73,6 +74,7 @@
             cssnano postcss-cli postcss-preset-env
             babel-cli babel-core babel-preset-env
             babel-plugin-proposal-class-properties uglifyjs
+            selenium-webdriver
             a3-massive-muscles;
 
           inherit (nodePackages)
