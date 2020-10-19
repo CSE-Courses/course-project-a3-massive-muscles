@@ -1,4 +1,4 @@
-import healthTracker from '../JS/healthTracker'
+import healthTracker from '../Flask/static/JS/healthTracker'
 describe('healthTracker calories', () =>{
     it('should parse calories correctly', () => {
         var entries =  [ { id: 3, description:'Item 1', calories: 223, fat: 12, carbs: 30, protein: 10 },

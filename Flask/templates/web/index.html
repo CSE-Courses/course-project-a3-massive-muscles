@@ -9,8 +9,8 @@
         <link rel="stylesheet" href="https://unpkg.com/@popperjs/core@2">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="CSS/muscleDesign.css">
-        <link rel="stylesheet" type="text/css" href="CSS/main.css">
+        <link rel="stylesheet" type="text/css" href="../../static/CSS/muscleDesign.css">
+        <link rel="stylesheet" type="text/css" href="../../static/CSS/main.css">
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
@@ -34,7 +34,7 @@
                     </li>
                 <!-- regular navbar items -->
                     <li class="nav-item">
-                        <a class="nav-link" href="test/frontend/timer.html">Timer</a>
+                        <a class="nav-link" href="../../../test/frontend/timer.html">Timer</a>
                     </li>
                 <!-- dropdown item start -->
                     <li class="nav-item dropdown">
@@ -49,15 +49,15 @@
             <!-- dropdown item end -->
                 </ul>
             <!-- right aligned login/signup buttons -->
-                <a href="login.html" class="accountBtn btn mr-2">Log in</a> <!-- the mr-2 is the space between buttons -->
-                <a href="templates/profile.html" class="accountBtn btn">Register</a>
+                <a href="{{ url_for('web.login') }}" class="accountBtn btn mr-2">Log in</a> <!-- the mr-2 is the space between buttons -->
+                <a href="profile.html" class="accountBtn btn">Register</a>
             </div>
         </nav>
     <!-- NAVBAR END -->
 
         <div id="page">
         <!-- banner w/ styling -->
-            <img class="banner" src="muscleBanner.jpg">
+            <img class="banner" src="../../static/images/muscleBanner.jpg">
             <div class="blobContainer">
                 <div id="wrapper">
                     <div id="content">
@@ -164,10 +164,10 @@
             www.massivemuscles.com
         </footer>
         <!-- Vanta BG Animation plugin -->
-        <script src="JS/p5.min.js"></script>
-        <script src="JS/vanta.topology.min.js"></script>
+        <script src="../../static/JS/p5.min.js"></script>
+        <script src="../../static/JS/vanta.topology.min.js"></script>
         <!-- Main JS -->
-        <script src="JS/main.js"></script>
+        <script src="../../static/JS/main.js"></script>
         <!-- jQuery & Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
