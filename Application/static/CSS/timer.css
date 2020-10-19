@@ -1,0 +1,78 @@
+/* Bootstrap compatibility */
+.navbar {
+  z-index: 100
+}
+
+/* Polyfilling... */
+html, body { /* if compatibility wasn't a concern 100vh is cleaner */
+  height: 100%;
+  position: relative;
+}
+
+.pg-Container {
+  /* series of hacks to make the navbar not glitch out sometimes */
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+
+  /* flexbox way to center */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/*
+Namespace:
+  tmr: Timer
+*/
+
+body {
+    background-color:#4e9cf5;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.tmr-Container {
+  width: 50%; /* ideally 30-60% */
+}
+
+.tmr-Core_Container {
+  position: relative;
+}
+
+.tmr-Outline {
+  fill: none;
+  stroke: black;
+  stroke-width: 4px;
+  opacity: 0.5;
+}
+
+.tmr-Path {
+  stroke: gray;
+  stroke-width: 5px;
+  stroke-linecap: round;
+
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 250ms linear all;
+}
+
+.tmr-Time_Container {
+  top: 0;
+  left: 0;
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tmr-Time_Label {
+  font-size: 2rem;
+}

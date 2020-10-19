@@ -1,6 +1,6 @@
 { stdenv, runCommand
 , html-minifier, postcss-cli
-, cssnano, postcss-preset-env
+, cssnano, postcss-preset-env, selenium-webdriver
 , babel-cli, babel-core, babel-preset-env
 , babel-plugin-proposal-class-properties, uglify-js
 }:
@@ -11,6 +11,7 @@ let
     mkdir -p $out
     ln -s ${cssnano} $out/cssnano
     ln -s ${postcss-preset-env} $out/postcss-preset-env
+    ln -s ${selenium-webdriver} $out/selenium-webdriver
 
     mkdir -p "$out/@babel"
     ln -s ${babel-core} "$out/@babel/core"
@@ -39,42 +40,37 @@ stdenv.mkDerivation {
     babel-cli uglify-js
   ];
 
-  buildPhase = ''
-    # Copy over assets
-    mkdir -p public
-
-    for file in $(find \( -name '*.html' -or -name '*.js' -or -name '*.css' \)); do
-      new_dir=public/$(dirname $file)
-
-      mkdir -p $new_dir
-      cp $file public/$file
-    done
-  '';
+  dontBuild = true;
 
   installPhase = ''
     # Workaround for https://github.com/actions/upload-artifact/issues/92
     mkdir -p $out/dist
 
-    mv --verbose --no-target-directory public $out/dist
+    mv --verbose * $out/dist
+    # Remove definite extra baggage from release
+    rm -rf $out/dist/{node_modules,.github,doc,nix,test}
   '';
 
   fixupPhase = ''
     # Minify HTML
     html-minifier --file-ext html --input-dir $out --output-dir $out \
-      --collapse-whitespace --decode-entities --minify-css --minify-js \
-      --remove-comments --remove-optional-tags --remove-redundant-attributes \
-      --remove-script-type-attributes --remove-style-link-type-attributes --use-short-doctype \
-      --trim-custom-fragments --ignore-custom-fragments '/<script> <\/script>/'
+      --use-short-doctype \
+      --remove-comments --decode-entities --remove-redundant-attributes \
+      --remove-script-type-attributes --remove-style-link-type-attributes
 
     # Compress and polyfill CSS
-    postcss "$out/**/*.css" \
-      --replace --no-map --verbose \
-      --use cssnano --use postcss-preset-env
+    find $out -name '*.css' | while read -r file; do
+      postcss "$file" --replace --no-map --verbose --use cssnano --use postcss-preset-env
+    done
 
     # Transpile Javascript for maximum compatibility
     babel.js $out --out-dir $out
 
     # Compress Javascript
-    find $out -type f -name '*.js' -exec uglifyjs "{}" --compress --mangle --output "{}" \;
+    # find $out -type f -name '*.js' -exec uglifyjs "{}" --compress --mangle --output "{}" \;
   '';
+
+  passthru = {
+    inherit node_modules;
+  };
 }
