@@ -2,8 +2,10 @@ const PATH_SEGMENTS = 283;
 const TIMER_PRECISION = 4;
 
 class Clock {
-  _start = 0;
-  _tick = -1;
+  constructor () {
+    this._start = 0;
+    this._tick = -1;
+  }
 
   tick (timestamp = null) {
     this._tick = timestamp != null ? timestamp : performance.now();
@@ -17,10 +19,10 @@ class Clock {
 }
 
 class TimerComponent {
-  _clock = new Clock();
-  _animation_frame = -1;
-
   constructor (element = null) {
+    this._clock = new Clock();
+    this._animation_frame = -1;
+
     this._element = element != null ? element : document.querySelector(".tmr-Container");
   }
 
@@ -59,3 +61,15 @@ class TimerComponent {
     }
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const timer_element = document.querySelector(".tmr-Container");
+  const timer = new TimerComponent(timer_element);
+
+  timer.reset(); // Ensure initial state
+  const timer_start = timer_element.querySelector(".tmr-Action_Start");
+  const timer_stop = timer_element.querySelector(".tmr-Action_Stop");
+
+  timer_start.addEventListener("click", () => timer.start());
+  timer_stop.addEventListener("click", () => timer.reset());
+})
