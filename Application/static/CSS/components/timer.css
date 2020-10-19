@@ -1,0 +1,66 @@
+/*
+Namespace:
+  tmr: Timer
+*/
+
+body {
+    background-color:#4e9cf5;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.tmr-Container {
+  width: 50%; /* ideally 30-60% */
+  margin-top: -50px;
+  position: relative;
+}
+
+.tmr-Outline {
+  fill: none;
+  stroke: black;
+  stroke-width: 4px;
+  opacity: 0.5;
+}
+
+.tmr-Path {
+  stroke: gray;
+  stroke-width: 5px;
+  stroke-linecap: round;
+
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 250ms linear all;
+}
+
+.tmr-Time_Container {
+  top: 0;
+  left: 0;
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tmr-Time_Label {
+  font-size: 2rem;
+}
+
+.tmr-Actions_Container {
+    min-width: 100%;
+  max-width: 100%;
+  height: 100%;
+
+  top: 0;
+  left: 0;
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}

@@ -28,27 +28,32 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/Flask/templates/web/index.html">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{{ url_for('web.home') }}">Home <span class="sr-only">(current)</span></a>
         </li>
         <!-- regular navbar items -->
         <li class="nav-item">
-          <a class="nav-link" href="#">Timer</a>
+          <a class="nav-link" href="{{ url_for('web.timer') }}">Timer</a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('web.exercises') }}">Muscle Information</a>
+        </li>
+
         <!-- dropdown item start -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Health Tools
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/Flask/templates/web/healthTracker.html">Track Calories</a>
-            <a class="dropdown-item" href="/Flask/templates/web/healthTracker.html">Calculate BMI or Body Fat</a>
+            <a class="dropdown-item" href="{{ url_for('web.healthTracker') }}">Track Calories</a>
+            <a class="dropdown-item" href="{{ url_for('web.healthTracker') }}">Calculate BMI or Body Fat</a>
           </div>
         </li>
         <!-- dropdown item end -->
       </ul>
       <!-- right aligned login/signup buttons -->
-      <a href="/Flask/templates/web/login.html" class="accountBtn btn mr-2">Log in</a> <!-- the mr-2 is the space between buttons -->
-      <a href="/Flask/templates/web/profile.html" class="accountBtn btn">Register</a>
+      <a href="{{ url_for('web.login') }}" class="accountBtn btn mr-2">Register</a> <!-- the mr-2 is the space between buttons -->
+      <a href="{{ url_for('web.profile') }}" class="accountBtn btn">Profile</a>
     </div>
   </nav>
   <!-- NAVBAR END -->
