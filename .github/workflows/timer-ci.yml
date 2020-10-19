@@ -1,0 +1,40 @@
+name: a3-massive-muscles-timer-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 720
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [ '10', '12', '14' ]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1.4.4
+        with:
+          check-latest: true
+          node-version: ${{ matrix.node }}
+      - name: setup test environment
+        run: |
+          sudo apt get update
+          sudo apt get upgrade
+          sudo apt install chromium-chromedriver
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+          npm install -g selenium-webdriver
+      - name: run timer test
+        run: |
+          export CHROME_BINARY="$(command -v google-chrome)"
+          node test/frontend/timer.js
+      - uses: actions/upload-artifact@v2.0.1
+        continue-on-error: true
+        with:
+          name: a3-massive-muscles
+          path: result/dist/
