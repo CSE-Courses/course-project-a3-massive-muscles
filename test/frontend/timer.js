@@ -1,10 +1,10 @@
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 
-const { Builder, By, Key, until } = webdriver;
+const { Builder, By, until } = webdriver;
 
 const path = require('path');
-const cwd = process.env.SOURCE_DIR != "" ? process.env.SOURCE_DIR : process.cwd();
+const cwd = "SOURCE_DIR" in process.env ? process.env.SOURCE_DIR : process.cwd();
 const relative_timer_path = path.join('Flask', 'templates', 'web', 'timer.html');
 const timer_path = path.join(cwd, relative_timer_path);
 
