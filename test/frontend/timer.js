@@ -17,9 +17,12 @@ const MAX_INACCURACY = BigInt(1e9); // 1 second maximum
 let tick = -1; // note this will be in nanosecond territory
 
 let chrome_options = new chrome.Options()
-  .setChromeBinaryPath(process.env.CHROME_BINARY)
   .addArguments("--no-sandbox", "--disable-dev-shm-usage") // workarounds for running as root, not ideal but clutch that test implementation
   .headless().windowSize(fake_screen);
+
+if ("CHROME_BINARY" in process.env) {
+  chrome_options = chrome_options.setChromeBinaryPath(process.env.CHROME_BINARY);
+}
 
 let driver = new Builder()
   .forBrowser('chrome').setChromeOptions(chrome_options)
