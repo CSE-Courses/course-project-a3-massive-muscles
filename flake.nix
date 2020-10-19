@@ -84,7 +84,43 @@
 
       defaultPackage = forAllSystems (system: self.packages.${system}.a3-massive-muscles);
 
-      checks = forAllSystems (system: self.packages.${system});
+      # Tests run by 'nix flake check' and by Hydra.
+      checks = forAllSystems (system:
+        let
+          pkgs = nixpkgsFor.${system};
+        in
+        with pkgs;
+        with self.packages.${system};
+        with import (nixpkgs + "/nixos/lib/testing-python.nix") { inherit system; };
+        self.packages.${system} // {
 
+          # Additional tests, if applicable.
+          frontend-timer =
+            makeTest {
+              nodes.default = { ... }: {
+                imports =
+                  [
+                    # X11 support
+                    (nixpkgs + "/nixos/tests/common/x11.nix")
+                  ];
+
+                environment.systemPackages = [ nodejs chromedriver ];
+                environment.variables.CHROME_BINARY = google-chrome + "/bin/google-chrome-stable";
+                environment.variables.NODE_PATH = a3-massive-muscles.node_modules.outPath;
+              };
+
+              testScript = ''
+                start_all()
+
+                default.wait_for_x()
+                default.succeed(
+                    "SOURCE_DIR=${a3-massive-muscles.src} node ${a3-massive-muscles.src}/test/frontend/timer.js"
+                )
+
+                default.shutdown()
+              '';
+            };
+
+      });
     };
 }
