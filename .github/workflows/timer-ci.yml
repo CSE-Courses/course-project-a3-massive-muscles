@@ -31,6 +31,4 @@ jobs:
           npm install selenium-webdriver
       - name: run timer test
         run: |
-          # /usr/bin/google-chrome-stable is a symbolic link to /opt/google/chrome/google-chrome
-          export CHROME_BINARY=/opt/google/chrome/google-chrome
           node test/frontend/timer.js
