@@ -31,7 +31,8 @@ jobs:
           npm install selenium-webdriver
       - name: run timer test
         run: |
-          export CHROME_BINARY="$(command -v google-chrome)"
+          # /usr/bin/google-chrome-stable is a symbolic link to /opt/google/chrome/google-chrome
+          export CHROME_BINARY=/opt/google/chrome/google-chrome
           node test/frontend/timer.js
       - uses: actions/upload-artifact@v2.0.1
         continue-on-error: true
