@@ -28,7 +28,7 @@
       # Nixpkgs instantiated for supported system types.
       nixpkgsFor = forAllSystems (system: import nixpkgs {
         inherit system;
-        config = { };
+        config = { allowUnfree = true; };
         overlays = [
           self.overlay
         ];
