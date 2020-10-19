@@ -1,6 +1,6 @@
 { stdenv, runCommand
 , html-minifier, postcss-cli
-, cssnano, postcss-preset-env
+, cssnano, postcss-preset-env, selenium-webdriver
 , babel-cli, babel-core, babel-preset-env
 , babel-plugin-proposal-class-properties, uglify-js
 }:
@@ -11,6 +11,7 @@ let
     mkdir -p $out
     ln -s ${cssnano} $out/cssnano
     ln -s ${postcss-preset-env} $out/postcss-preset-env
+    ln -s ${selenium-webdriver} $out/selenium-webdriver
 
     mkdir -p "$out/@babel"
     ln -s ${babel-core} "$out/@babel/core"
@@ -68,4 +69,8 @@ stdenv.mkDerivation {
     # Compress Javascript
     # find $out -type f -name '*.js' -exec uglifyjs "{}" --compress --mangle --output "{}" \;
   '';
+
+  passthru = {
+    inherit node_modules;
+  };
 }
