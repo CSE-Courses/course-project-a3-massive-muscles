@@ -5,7 +5,7 @@ const { Builder, By, until } = webdriver;
 
 const path = require('path');
 const cwd = "SOURCE_DIR" in process.env ? process.env.SOURCE_DIR : process.cwd();
-const relative_timer_path = path.join('Flask', 'templates', 'web', 'timer.html');
+const relative_timer_path = path.join('Application', 'templates', 'web', 'timer.html');
 const timer_path = path.join(cwd, relative_timer_path);
 
 const fake_screen = {
