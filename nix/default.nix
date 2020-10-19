@@ -66,6 +66,6 @@ stdenv.mkDerivation {
     babel.js $out --out-dir $out
 
     # Compress Javascript
-    find $out -type f -name '*.js' -exec uglifyjs "{}" --compress --mangle --output "{}" \;
+    # find $out -type f -name '*.js' -exec uglifyjs "{}" --compress --mangle --output "{}" \;
   '';
 }
