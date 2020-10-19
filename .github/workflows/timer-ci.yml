@@ -19,7 +19,6 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v1.4.4
         with:
-          check-latest: true
           node-version: ${{ matrix.node }}
       - name: setup test environment
         run: |
