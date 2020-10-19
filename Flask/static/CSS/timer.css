@@ -1,3 +1,27 @@
+/* Bootstrap compatibility */
+.navbar {
+  z-index: 100
+}
+
+/* Polyfilling... */
+html, body { /* if compatibility wasn't a concern 100vh is cleaner */
+  height: 100%;
+  position: relative;
+}
+
+.pg-Container {
+  /* series of hacks to make the navbar not glitch out sometimes */
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+
+  /* flexbox way to center */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 /*
 Namespace:
   tmr: Timer
@@ -13,7 +37,9 @@ body {
 
 .tmr-Container {
   width: 50%; /* ideally 30-60% */
-  margin-top: -50px;
+}
+
+.tmr-Core_Container {
   position: relative;
 }
 
@@ -49,23 +75,4 @@ body {
 
 .tmr-Time_Label {
   font-size: 2rem;
-}
-
-.tmr-Actions_Container {
-    min-width: 100%;
-  max-width: 100%;
-  height: 100%;
-
-  top: 0;
-  left: 0;
-  position: absolute;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-/* Bootstrap fixes */
-.navbar {
-  z-index: 100;
 }

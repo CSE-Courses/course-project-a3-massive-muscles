@@ -53,31 +53,45 @@
   </nav>
   <!-- NAVBAR END -->
 
-  <!-- ../../components/timer.j2 -->
-  <div class="container-sm text-center tmr-Container">
-    <!-- SVG-fu from https://css-tricks.com/how-to-create-an-animated-countdown-timer-with-html-css-and-javascript/ -->
-    <svg class="img-fluid tmr-Outline" viewBox="0 0 140 140">
-      <g>
-        <circle cx="70" cy="70" r="50"></circle>
+  <div class="pg-Container">
 
-        <path stroke-dasharray="0 283" class="tmr-Path" d="
-        M 70, 70
-        m -45, 0
-        a 45,45 0 0,1 90,0
-        a 45,45 0 0,1 -90,0      "></path>
-      </g>
-    </svg>
+    <div class="pg-Polyfill"></div>
 
-    <div class="tmr-Time_Container">
-      <span class="tmr-Time_Label">0:00</span>
-    </div>
+    <!-- ../../components/timer.j2 -->
+    <div class="container-sm text-center tmr-Container">
 
-    <div class="tmr-Actions_Container">
-      <div class="tmr-Actions">
-        <button class="btn btn-danger tmr-Action_Stop">Stop</button>
-        <button class="btn btn-success tmr-Action_Start">Start</button>
+      <div class="tmr-Main_Container">
+        <div class="tmr-Core_Container">
+          <!-- SVG-fu from https://css-tricks.com/how-to-create-an-animated-countdown-timer-with-html-css-and-javascript/ -->
+          <svg class="img-fluid tmr-Outline" viewBox="0 0 140 140">
+            <g>
+              <circle cx="70" cy="70" r="50"></circle>
+
+              <path stroke-dasharray="0 283" class="tmr-Path" d="
+            M 70, 70
+            m -45, 0
+            a 45,45 0 0,1 90,0
+            a 45,45 0 0,1 -90,0      "></path>
+            </g>
+          </svg>
+
+          <div class="tmr-Time_Container">
+            <span class="tmr-Time_Label">0:00</span>
+          </div>
+        </div>
       </div>
+
+      <div class="tmr-Actions_Container">
+        <div class="tmr-Actions">
+          <button class="btn btn-danger tmr-Action_Stop">Stop</button>
+          <button class="btn btn-success tmr-Action_Start">Start</button>
+        </div>
+      </div>
+
     </div>
+
+    <div class="pg-Polyfill"></div>
+
   </div>
 
 </body>
