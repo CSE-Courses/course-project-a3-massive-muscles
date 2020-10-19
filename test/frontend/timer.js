@@ -62,4 +62,5 @@ driver.get('file://' + timer_path)
   .catch(err => {
     driver.quit();
     console.error(err);
+    process.exitCode = 1; // Non-zero exit code on failure
   });
