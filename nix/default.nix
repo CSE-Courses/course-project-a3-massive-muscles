@@ -39,23 +39,15 @@ stdenv.mkDerivation {
     babel-cli uglify-js
   ];
 
-  buildPhase = ''
-    # Copy over assets
-    mkdir -p public
-
-    find \( -name '*.html' -or -name '*.js' -or -name '*.css' \) | while read -r file; do
-      new_dir="public/$(dirname "$file")"
-
-      mkdir -p "$new_dir"
-      cp "$file" "public/$file"
-    done
-  '';
+  dontBuild = true;
 
   installPhase = ''
     # Workaround for https://github.com/actions/upload-artifact/issues/92
     mkdir -p $out/dist
 
-    mv --verbose --no-target-directory public $out/dist
+    mv --verbose * $out/dist
+    # Remove definite extra baggage from release
+    rm -rf $out/dist/{node_modules,.github,doc,nix,test}
   '';
 
   fixupPhase = ''
