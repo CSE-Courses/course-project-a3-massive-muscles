@@ -36,7 +36,7 @@ body {
 }
 
 .tmr-Container {
-  width: 50%; /* ideally 30-60% */
+  max-width: 40%; /* ideally 30-60% */
 }
 
 .tmr-Core_Container {
@@ -74,5 +74,5 @@ body {
 }
 
 .tmr-Time_Label {
-  font-size: 2rem;
+  font-size: 4vw;
 }
