@@ -1,5 +1,6 @@
 from Application.app import db
-from Application.models import BMI
+from Application.models import BMI, Calories, Steps
+import time
 
 
 def create_data(data_type, data):
@@ -25,4 +26,9 @@ def create_data(data_type, data):
 
 
 create_data('BMI', 28)
+time.sleep(3)
+create_data('Calories', 2300)
+time.sleep(3)
+create_data('Steps', 1000)
+
 
