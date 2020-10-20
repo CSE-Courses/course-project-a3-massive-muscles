@@ -62,6 +62,12 @@ driver.get('file://' + timer_path)
       ? resolve(console.log("KEPT TIMER WITHIN ACCURACY LIMITS"))
       : reject("FAILED TO KEEP TIMER WITHIN ACCURACY LIMITS")
   }))
+  // Make sure clear works
+  .then(_ => driver.findElement(By.className('tmr-Action_Stop')).click())
+  .then(_ => driver.findElement(By.className('tmr-Time_Label')).getText())
+  .then(text => new Promise((resolve, reject) => text === "0:00"
+    ? resolve(console.log("SUCCESSFULLY RESET LAYOUT"))
+    : reject("FAILED TO RESET LAYOUT")))
   .then(_ => console.log("PASSED ALL TESTS"))
   .then(_ => driver.quit())
   .catch(err => {
