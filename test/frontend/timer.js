@@ -31,11 +31,12 @@ let driver = new Builder()
 driver.get('file://' + timer_path)
   // Make sure title is correct
   .then(_ => driver.wait(until.titleIs('Timer'), 1000))
+  .then(_ => console.log("PAGE LOCATED WITH TITLE 'Timer'"))
   // Makes sure nothing happens if you start clicking `Stop`
   .then(_ => driver.findElement(By.className('tmr-Action_Stop')).click())
   .then(_ => driver.findElement(By.className('tmr-Time_Label')).getText())
   .then(text => new Promise((resolve, reject) => text === "0:00"
-    ? resolve()
+    ? resolve(console.log("PRESERVED INITIAL LAYOUT"))
     : reject("FAILED TO PRESERVE INITIAL LAYOUT")))
   // Start the fucking timer now
   .then(_ => {
@@ -58,9 +59,10 @@ driver.get('file://' + timer_path)
     const time_diff = diff - time_nanoseconds;
 
     time_diff <= MAX_INACCURACY && time_diff >= -MAX_INACCURACY
-      ? resolve()
+      ? resolve(console.log("KEPT TIMER WITHIN ACCURACY LIMITS"))
       : reject("FAILED TO KEEP TIMER WITHIN ACCURACY LIMITS")
   }))
+  .then(_ => console.log("PASSED ALL TESTS"))
   .then(_ => driver.quit())
   .catch(err => {
     driver.quit();
