@@ -12,29 +12,36 @@ bp = Blueprint('web', __name__, url_prefix='/web')
 def login():
     return render_template('web/login.html')
 
+
 @bp.route('/')
 def home():
     return render_template('web/index.html')
+
 
 @bp.route('/health')
 def healthTracker():
     return render_template('web/healthTracker.html')
 
+
 @bp.route('/profile')
 def profile():
     return render_template('web/profile.html')
+
 
 @bp.route('/forum')
 def forum():
     return render_template('web/forum.html')
 
+
 @bp.route('/edit')
 def edit():
     return render_template('web/edit.html')
 
+
 @bp.route('/exercises')
 def exercises():
     return render_template('web/exercises.html')
+
 
 @bp.route('/timer')
 def timer():
