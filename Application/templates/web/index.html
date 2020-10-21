@@ -82,6 +82,17 @@
                         </button></p>
                     </div>
                 </div>
+
+                <div id="wrapper">
+                    <div id="content">
+                        <p><h2>Muscle Diagram</h2><br>
+                        <!-- Button for diagram modal -->
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#diagramModal">
+                          Learn More
+                        </button></p>
+                    </div>
+                </div>
+
                 <div id="wrapper">
                     <div id="content">
                         <p><h2>Timer</h2><br>
@@ -138,6 +149,28 @@
       </div>
     </div>
     <!-- END Calculator(BMI/BF) Modal -->
+
+    <!-- START Diagram Modal -->
+        <div class="modal fade" id="diagramModal" tabindex="-1" role="dialog" aria-labelledby="diagram_modal_title" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Muscle Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                This page has a diagram that displays the individual, basic, muscle groups on your body. You can click on any of the specific groups and read helpful information about that particular muscle to hopefully assist in your training!
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                <a href="{{ url_for('web.exercises') }}" type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Visit the Muscle Information page!">Continue</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END Diagram Modal -->
 
     <!-- START Timer Modal -->
     <div class="modal fade" id="timerModal" tabindex="-1" role="dialog" aria-labelledby="timer_modal_title" aria-hidden="true">
