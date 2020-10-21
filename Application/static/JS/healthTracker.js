@@ -25,7 +25,6 @@ var myapp = new Vue({
             protein = Math.abs(parseInt(this.newProtein.trim())) || 0;
             if (description && calories) {
                 this.entries.push({ id: this.entries.length + 1, description: description, calories: calories, fat: fat, carbs: carbs, protein: protein });
-                console.log(this.entries);
                 this.newDescription = '';
                 this.newCalories = '';
                 this.newFat = '';
@@ -62,4 +61,42 @@ function parseTotals(array, element) {
         sum = sum + parseInt(entry[element]);
     }, sum, element)
     return sum;
+}
+
+
+// Calculate User Body mass index
+
+
+// Weight(pounds) * Height(Inches)^2 * 703
+function calculateBMI() {
+    let height_feet = parseInt($('#height_feet').val()) || 0,
+    height_inches = parseInt($('#height_inches').val()) || 0,
+    user_weight = parseInt($('#weight').val()) || 0,
+    // Conversion (feet into inches)
+    user_height = (height_feet*12) + height_inches;
+    // Calculate user BMI
+    var user_BMI = (user_weight / Math.pow(user_height,2)) * 703;
+    user_BMI = Math.round(user_BMI * 10) / 10;
+    calculateBMIRange(user_BMI);
+    return user_BMI;
+}
+
+function calculateBMIRange(user_BMI) {
+    $('.form-title').css("color", "black");
+    if (user_BMI < 18.5){
+        $('.form-title').html(user_BMI + '  (Underweight)');
+        $('.form-title').css("background-color", "#52c5ff");
+    }
+    else if (user_BMI < 25){
+        $('.form-title').html(user_BMI + '  (Normal)');
+        $('.form-title').css("background-color", "#32d167");
+    }
+    else if (user_BMI < 30){
+        $('.form-title').html(user_BMI + '  (Overweight)');
+        $('.form-title').css("background-color", "#f0c651");
+    }
+    else{
+        $('.form-title').html(user_BMI + '  (Obese)');
+        $('.form-title').css("background-color", "#e84141");
+    }
 }
