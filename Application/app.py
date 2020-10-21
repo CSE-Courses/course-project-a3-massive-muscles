@@ -30,7 +30,7 @@ def create_app(test_config=None):
     def home():
         return render_template('web/index.html')
 
-    from . import web
+    from Application import web
     app.register_blueprint(web.bp)
 
     return app

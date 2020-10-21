@@ -9,8 +9,6 @@
         <!-- StyleSheets/Fonts/Tab Icon-->
         <link rel="stylesheet" href="../../static/CSS/healthTracker.css">
         <link rel="stylesheet" type="text/css" href="../../static/CSS/main.css">
-        <!-- https://github.com/jonsuh/hamburgers -->
-        <link rel="stylesheet" href="CSS/hamburgers.css">
         <!-- Stylesheets/Icons -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
@@ -31,22 +29,23 @@
                 <div class="short">Carbs</div>
                 <div class="short">Protein</div>
             </div>
+            
             <div class="entry" v-for="entry in entries" transition="fade">
-                <input type="text" name="description-{{ entry.id }}" v-on:keyup.enter="saveEntry" v-model="entry.description" class="long">
-                <input type="number" name="calories-{{ entry.id }}" min="0" v-on:keyup.enter="saveEntry" v-model="entry.calories" class="short">
-                <input type="number" name="fat-{{ entry.id }}" min="0" v-on:keyup.enter="saveEntry" v-model="entry.fat" class="short">
-                <input type="number" name="carbs-{{ entry.id }}" min="0" v-on:keyup.enter="saveEntry" v-model="entry.carbs" class="short">
-                <input type="number" name="protein-{{ entry.id }}" min="0" v-on:keyup.enter="saveEntry" v-model="entry.protein" class="short">
+                <input type="text" :name="'description- ' + entry.id" v-on:keyup.enter="saveEntry" v-model="entry.description" class="long">
+                <input type="number" :name="'calories- ' + entry.id" min="0" v-on:keyup.enter="saveEntry" v-model="entry.calories" class="short">
+                <input type="number" :name="'fat- ' + entry.id" min="0" v-on:keyup.enter="saveEntry" v-model="entry.fat" class="short">
+                <input type="number" :name="'carbs- ' + entry.id" min="0" v-on:keyup.enter="saveEntry" v-model="entry.carbs" class="short">
+                <input type="number" :name="'protein- ' + entry.id" min="0" v-on:keyup.enter="saveEntry" v-model="entry.protein" class="short">
                 <button class="material-delete" v-on:click="removeEntry($index)">
                     <i class="fa fa-plus"></i>
                 </button>
             </div>
             <div class="totals">
                 <div class="long">Totals:</div>
-                <div class="short">{{ totalCalories || 0 }}</div>
-                <div class="short">{{ totalFat || 0 }}</div>
-                <div class="short">{{ totalCarbs || 0}}</div>
-                <div class="short">{{ totalProtein || 0}}</div>
+                <div class="short">${ totalCalories || 0 }</div>
+                <div class="short">${ totalFat || 0 }</div>
+                <div class="short">${ totalCarbs || 0}</div>
+                <div class="short">${ totalProtein || 0}</div>
             </div>
             <div class="new">
                 <input type="text" v-model="newDescription" class="long" placeholder="Description">
