@@ -1,6 +1,7 @@
 // Health Tracker Vue app and methods
 var myapp = new Vue({
     el: '#trackerContainer',
+    delimiters: ['${', '}'],
     data: {
         newDescription: '',
         newCalories: '',
@@ -12,9 +13,7 @@ var myapp = new Vue({
         totalCarbs: '',
         totalProtein: '',
         entries: [
-            { id: 3, description:'This is an item', calories: 223, fat: 12, carbs: 30, protein: 10 },
-            { id: 2, description:'This is also an item', calories: 50, fat: 1, carbs: 10, protein: 1 },
-            { id: 1, description:'Hey, me, too!', calories: 175, fat: 3, carbs: 15, protein: 8 }
+            { id: 1, description:'Example: Slice of Pizza', calories: 285, fat: 10, carbs: 36, protein: 12 }
         ],
     },
     methods: {
@@ -33,9 +32,9 @@ var myapp = new Vue({
                 this.newCarbs = '';
                 this.newProtein = '';
                 calculateTotals(this);
-            } 
+            }
             else {
-                alert("Description and Calorie Count required.");
+                alert("Description and calorie count required.");
             }
         },
         removeEntry: function (index) {
@@ -54,7 +53,7 @@ function calculateTotals(app) {
     app.totalCarbs = parseTotals(app.entries, 'carbs');
     app.totalProtein = parseTotals(app.entries, 'protein');
 }
-  
+
 calculateTotals(myapp);
 
 function parseTotals(array, element) {

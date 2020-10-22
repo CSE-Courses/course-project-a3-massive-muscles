@@ -1,4 +1,5 @@
 import os
+from flask_sqlalchemy import SQLAlchemy
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for, Flask
 )
@@ -9,7 +10,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='muscles',
-        DATABASE=os.path.join(app.instance_path, 'Server.sqlite'),
+        SQLALCHEMY_DATABASE_URI='sqlite:///server.db',
     )
 
     if test_config is None:
@@ -29,7 +30,11 @@ def create_app(test_config=None):
     def home():
         return render_template('web/index.html')
 
-    from . import web
+    from Application import web
     app.register_blueprint(web.bp)
 
     return app
+
+
+# links app database to SQLAlchemy for data modeling
+db = SQLAlchemy(app=create_app())

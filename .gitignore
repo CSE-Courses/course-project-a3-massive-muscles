@@ -6,3 +6,12 @@ result-*
 .DS_Store
 node_modules
 package-lock.json
+
+#Jet Brains IDE
+.idea
+
+#VS Code IDE
+.vscode
+
+# Python
+__pycache__
