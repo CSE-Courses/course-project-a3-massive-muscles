@@ -1,3 +1,4 @@
+// import Vue from 'vue';
 // Health Tracker Vue app and methods
 var myapp = new Vue({
     el: '#trackerContainer',
@@ -68,35 +69,47 @@ function parseTotals(array, element) {
 
 
 // Weight(pounds) * Height(Inches)^2 * 703
-function calculateBMI() {
+
+function fetchBMIValues() {
     let height_feet = parseInt($('#height_feet').val()) || 0,
     height_inches = parseInt($('#height_inches').val()) || 0,
-    user_weight = parseInt($('#weight').val()) || 0,
+    user_weight = parseInt($('#weight').val()) || 0;
+    calculateBMIRange(calculateBMI(height_feet, height_inches, user_weight));
+    return [height_feet,height_inches,user_weight];
+}
+
+function calculateBMI(user_height_feet, user_height_inches, user_weight) {
     // Conversion (feet into inches)
-    user_height = (height_feet*12) + height_inches;
+    let user_height_total = (user_height_feet*12) + user_height_inches;
     // Calculate user BMI
-    var user_BMI = (user_weight / Math.pow(user_height,2)) * 703;
+    var user_BMI = (user_weight / Math.pow(user_height_total,2)) * 703;
+    // Round to the nearest tenth
     user_BMI = Math.round(user_BMI * 10) / 10;
-    calculateBMIRange(user_BMI);
     return user_BMI;
 }
 
 function calculateBMIRange(user_BMI) {
     $('.form-title').css("color", "black");
+    let bmiType = bmiTo_ColorAndRange(user_BMI),
+    weightRange = bmiType[0],
+    bmiColor = bmiType[1];
+    $('.form-title').html(user_BMI + weightRange);
+    $('.form-title').css('background-color', bmiColor);
+}
+
+function bmiTo_ColorAndRange(user_BMI) {
     if (user_BMI < 18.5){
-        $('.form-title').html(user_BMI + '  (Underweight)');
-        $('.form-title').css("background-color", "#52c5ff");
+        return['  (Underweight)', '#52c5ff'];
     }
     else if (user_BMI < 25){
-        $('.form-title').html(user_BMI + '  (Normal)');
-        $('.form-title').css("background-color", "#32d167");
+        return['  (Normal)', '#32d167'];
     }
     else if (user_BMI < 30){
-        $('.form-title').html(user_BMI + '  (Overweight)');
-        $('.form-title').css("background-color", "#f0c651");
+        return['  (Overweight)', '#f0c651'];
     }
     else{
-        $('.form-title').html(user_BMI + '  (Obese)');
-        $('.form-title').css("background-color", "#e84141");
+        return['  (Obese)', '#e84141'];
     }
 }
+// For Testing purposes
+// module.exports = {parseTotals, calculateBMI, bmiTo_ColorAndRange};
