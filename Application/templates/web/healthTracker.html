@@ -23,20 +23,20 @@
         <div id="trackerContainer">
             <h1 class="title"><i class="fa fa-weight"></i> Calorie Tracker</h1>
             <div class="entry header">
-                <div class="long">Description</div>
-                <div class="short">Calories</div>
-                <div class="short">Fat</div>
-                <div class="short">Carbs</div>
-                <div class="short">Protein</div>
+                <div class="long">DESCRIPTION</div>
+                <div class="short">CALORIES</div>
+                <div class="short">FAT(g)</div>
+                <div class="short">CARBS(g)</div>
+                <div class="short">PROTEIN(g)</div>
             </div>
             
-            <div class="entry" v-for="entry in entries" transition="fade">
-                <input type="text" :name="'description- ' + entry.id" v-on:keyup.enter="saveEntry" v-model="entry.description" class="long">
-                <input type="number" :name="'calories- ' + entry.id" min="0" v-on:keyup.enter="saveEntry" v-model="entry.calories" class="short">
-                <input type="number" :name="'fat- ' + entry.id" min="0" v-on:keyup.enter="saveEntry" v-model="entry.fat" class="short">
-                <input type="number" :name="'carbs- ' + entry.id" min="0" v-on:keyup.enter="saveEntry" v-model="entry.carbs" class="short">
-                <input type="number" :name="'protein- ' + entry.id" min="0" v-on:keyup.enter="saveEntry" v-model="entry.protein" class="short">
-                <button class="material-delete" v-on:click="removeEntry($index)">
+            <div class="entry" v-for="(entry, index) in entries" transition="fade">
+                <input type="text" :name="'description: ' + entry.id" v-on:keyup.enter="saveEntry" v-model="entry.description" class="long">
+                <input type="number" :name="'calories: ' + entry.id" min="0" v-on:keyup.enter="saveEntry" v-model="entry.calories" class="short">
+                <input type="number" :name="'fat: ' + entry.id" min="0" v-on:keyup.enter="saveEntry" v-model="entry.fat" class="short">
+                <input type="number" :name="'carbs: ' + entry.id" min="0" v-on:keyup.enter="saveEntry" v-model="entry.carbs" class="short">
+                <input type="number" :name="'protein: ' + entry.id" min="0" v-on:keyup.enter="saveEntry" v-model="entry.protein" class="short">
+                <button class="material-delete" v-on:click="removeEntry(index)">
                     <i class="fa fa-plus"></i>
                 </button>
             </div>
@@ -48,7 +48,7 @@
                 <div class="short">${ totalProtein || 0}</div>
             </div>
             <div class="new">
-                <input type="text" v-model="newDescription" class="long" placeholder="Description">
+                <input type="text" v-model="newDescription" class="long" placeholder="Add Description">
                 <input type="number" min="0" v-model="newCalories" class="short" placeholder="Calories">
                 <input type="number" min="0" v-model="newFat" class="short" placeholder="Fat">
                 <input type="number" min="0" v-model="newCarbs" class="short" placeholder="Carbs">
@@ -60,55 +60,36 @@
         </div>
 
 <!-- BMI calculator form -->
-        <div class="container-contact100">
             <div class="wrap-contact100">
-                <form class="contact100-form validate-form">
-                    <span class="contact100-form-title">
-                        BMI Calculator
-                    </span>
-    
-                    <div class="wrap-input100 input100-select">
-                        <span class="label-input100">Workout</span>
-                        <div>
-                            <select class="selection-2" name="Workout">
-                                <option selected="selected">Running</option>
-                                <option >Swimming</option>
-                                <option>Biking</option>
-                                <option>Upper Body</option>
-                                <option>Lower Body</option>
-                            </select>
-                        </div>
+                <span class="form-title">
+                    BMI Calculator
+                </span>
+                    <div class="wrap-input">
+                        <span class="label-input">Height</span>
+                        <input id="height_feet" class="input" type="number" placeholder="Feet">
                     </div>
     
-                    <div class="wrap-input100">
-                        <span class="label-input100">Duration</span>
-                        <input class="input100" type="text" placeholder="Time of the workout">
+                    <div class="wrap-input">
+                        <!-- <span class="label-input">Height</span> -->
+                        <input id="height_inches" class="input" type="number" placeholder="Inches">
                     </div>
     
-                    <div class="wrap-input100">
-                        <span class="label-input100">Breaks</span>
-                        <input class="input100" type="text" placeholder="Rest Time">
+                    <div class="wrap-input">
+                        <span class="label-input">Weight</span>
+                        <input id="weight" class="input" type="number" placeholder="Pounds">
                     </div>
-    
-                    <div class="wrap-input100">
-                        <span class="label-input100">Weight</span>
-                        <input class="input100" type="text" placeholder="Body weight">
-                    </div>
-    
                     <div class="container-contact100-form-btn">
                         <div class="wrap-contact100-form-btn">
                             <div class="contact100-form-bgbtn"></div>
-                            <button class="contact100-form-btn">
+                            <button class="contact100-form-btn" onclick="fetchBMIValues()">
                                 <span>
-                                    Submit
+                                    Calculate
                                     <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
                                 </span>
                             </button>
                         </div>
                     </div>
-                </form>
             </div>
-        </div>
         
 <!-- Side Navigation Bar -->
         <nav class="sidenav">
