@@ -34,8 +34,8 @@
                 <a class="nav-link" href="{{ url_for('web.exercises') }}">Muscle Information</a>
             </li>
         <!-- dropdown item start -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="nav-item ">
+                <a class="nav-link " href="{{ url_for('web.healthTracker') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Health Tools
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -65,7 +65,7 @@
         <img class="banner" src="../../static/images/muscleBanner.jpg">
        </div>
 
-<div id="login-card" class="card text-center mx-auto" style="width: 50%">
+<div id="login-card" class="card text-center mx-auto" >
     <div class="card-header bg-primary">
         <ul class="nav nav-tabs card-header-tabs">
         </ul>
@@ -75,10 +75,10 @@
         <form method="post">
             <label for="username">Username</label><br>
             <input class="form-control mx-auto" placeholder="Username Required" name="username" id="username" required
-                   style="width: 25%"><br>
+                   style="width: 200px"><br>
             <label for="password">Password</label><br>
             <input class="form-control mx-auto" placeholder="Password Required" type="password" name="password"
-                   id="password" required style="width: 25%"><br>
+                   id="password" required style="width: 200px"><br>
             <button class="btn btn-primary" type="submit" value="Register">Register</button>
             <br>
         </form>

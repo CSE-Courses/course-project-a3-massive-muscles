@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Krona+One&family=Roboto+Mono&family=Share+Tech+Mono&family=Pacifico&family=Permanent+Marker&display=swap');
 
-
 :root {
     --main-theme-color: #072861;
     margin: 0;
@@ -114,6 +113,17 @@ footer{
     color: white;
 }
 
+#login-card {
+    left: 25%;
+    top: 35%;
+    width: 50%;
+    position: absolute;
+}
+
+#loginBody {
+    font-family: monospace;
+}
+
 @media screen and (max-width: 1200px) {
     #bgAnimation {
         opacity: 0;
@@ -128,18 +138,14 @@ footer{
         width: 450;
         height: 100;
     }
+    #login-card{
+        left: 15%;
+        width: 75%;
+    }
 }
 
-#login-card {
-    left: 25%;
-    top: 35%;
-    position: absolute;
-}
-
-#loginBody {
-    font-family: monospace;
-}
-
-.navbar {
-    background: var(--main-theme-color);
+@media screen and (max-height: 700px) {
+    #login-card{
+        top: 15%;
+    }
 }
