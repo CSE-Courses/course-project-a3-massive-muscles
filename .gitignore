@@ -1,0 +1,20 @@
+# Nix
+result
+result-*
+
+# macOS
+.DS_Store
+node_modules
+
+#npm/Jest tests
+package-lock.json
+package.json
+
+#Jet Brains IDE
+.idea
+
+#VS Code IDE
+.vscode
+
+# Python
+__pycache__

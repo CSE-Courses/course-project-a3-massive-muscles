@@ -1,0 +1,79 @@
+{
+  "nodes": {
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1600853454,
+        "narHash": "sha256-EgsgbcJNZ9AQLVhjhfiegGjLbO+StBY9hfKsCwc8Hw8=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "94cf59784c73ecec461eaa291918eff0bfb538ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1601947224,
+        "narHash": "sha256-sjr0PnW0vdSVKiu4DagBLE7xXa9eE3AgC69DIndL02o=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7badbf18c45b7490d893452beb8950d966327831",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-20.09",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "nixpkgs": "nixpkgs",
+        "yarn2nix-nixpkgs": "yarn2nix-nixpkgs",
+        "yarn2nix-src": "yarn2nix-src"
+      }
+    },
+    "yarn2nix-nixpkgs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1579316777,
+        "narHash": "sha256-n+jrQGRK8nXkmffBnipBResKAfMxiT9hze4Bj3qHpKI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c438ce12a858f24c1a2479213eaab751da45fa50",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c438ce12a858f24c1a2479213eaab751da45fa50",
+        "type": "github"
+      }
+    },
+    "yarn2nix-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1600782364,
+        "narHash": "sha256-imUXscnJdmqFaUIe8wUwcYQzQtXuHdCbo3af8sVRYiI=",
+        "owner": "Profpatsch",
+        "repo": "yarn2nix",
+        "rev": "0c457267b4e7fc02735b4bebf869b0f91a472226",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Profpatsch",
+        "repo": "yarn2nix",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
