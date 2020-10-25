@@ -20,10 +20,16 @@ body{
     height: 166px;
     top: 200px; left: 50vw;
     transform: translate(-50%,-50%);
-    position: fixed;
+    position: absolute;
     border-radius: 20px;
     border: 2px solid white;
     box-shadow: .1rem 0 3rem black;
+}
+
+.contactButton {
+    top: 360px; left: 50vw;
+    transform: translate(-50%,-50%);
+    position: absolute;
 }
 
 /* placeholder */
