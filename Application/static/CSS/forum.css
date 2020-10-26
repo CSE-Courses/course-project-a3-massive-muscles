@@ -13,8 +13,8 @@
 .frm-Category {
   padding: .25rem;
   display: flex;
-  align-items: center;
-  justify-content: left;
+  align-items: flex-end;
+  justify-content: space-between;
 
   width: 100%;
   border-bottom: 2px white solid;
