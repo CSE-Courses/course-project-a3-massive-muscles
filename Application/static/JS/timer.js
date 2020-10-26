@@ -2,8 +2,10 @@ const PATH_SEGMENTS = 283;
 const TIMER_PRECISION = 4;
 
 class Clock {
-  _start = 0;
-  _tick = -1;
+  constructor () {
+    this._start = 0;
+    this._tick = -1;
+  }
 
   tick (timestamp = null) {
     this._tick = timestamp != null ? timestamp : performance.now();
@@ -17,14 +19,23 @@ class Clock {
 }
 
 class TimerComponent {
-  _clock = new Clock();
-  _animation_frame = -1;
-
   constructor (element = null) {
+    this._clock = new Clock();
+    this._animation_frame = -1;
+
+    this._reset = true;
     this._element = element != null ? element : document.querySelector(".tmr-Container");
   }
 
   reset () {
+    if (this._reset) {
+      // Clear on double click
+      this._element.querySelector(".tmr-Time_Label").textContent = "0:00";
+      this._element.querySelector(".tmr-Path")
+        .setAttribute("stroke-dasharray", `0 ${PATH_SEGMENTS}`);
+    }
+
+    this._reset = true;
     this._clock.reset();
 
     if (this._animation_frame != -1) {
@@ -54,8 +65,21 @@ class TimerComponent {
       $this._animation_frame = window.requestAnimationFrame(update_time);
     }
 
+    this._reset = false;
     if (this._animation_frame == -1) {
       this._animation_frame = window.requestAnimationFrame(update_time);
     }
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const timer_element = document.querySelector(".tmr-Container");
+  const timer = new TimerComponent(timer_element);
+
+  timer.reset(); // Ensure initial state
+  const timer_start = timer_element.querySelector(".tmr-Action_Start");
+  const timer_stop = timer_element.querySelector(".tmr-Action_Stop");
+
+  timer_start.addEventListener("click", () => timer.start());
+  timer_stop.addEventListener("click", () => timer.reset());
+})

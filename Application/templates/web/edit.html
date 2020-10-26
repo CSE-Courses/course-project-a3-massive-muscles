@@ -8,8 +8,8 @@
         <!--    bootstrap CSS from CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <!-- Local style sheets -->
-        <link rel="stylesheet" type="text/css" href="/CSS/profile.css">
-        <link rel="stylesheet" type="text/css" href="/CSS/main.css">
+        <link rel="stylesheet" type="text/css" href="../static/CSS/profile.css">
+        <link rel="stylesheet" type="text/css" href="../static/CSS/main.css">
 
         <!--    bootstrap java script from CDN-->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -23,7 +23,7 @@
     <body>
         <!-- Reserved for the home page nav bar   -->
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="/index.html">Massive Muscles</a>
+            <a class="navbar-brand" href="{{ url_for('web.home') }}">Massive Muscles</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -31,11 +31,14 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/index.html">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{ url_for('web.home') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
                 <!-- regular navbar items -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/test/frontend/timer.html">Timer</a>
+                        <a class="nav-link" href="{{ url_for('web.timer') }}">Timer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('web.exercises') }}">Muscle Information</a>
                     </li>
                 <!-- dropdown item start -->
                     <li class="nav-item dropdown">
@@ -43,15 +46,15 @@
                         Health Tools
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="/healthTracker.html">Track Calories</a>
-                            <a class="dropdown-item" href="/healthTracker.html">Calculate BMI or Body Fat</a>
+                            <a class="dropdown-item" href="{{ url_for('web.healthTracker') }}">Track Calories</a>
+                            <a class="dropdown-item" href="{{ url_for('web.healthTracker') }}">Calculate BMI or Body Fat</a>
                         </div>
                     </li>
             <!-- dropdown item end -->
                 </ul>
             <!-- right aligned login/signup buttons -->
-                <a href="/login.html" class="accountBtn btn mr-2">Log in</a> <!-- the mr-2 is the space between buttons -->
-                <a href="/templates/profile.html" class="accountBtn btn">Register</a>
+                <a href="{{ url_for('web.login') }}" class="accountBtn btn mr-2">Register</a> <!-- the mr-2 is the space between buttons -->
+                <a href="{{ url_for('web.profile') }}" class="accountBtn btn">Profile</a>
             </div>
         </nav>
         <!-- end of nav bar    -->
@@ -67,10 +70,10 @@
             <div class=" shadow-sm row bg-light  ml-0 mr-0  pl-0">
                  <ul class="nav nav-tabs ml-5">
                       <li class="nav-item">
-                        <a class="nav-link " href="profile.html">status</a>
+                        <a class="nav-link " href="{{ url_for('web.profile') }}">status</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link active" href="edit.html">edit profile</a>
+                        <a class="nav-link active" href="{{ url_for('web.edit') }}">edit profile</a>
                       </li>
                   </ul>
             </div>

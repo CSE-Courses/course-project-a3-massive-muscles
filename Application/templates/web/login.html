@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="CSS/main.css">
-    <link rel="stylesheet" href="CSS/login.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/CSS/main.css">
+    <link rel="stylesheet" href="../../static/CSS/login.css"/>
     
 
 
@@ -16,7 +16,7 @@
 
 <!-- NAVBAR START... basic navbar from https://getbootstrap.com/docs/4.0/components/navbar/ -->
 <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="/index.html">Massive Muscles</a>
+    <a class="navbar-brand" href="{{ url_for('web.home') }}">Massive Muscles</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -24,27 +24,30 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ url_for('web.home') }}">Home <span class="sr-only">(current)</span></a>
             </li>
         <!-- regular navbar items -->
             <li class="nav-item">
-                <a class="nav-link" href="test/frontend/timer.html">Timer</a>
+                <a class="nav-link" href="{{ url_for('web.timer') }}">Timer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('web.exercises') }}">Muscle Information</a>
             </li>
         <!-- dropdown item start -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="nav-item ">
+                <a class="nav-link " href="{{ url_for('web.healthTracker') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Health Tools
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="healthTracker.html">Track Calories</a>
-                    <a class="dropdown-item" href="healthTracker.html">Calculate BMI or Body Fat</a>
+                    <a class="dropdown-item" href="{{ url_for('web.healthTracker') }}">Track Calories</a>
+                    <a class="dropdown-item" href="{{ url_for('web.healthTracker') }}">Calculate BMI or Body Fat</a>
                 </div>
             </li>
     <!-- dropdown item end -->
         </ul>
     <!-- right aligned login/signup buttons -->
-        <a href="#" class="accountBtn btn mr-2">Log in</a> <!-- the mr-2 is the space between buttons -->
-        <a href="templates/profile.html" class="accountBtn btn">Register</a>
+        <a href="{{ url_for('web.login') }}" class="accountBtn btn mr-2">Register</a> <!-- the mr-2 is the space between buttons -->
+        <a href="{{ url_for('web.profile') }}" class="accountBtn btn">Profile</a>
     </div>
 </nav>
 <!-- NAVBAR END -->
@@ -59,10 +62,10 @@
 <body>
 
     <div id="muscleBanner"> 
-        <img class="banner" src="muscleBanner.jpg"> 
+        <img class="banner" src="../../static/images/muscleBanner.jpg">
        </div>
 
-<div id="login-card" class="card text-center mx-auto" style="width: 50%">
+<div id="login-card" class="card text-center mx-auto" >
     <div class="card-header bg-primary">
         <ul class="nav nav-tabs card-header-tabs">
         </ul>
@@ -72,10 +75,10 @@
         <form method="post">
             <label for="username">Username</label><br>
             <input class="form-control mx-auto" placeholder="Username Required" name="username" id="username" required
-                   style="width: 25%"><br>
+                   style="width: 200px"><br>
             <label for="password">Password</label><br>
             <input class="form-control mx-auto" placeholder="Password Required" type="password" name="password"
-                   id="password" required style="width: 25%"><br>
+                   id="password" required style="width: 200px"><br>
             <button class="btn btn-primary" type="submit" value="Register">Register</button>
             <br>
         </form>

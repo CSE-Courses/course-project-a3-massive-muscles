@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Krona+One&family=Roboto+Mono&family=Share+Tech+Mono&family=Pacifico&family=Permanent+Marker&display=swap');
 
-
 :root {
     --main-theme-color: #072861;
     margin: 0;
@@ -9,11 +8,9 @@
 }
 
 body{
-    overflow-x: hidden;
+    overflow: auto;
     background:#4e9cf5;
-    color: whitesmoke;
     background-size:cover;
-    background-repeat:no-repeat;
 }
 
 .banner {
@@ -28,19 +25,17 @@ body{
     box-shadow: .1rem 0 3rem black;
 }
 
-/* placeholder */
-img {
-    width:200px;
-    height:200px;
-    float:left;
-    clear:left;
-    margin-left:8px;
-    border-radius:20px;
-}
-/* placeholder */
-img.thumb {
-    width:200px;
-    height:200px;
+.diagram {
+    overflow: auto;
+    opacity: 100%;
+    width: 600px;
+    height: 475px;
+    top: 300px; left: 50vw;
+    transform: translate(-50%,-50%);
+    position: relative;
+    border-radius: 20px;
+    border: 2px solid white;
+    box-shadow: .1rem 0 3rem black;
 }
 
 p,h1,h3 {
@@ -49,15 +44,13 @@ p,h1,h3 {
 
 #bgAnimation {
     z-index: -2;
-    position: absolute;
+    position: fixed;
     display: block;
     min-width: 100%;
     min-height: 100vh;
     top: 0; left: 0; right: 0; bottom: 0;
 }
 
-
-/* larger div styling */
 #wrapper {
     border-radius: 15px;
     padding: 10px 14px 14px 14px;
@@ -75,6 +68,10 @@ p,h1,h3 {
     clear: both;
     position: relative;
     cursor: default;
+}
+
+#content{
+    text-align: center;
 }
 
 .blobContainer {
@@ -116,7 +113,7 @@ footer{
 
 @media screen and (max-width: 1200px) {
     #bgAnimation {
-        opacity: 0;
+        visibility: hidden;
     }
     .banner {
         visibility: hidden;
@@ -130,16 +127,43 @@ footer{
     }
 }
 
+@media screen and (max-height: 700px) {
+    footer{
+        visibility: hidden;
+    }
+}
+
+
 #login-card {
     left: 25%;
     top: 35%;
     position: absolute;
 }
 
-#loginBody {
-    font-family: monospace;
+
+
+.mapdiv {
+    width: 35%;
+    margin: auto;
 }
 
-.navbar {
-    background: var(--main-theme-color);
+.st0 {
+    fill:#94c5ff;
+    stroke:#000000;
+    stroke-linejoin:round;
+    stroke-miterlimit:1.4142;
+
 }
+
+.st1 {
+    stroke:#000000;
+    stroke-width:1.0427;
+    stroke-linejoin:round;
+    stroke-miterlimit:1.4142;
+    transition: fill 0.3s;
+}
+
+.hov:hover{
+    fill:#B57EDC;
+}
+
