@@ -1,0 +1,42 @@
+.navbar {
+  margin-bottom: 2%;
+}
+
+/*
+  thd: Thread
+  pst: Post
+ */
+
+.pg-Container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.thd-Container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15%;
+}
+
+.pst-Container {
+  padding: 2% 4%;
+  margin-bottom: 2%;
+
+  font-size: 1em;
+}
+
+.pst-Container_Content {
+  font-size: 1em;
+}
+
+.pst-Container_Metadata {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  font-size: 0.85em;
+}
+
+.pst-Metadata_Author {
+  margin-right: 4%;
+}
