@@ -8,8 +8,8 @@
         <!--    bootstrap CSS from CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <!-- Local style sheets -->
-        <link rel="stylesheet" type="text/css" href="../static/CSS/profile.css">
-        <link rel="stylesheet" type="text/css" href="../static/CSS/main.css">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='CSS/profile.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='CSS/main.css')}}">
 
         <!--    bootstrap java script from CDN-->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -61,17 +61,17 @@
 
         <!--   profile template starts here-->
         <div class="container mt-0">
-          <div class=" shadow-sm row bg-light ml-0 mr-0 pt-4 pb-3 pl-0">
+          <div class=" shadow-sm row ml-0 mr-0 pt-4 pb-3 pl-0 rounded-top title-color">
             <!-- user photo -->
             <img src="https://images.unsplash.com/photo-1445583934509-4ad5ffe6ef08?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" class="shadow-lg rounded-circle ml-5 " id="userPhoto" width="100px" height="90px">
             <h3 class="pt-4 pl-3">Username</h3>
            </div>
 
             <!-- nav buttons for profile and settings -->
-           <div class=" shadow-sm row bg-light  ml-0 mr-0  pl-0">
-             <ul class="nav nav-tabs ml-5">
+           <div class=" shadow-sm row ml-0 mr-0  pl-0 rounded-bottom title-color ">
+             <ul class="nav nav-tabs  ml-5">
                   <li class="nav-item">
-                    <a class="nav-link active" href="{{ url_for('web.profile') }}">status</a>
+                    <a class="nav-link  active  border-bottom-0" href="{{ url_for('web.profile') }}">status</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link " href="{{ url_for('web.edit') }}">edit profile</a>
@@ -82,8 +82,8 @@
           <div class="row pb-2">
                 <div class="col mt-4">
                        <div class="col"></div>
-                  <div class="shadow card mt-2 ">
-                    <h5 class="card-header">About</h5>
+                  <div class="shadow card mt-2 border-0 ">
+                    <h5 class="card-header title-color">About</h5>
                     <div class="card-body">
                       <p class="card-text">Some story about the user  describing themselves to other users  .</p>
                     </div>
@@ -93,8 +93,8 @@
            <!--  Displayable charts -->
            <div class="row pb-2">
                 <div class="col mt-4">
-                  <div class="shadow card mt-2  ml-0">
-                    <h5 class="card-header">BMI chart</h5>
+                  <div class="shadow card mt-2  ml-0 border-0">
+                    <h5 class="card-header title-color">BMI chart</h5>
                     <div class="card-body">
                       <canvas id="BMIChart" class=""></canvas>
                     </div>
@@ -102,8 +102,8 @@
                 </div>
 
                 <div class="col mt-4">
-                  <div class="shadow card mt-2 ">
-                    <h5 class="card-header">Calorie intake chart</h5>
+                  <div class="shadow card mt-2 border-0">
+                    <h5 class="card-header title-color">Calorie intake chart</h5>
                     <div class="card-body">
                       <canvas id="calorieIntakeChart"></canvas>
                     </div>
@@ -114,8 +114,8 @@
            <div class="row pb-2">
                 <div class="col mt-4">
                        <div class="col"></div>
-                  <div class="shadow card mt-2 ">
-                    <h5 class="card-header">Daily steps chart</h5>
+                  <div class="shadow card mt-2  border-0">
+                    <h5 class="card-header title-color">Daily steps chart</h5>
                     <div class="card-body">
                       <canvas id="stepsChart"></canvas>
                     </div>

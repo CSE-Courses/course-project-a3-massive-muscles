@@ -4,6 +4,9 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for, Flask
 )
 
+# links app database to SQLAlchemy for data modeling
+db = SQLAlchemy()
+
 
 def create_app(test_config=None):
     # create and configure the app
@@ -11,8 +14,8 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY='muscles',
         SQLALCHEMY_DATABASE_URI='sqlite:///server.db',
+        SQLALCHEMY_TRACK_MODIFICATIONS=False
     )
-
     if test_config is None:
         # load the instance config, if it exists, when not testing
         app.config.from_pyfile('config.py', silent=True)
@@ -30,11 +33,8 @@ def create_app(test_config=None):
     def home():
         return render_template('web/index.html')
 
+    db.init_app(app)
     from Application import web
     app.register_blueprint(web.bp)
 
     return app
-
-
-# links app database to SQLAlchemy for data modeling
-db = SQLAlchemy(app=create_app())
