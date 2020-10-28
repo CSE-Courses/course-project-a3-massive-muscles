@@ -8,8 +8,8 @@
         <!--    bootstrap CSS from CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <!-- Local style sheets -->
-        <link rel="stylesheet" type="text/css" href="../static/CSS/profile.css">
-        <link rel="stylesheet" type="text/css" href="../static/CSS/main.css">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='CSS/profile.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='CSS/main.css')}}">
 
         <!--    bootstrap java script from CDN-->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -61,51 +61,53 @@
 
         <!--   edit profile template starts here-->
         <div class="container mt-0">
-            <div class=" shadow-sm row bg-light ml-0 mr-0 pt-4 pb-3 pl-0">
-                <!-- user photo -->
-                <img src="https://images.unsplash.com/photo-1445583934509-4ad5ffe6ef08?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" class="shadow-lg rounded-circle ml-5 " id="userPhoto" width="100px" height="90px">
-                <h3 class="pt-4 pl-3">Username</h3>
-            </div>
-                <!-- nav for profile and settings -->
-            <div class=" shadow-sm row bg-light  ml-0 mr-0  pl-0">
-                 <ul class="nav nav-tabs ml-5">
-                      <li class="nav-item">
-                        <a class="nav-link " href="{{ url_for('web.profile') }}">status</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link active" href="{{ url_for('web.edit') }}">edit profile</a>
-                      </li>
-                  </ul>
-            </div>
+            <div class=" shadow-sm row ml-0 mr-0 pt-4 pb-3 pl-0 rounded-top title-color">
+            <!-- user photo -->
+            <img src="https://images.unsplash.com/photo-1445583934509-4ad5ffe6ef08?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" class="shadow-lg rounded-circle ml-5 " id="userPhoto" width="100px" height="90px">
+            <h3 class="pt-4 pl-3">Username</h3>
+           </div>
+
+            <!-- nav buttons for profile and settings -->
+           <div class=" shadow-sm row ml-0 mr-0  pl-0 rounded-bottom title-color ">
+             <ul class="nav nav-tabs  ml-5">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('web.profile') }}">status</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active  border-bottom-0" href="{{ url_for('web.edit') }}">edit profile</a>
+                  </li>
+              </ul>
+           </div>
+
             <!--   profile edit form -->
             <div class="row pt-4 ">
-                <form class="col-lg-5 col-sm-12 col-md-12">
-                  <div class="form-group">
+                <form class="col-lg-6 col-sm-12 col-md-12 ml-2 mr-3 ">
+                  <div class="form-group ">
                       <label for="newPhoto">Update photo</label>
                       <br>
                       <input type="file" class="" id="newPhoto" placeholder="alex123">
                   </div>
                   <div class="form-group">
                     <label for="newUsername">Update username</label>
-                    <input type="text" class="form-control" id="newUsername" placeholder="alex123">
+                    <input type="text" class="form-control bg-light" id="newUsername" placeholder="alex123">
                   </div>
                   <div class="form-group">
                     <label for="newEmail">Update email address</label>
-                    <input type="email" class="form-control" id="newEmail" aria-describedby="emailHelp" placeholder="name@company.com">
+                    <input type="email" class="form-control bg-light" id="newEmail" aria-describedby="emailHelp" placeholder="name@company.com">
                   </div>
                   <div class="form-group">
                     <label for="newPassword"> Update password</label>
-                    <input type="password" class="form-control" id="newPassword" placeholder="Password">
+                    <input type="password" class="form-control bg-light" id="newPassword" placeholder="Password">
                   </div>
                   <div class="form-group ">
                       <label for="ConfirmPassword">Confirm password</label>
-                      <input type="password" class="form-control" id="ConfirmPassword" placeholder="Password">
+                      <input type="password" class="form-control bg-light" id="ConfirmPassword" placeholder="Password">
                   </div>
                   <di class="form-group ">
                       <label for="newAbout">Update about</label>
-                     <textarea class="form-control" id="newAbout" rows="3"></textarea>
+                     <textarea class="form-control bg-light" id="newAbout" rows="3"></textarea>
                   </di>
-                  <button type="submit" class="btn btn-primary mt-3">Save changes</button>
+                  <button type="submit" class="btn btn-danger title-color border-0 mt-2 mb-2 p-3">Save changes</button>
                 </form>
             </div>
      </div>

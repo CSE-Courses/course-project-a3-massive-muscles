@@ -1,4 +1,7 @@
 import functools
+from datetime import datetime
+import json
+from .models import BMI
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -46,3 +49,16 @@ def exercises():
 @bp.route('/timer')
 def timer():
     return render_template('web/timer.html')
+
+
+@bp.route('profile/get_data')
+def profile_data():
+    replay = {}
+    BMI_list = BMI.query.all()
+    bmi_data = {}
+    for bmi in BMI_list:
+        date = datetime.strftime(bmi.date.date(), "%m_%d_%Y")
+        bmi_data[date] = bmi.measurement
+    replay["BMI"] = bmi_data
+    json_msg = json.dumps(replay)
+    return json_msg
