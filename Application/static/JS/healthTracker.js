@@ -26,6 +26,7 @@ var myapp = new Vue({
             protein = Math.abs(parseInt(this.newProtein.trim())) || 0;
             if (description && calories) {
                 this.entries.push({ id: this.entries.length + 1, description: description, calories: calories, fat: fat, carbs: carbs, protein: protein });
+                storeEntries(this.entries[this.entries.length-1]);
                 this.newDescription = '';
                 this.newCalories = '';
                 this.newFat = '';
@@ -47,14 +48,18 @@ var myapp = new Vue({
     }
 });
 
+$( document ).ready(function() {
+    
+});
+
 function calculateTotals(app) {
     app.totalCalories = parseTotals(app.entries, 'calories');
     app.totalFat = parseTotals(app.entries, 'fat');
     app.totalCarbs = parseTotals(app.entries, 'carbs');
     app.totalProtein = parseTotals(app.entries, 'protein');
 }
-
 calculateTotals(myapp);
+
 
 function parseTotals(array, element) {
     var sum = 0;
@@ -65,9 +70,38 @@ function parseTotals(array, element) {
 }
 
 
+
+// Use Javascript local storage to store health information.
+
+function storeEntries(entry) {
+    let entries = getEntriesFromStorage();
+    entries.push(entry);
+    localStorage.setItem('entries', JSON.stringify(entries));
+}
+
+function getEntriesFromStorage() {
+    let entries = [];
+    if(localStorage.getItem('entries') === null){
+        entries =[];
+    } else {
+        entries = JSON.parse(localStorage.getItem('entries'));
+    }
+    return entries;
+}
+
+function deleteEntryFromStorage(entryID) {
+    let entries = JSON.parse(localStorage.getItem('entries'));
+    entries.forEach(function(entry, index){
+        if (entryID === entry[id]){
+            entries.splice(index, 1); // 3rd parameter of splice is what we want to update the spliced content with
+        }
+    });
+    localStorage.setItem('entries', JSON.stringify(entries));
+}
+
+
+
 // Calculate User Body mass index
-
-
 // Weight(pounds) * Height(Inches)^2 * 703
 
 function fetchBMIValues() {
