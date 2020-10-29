@@ -69,7 +69,18 @@ function parseTotals(array, element) {
     return sum;
 }
 
+// AJAX POST request for python flask server
 
+// @app.route('/postmethod', methods = ['POST'])
+// def get_post_javascript_data():
+//     jsdata = request.form['javascript_data']
+//     return jsdata
+
+
+// AJAX POST request for javascript
+// $.post( "/postmethod", {
+//     javascript_data: data 
+// });
 
 // Use Javascript local storage to store health information.
 
