@@ -30,7 +30,12 @@ def profile():
 
 @bp.route('/forum')
 def forum():
-    return render_template('web/forum.html')
+    return render_template('web/forum/forum.html')
+
+
+@bp.route('/forum/thread')
+def forum_thread():
+    return render_template('web/forum/thread.html')
 
 
 @bp.route('/edit')
