@@ -33,6 +33,11 @@ def forum():
     return render_template('web/forum/forum.html')
 
 
+@bp.route('/forum/create')
+def forum_create():
+    return render_template('web/forum/create.html')
+
+
 @bp.route('/forum/thread')
 def forum_thread():
     return render_template('web/forum/thread.html')
