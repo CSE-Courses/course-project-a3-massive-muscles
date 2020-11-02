@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>profile page</title>
-
+{% extends "web/layout.html" %}
+    {% block headers %}
         <!--    bootstrap CSS from CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <!-- Local style sheets -->
@@ -18,53 +13,14 @@
 
         <!--    bootstrap chart.js script from CDN-->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-    </head>
-
-    <body>
-        <!-- Reserved for the home page nav bar   -->
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="{{ url_for('web.home') }}">Massive Muscles</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        <!-- navbar contents/items start here: -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ url_for('web.home') }}">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                <!-- regular navbar items -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('web.timer') }}">Timer</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('web.exercises') }}">Muscle Information</a>
-                    </li>
-                <!-- dropdown item start -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Health Tools
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{{ url_for('web.healthTracker') }}">Track Calories</a>
-                            <a class="dropdown-item" href="{{ url_for('web.healthTracker') }}">Calculate BMI or Body Fat</a>
-                        </div>
-                    </li>
-            <!-- dropdown item end -->
-                </ul>
-            <!-- right aligned login/signup buttons -->
-                <a href="{{ url_for('web.login') }}" class="accountBtn btn mr-2">Register</a> <!-- the mr-2 is the space between buttons -->
-                <a href="{{ url_for('web.profile') }}" class="accountBtn btn">Profile</a>
-            </div>
-        </nav>
-        <!-- end of nav bar    -->
-
+    {% endblock headers %}
+    {% block content %}
         <!--   profile template starts here-->
         <div class="container mt-0">
           <div class=" shadow-sm row ml-0 mr-0 pt-4 pb-3 pl-0 rounded-top title-color">
             <!-- user photo -->
             <img src="https://images.unsplash.com/photo-1445583934509-4ad5ffe6ef08?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" class="shadow-lg rounded-circle ml-5 " id="userPhoto" width="100px" height="90px">
-            <h3 class="pt-4 pl-3">Username</h3>
+            <h3 class="pt-4 pl-3">{{current_user.username}}</h3>
            </div>
 
             <!-- nav buttons for profile and settings -->
@@ -126,12 +82,4 @@
            <!-- chart generator code -->
            <script src="../../static/JS/chartGenerator.js"></script>
         </div>
-
-        <!--   profile template END here-->
-
-        <!-- Reserved for the home footer   -->
-
-        <!-- footer  END here  -->
-
-    </body>
-</html>
+    {% endblock content %}
