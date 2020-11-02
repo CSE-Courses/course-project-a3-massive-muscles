@@ -56,6 +56,15 @@
           uglify-js = uglifyjs; # Compatibility with node package name
           selenium-webdriver = callPackage ./nix/npm/selenium-webdriver.nix { };
 
+          interpreter = python3.withPackages (ps:
+            with ps;
+            [
+              pip pytz jinja2 werkzeug itsdangerous click numpy setuptools markupsafe
+              pandas dateutil six openpyxl jdcal attrs jsonschema pyrsistent
+              colour flask gunicorn flask_sqlalchemy
+              # missing `StyleFrame~=3.0.5` but shit is just a big clump of random dependencies anyway
+            ]);
+
           a3-massive-muscles = callPackage ./nix {
             inherit (nodePackages) html-minifier;
           } {
@@ -75,6 +84,7 @@
             babel-cli babel-core babel-preset-env
             babel-plugin-proposal-class-properties uglifyjs
             selenium-webdriver
+            interpreter
             a3-massive-muscles;
 
           inherit (nodePackages)
@@ -83,6 +93,37 @@
         });
 
       defaultPackage = forAllSystems (system: self.packages.${system}.a3-massive-muscles);
+
+      # NixOS system configuration, if applicable
+      # nix build -L .#nixosConfigurations.a3-massive-muscles.config.system.build.vm
+      nixosConfigurations.a3-massive-muscles = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux"; # Hardcoded
+        modules = [
+          ({ modulesPath, pkgs, ... }: {
+            imports = [ (modulesPath + "/virtualisation/qemu-vm.nix") ];
+            virtualisation.qemu.options = [ "-vga virtio" ];
+
+            networking.networkmanager.enable = true;
+            services.xserver.enable = true;
+            services.xserver.layout = "us";
+            services.xserver.windowManager.i3.enable = true;
+            services.xserver.displayManager.lightdm.enable = true;
+
+            users.mutableUsers = false;
+            users.users.whothis = {
+              password = "whothis"; # yes, very secure, I know
+              createHome = true;
+              isNormalUser = true;
+              extraGroups = [ "wheel" ];
+            };
+
+            nixpkgs.overlays = [ self.overlay ];
+            environment.variables._PROJECT = pkgs.a3-massive-muscles + "/dist/main.py";
+            environment.variables.PROJECT_INTERPRETER = pkgs.interpreter + "/bin/python";
+            environment.systemPackages = with pkgs; [ chromium ];
+          })
+        ];
+      };
 
       # Tests run by 'nix flake check' and by Hydra.
       checks = forAllSystems (system:
