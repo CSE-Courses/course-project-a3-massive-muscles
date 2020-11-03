@@ -445,6 +445,21 @@ input:focus {
     background: transparent;
     top: 0;
 }
+/* tdee form stuff */
+.tdee-box {
+    width: 450px;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 0px 25px 15px 25px; /* top right bottom left */
+    overflow: auto;
+    box-shadow: -.1rem 0rem 2rem #000;
+    margin: 0 auto 15% auto;
+}
+
+.gender-radio {
+    font-size: 20px;
+    margin: 5px 65px 5px 20px; /* top right bottom left */
+}
 
 /* Media Queries */
 @media screen and (max-width: 1200px) {
