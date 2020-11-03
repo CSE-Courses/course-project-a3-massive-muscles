@@ -60,6 +60,27 @@ p,h1,h3 {
     top: 0; left: 0; right: 0; bottom: 0;
 }
 
+/* same as wrapper; for some reason if I use wrapper
+   the view gets messed up, but  separately it works? */
+#contactWrapper {
+    border-radius: 15px;
+    padding: 10px 14px 14px 14px;
+    margin: 30px auto 30px auto;
+    background: var(--main-theme-color);
+    width:650px;
+    height:150px;
+    color:white;
+    transition: all .3s;
+    box-shadow: .1rem 0 1rem #000;
+    display: flex;
+    flex-direction: column;
+    transition: .2s;
+    scroll-snap-align: start;
+    clear: both;
+    position: relative;
+    cursor: default;
+}
+
 #wrapper {
     border-radius: 15px;
     padding: 10px 14px 14px 14px;
