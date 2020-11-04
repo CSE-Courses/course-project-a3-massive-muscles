@@ -46,3 +46,8 @@ def exercises():
 @bp.route('/timer')
 def timer():
     return render_template('web/timer.html')
+
+
+@bp.route('/contactPage')
+def contactPage():
+    return render_template('web/contactPage.html')
