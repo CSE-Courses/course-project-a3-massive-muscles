@@ -7,7 +7,10 @@ from flask_login import UserMixin
 def loader_user(user_id):
     return User.query.get(int(user_id))
 
-
+# creates a table for Users data
+# Id: is row number
+# BMIs: is the refrence for the BMI table
+# measurement: measurement to be uploaded
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
@@ -21,7 +24,6 @@ class User(db.Model, UserMixin):
 
 
 # creates a table for BMI data
-# key: is the date of submission
 # measurement: measurement to be uploaded
 class BMI(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -32,28 +34,3 @@ class BMI(db.Model):
     def __repr__(self):
         return f"BMI({self.date}, {self.measurement})"
 
-#
-# # creates a table for Calories data
-# # key: is the date of submission
-# # measurement: measurement to be uploaded
-# class Calories(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     date = db.Column(db.DateTime, default=datetime.utcnow, primary_key=True, nullable=False)
-#     measurement = db.Column(db.Integer, nullable=False)
-#     calories_author = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-#
-#     def __repr__(self):
-#         return f"Calorie({self.date}, {self.measurement})"
-#
-#
-# # creates a table for Steps data
-# # key: is the date of submission
-# # measurement: measurement to be uploaded
-# class Steps(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     date = db.Column(db.DateTime, default=datetime.utcnow, primary_key=True, nullable=False)
-#     measurement = db.Column(db.Integer, nullable=False)
-#     steps_author = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-#
-#     def __repr__(self):
-#         return f"Steps({self.date}, {self.measurement})"
