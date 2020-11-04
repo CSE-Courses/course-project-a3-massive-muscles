@@ -124,4 +124,6 @@ function calculateTDEE() {
         weight = $("#tdee_weight").val(),
         activity = $("select#activity_lvl" ).val();
     console.log("Gender: " + gender + "\nAge: " + age + "\nHeight: " + feet + "\' " + inches + "\"" + "\nWeight: " + weight + "\nActivity Level: " + activity);
+    /* throw error on invalid input */
+    if(gender == undefined || age < 12 || age > 80 || feet < 0 || inches < 0 || inches > 11 || weight <= 0) alert("One or more of your inputs are invalid.");
 }
