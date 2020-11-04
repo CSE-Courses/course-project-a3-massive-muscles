@@ -113,3 +113,15 @@ function bmiTo_ColorAndRange(user_BMI) {
 }
 // For Testing purposes
 // module.exports = {parseTotals, calculateBMI, bmiTo_ColorAndRange};
+
+/* I don't know javascript so this code is probably dogshit. Took me more than an hr to grab inputs smh... */
+function calculateTDEE() {
+    /* parseInt later makes it easier to check for invalid input */
+    var gender = $("input[type=radio][name=gender_radio]:checked" ).val(),
+        age = $("#tdee_age").val(),
+        feet = $("#tdee_height_feet").val(),
+        inches = $("#tdee_height_inches").val(),
+        weight = $("#tdee_weight").val(),
+        activity = $("select#activity_lvl" ).val();
+    console.log("Gender: " + gender + "\nAge: " + age + "\nHeight: " + feet + "\' " + inches + "\"" + "\nWeight: " + weight + "\nActivity Level: " + activity);
+}
