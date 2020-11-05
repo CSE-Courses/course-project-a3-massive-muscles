@@ -61,7 +61,8 @@
             [
               pip pytz jinja2 werkzeug itsdangerous click numpy setuptools markupsafe
               pandas dateutil six openpyxl jdcal attrs jsonschema pyrsistent
-              colour flask gunicorn flask_sqlalchemy
+              colour flask gunicorn flask_sqlalchemy flask_wtf wtforms email_validator
+              bcrypt flask-bcrypt flask_login
               # missing `StyleFrame~=3.0.5` but shit is just a big clump of random dependencies anyway
             ]);
 
