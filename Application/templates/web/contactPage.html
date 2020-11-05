@@ -1,0 +1,75 @@
+{% extends "web/layout.html" %}
+    {% block headers %}
+        <!-- bootstrap via cdn, page font, custom css -->
+        <title>Home</title>
+        <link rel="stylesheet" href="https://unpkg.com/@popperjs/core@2">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='CSS/muscleDesign.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='CSS/main.css')}}">
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+        </script>
+    {% endblock headers %}
+    {% block content %}
+
+    <div id="contactWrapper">
+        <div id="content">
+            <p><h2>Need to contact us?</h2>
+            If you have any questions, comments, or concerns, please feel free to contact us! If you would like to report a bug or request a feature, that would also be highly appreciated!
+        </div>
+    </div>
+
+<!-- I used formspree.io to handle the actual info (more setup but cleaner than just emailing the info) -->
+<!-- <form>: class centers and makes responsive, action and method to send it to our formspree.io -->
+<section class="p-4 p-lg-5 text-center">
+    <div class="my-auto">
+        <form
+          class="flex-column d-flex  align-items-center"
+          action="https://formspree.io/f/xrgoqvoq"
+          method="POST"
+        >
+        <!-- first and last name -->
+        <div class="form-group w-75">
+            <div class="form row">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="First name" required/>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Last name" required/>
+                </div>
+            </div>
+        </div>
+        <!-- email address -->
+        <div class="form-group w-75">
+            <input type="email" class="form-control" name="email" placeholder="Email address" required/>
+            <small id="safe_info" class="form-text text-danger font-weight-bold">Your information will not be shared with third parties.</small>
+        </div>
+        <!-- user message -->
+        <div class="form-group w-75">
+            <textarea type="text" class="form-control" name="message" placeholder="Your message" rows="6" required></textarea>
+        </div>
+      <!-- your other form fields go here -->
+        <button type="submit" class="btn btn-submit btn-success w-75">Send</button>
+        </form>
+    </div>
+</section>
+
+
+
+        <!-- Background Animation -->
+        <div id="bgAnimation"></div>
+        <!-- Vanta BG Animation plugin -->
+        <script src="{{  url_for('static',filename='JS/p5.min.js')}}"></script>
+        <script src="{{  url_for('static',filename='JS/vanta.topology.min.js')}}"></script>
+        <!-- Main JS -->
+        <script src="{{  url_for('static',filename='JS/main.js')}}"></script>
+        <!-- jQuery & Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    {% endblock content %}
