@@ -59,6 +59,21 @@ body{
 	display: inline-block;
 }
 
+.logo {
+    top: 50vh; left: 50vw;
+    transform: translate(-50%,-50%);
+    position: absolute;
+}
+
+#logoID {
+	opacity: 80%;
+    width: 1225px;
+    height: 166px;
+    border-radius: 20px;
+    border: 2px solid white;
+    box-shadow: .1rem 0 3rem black;
+}
+
 .textbox { 
     background-color: transparent !important;
 	border: 2px solid var(--main-theme-color) !important;
