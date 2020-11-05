@@ -90,6 +90,11 @@ def timer():
     return render_template('web/timer.html')
 
 
+@bp.route('/contactPage')
+def contactPage():
+    return render_template('web/contactPage.html')
+
+
 @bp.route('profile/get_data')
 @login_required
 def profile_data():
