@@ -8,29 +8,39 @@
     {% endblock headers %}
     {% block content %}
         <div id="page">
-        <!-- banner w/ styling -->
-        <img class="banner w-75" src="../../static/images/muscleBanner.jpg">
-            <div class="blobContainer">
                     <div id="content ">
-                        <div id="login-card mt-0" class="card w-50 h-25 mx-auto" >
+                        <div class="card w-50 h-25 mx-auto mt-5" >
                             <div class="card-header bg-primary">
                                 <ul class="nav nav-tabs card-header-tabs mb-0">
                                 </ul>
                             </div>
                             <div class="card-body" id="loginBody">
-                                <h5 class="card-title text-center ">Log in</h5>
-                                <form method="post" >
+                                <h5 class="card-title text-center ">Registration</h5>
+                                <form method="post" action="" >
                                     {{ form.hidden_tag() }}
                                         <legend class="border-bottom mb-4"></legend>
+                                        <div class="form-group">
+                                            {{ form.username.label(class="form-control-label") }}
+                                            {% if form.username.errors %}
+                                                {{ form.username(class="form-control form-control-sm is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for err in form.username.errors %}
+                                                        <span>{{ err }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.username(class="form-control form-control-sm") }}
+                                            {% endif %}
+                                        </div>
                                         <div class="form-group">
                                             {{ form.email.label(class="form-control-label") }}
                                             {% if form.email.errors %}
                                                 {{ form.email(class="form-control form-control-sm is-invalid") }}
-                                                    <div class="invalid-feedback">
-                                                        {% for err in form.email.errors %}
-                                                            <span>{{ err }}</span>
-                                                        {% endfor %}
-                                                    </div>
+                                                <div class="invalid-feedback">
+                                                    {% for err in form.email.errors %}
+                                                        <span>{{ err }}</span>
+                                                    {% endfor %}
+                                                </div>
                                             {% else %}
                                                 {{ form.email(class="form-control form-control-sm") }}
                                             {% endif %}
@@ -48,9 +58,18 @@
                                                 {{ form.password(class="form-control form-control-sm") }}
                                             {% endif %}
                                         </div>
-                                        <div class="form-group ">
-                                            {{ form.remember(class="form-check-input ml-1") }}
-                                            {{ form.remember.label(class="form-check-label ml-4") }}
+                                        <div class="form-group">
+                                            {{ form.confirm_password.label(class="form-control-label") }}
+                                            {% if form.confirm_password.errors %}
+                                                {{ form.confirm_password(class="form-control form-control-sm is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for err in form.confirm_password.errors %}
+                                                        <span>{{ err }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.confirm_password(class="form-control form-control-sm") }}
+                                            {% endif %}
                                         </div>
                                     <div class="form-group">
                                             {{ form.submit(class="btn btn-primary") }}
@@ -58,14 +77,14 @@
                                 </form>
                                 <div class="border-top pt-1">
                                     <small class="text-muted">
-                                        Need  an Account? <a class="ml-2" href="{{ url_for('web.register')}}">Register</a>
+                                        Already have an Account? <a class="ml-2" href="{{ url_for('web.login')}}">Sign In</a>
                                     </small>
                                 </div>
                         </div>
 
                     </div>
-                </div>
 
         </div>
 
     {% endblock content %}
+

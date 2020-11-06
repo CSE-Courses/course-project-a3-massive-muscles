@@ -1,4 +1,15 @@
 // from the database
+var hostname = document.location.hostname;
+var port = document.location.port;
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     console.log(this.response)
+    }
+  };
+xhttp.open("GET", `/web/profile/get_data`);
+xhttp.send();
+xhttp.response
 var BMIReport = {
     "Jan": 30,
 
