@@ -117,13 +117,45 @@ function bmiTo_ColorAndRange(user_BMI) {
 /* I don't know javascript so this code is probably dogshit. Took me more than an hr to grab inputs smh... */
 function calculateTDEE() {
     /* parseInt later makes it easier to check for invalid input */
-    var gender = $("input[type=radio][name=gender_radio]:checked" ).val(),
+    var bmr, height_inches,
         age = $("#tdee_age").val(),
         feet = $("#tdee_height_feet").val(),
         inches = $("#tdee_height_inches").val(),
         weight = $("#tdee_weight").val(),
-        activity = $("select#activity_lvl" ).val();
+        activity = $("select#activity_lvl" ).val(),
+        gender = $("input[type=radio][name=gender_radio]:checked" ).val();
     console.log("Gender: " + gender + "\nAge: " + age + "\nHeight: " + feet + "\' " + inches + "\"" + "\nWeight: " + weight + "\nActivity Level: " + activity);
     /* throw error on invalid input */
     if(gender == undefined || age < 12 || age > 80 || feet < 0 || inches < 0 || inches > 11 || weight <= 0) alert("One or more of your inputs are invalid.");
+    
+    height_inches = (parseInt(feet) * 12) + parseInt(inches); /* convert (feet and inches) to (inches) */
+    switch(gender) {
+        case "male":    /* formula: 66 + (6.23 * pounds) + (12.7 * height_inches) - (6.8 * age) */ 
+            bmr = Math.trunc((66 + (6.23 * parseInt(weight)) + (12.7 * height_inches) - (6.8 * parseInt(age))) + 0.5); /* round to nearest whole number */
+            // console.log(bmr);
+            break;
+        case "female":  /* formula: 655 + (4.35 * pounds) + (4.7 * height_inches) - (4.7 * age) */
+            bmr = Math.trunc((655 + (4.35 * parseInt(weight)) + (4.7 * height_inches) - (4.7 * parseInt(age))) + 0.5); /* round to nearest whole number */
+            //console.log(bmr);
+            break; 
+        default:
+            console.log("something is wrong"); /* testing purposes; should never get to this point */
+    }
+    switch(activity) {
+        case "sedentary": 
+            // console.log("sedentary is working");
+            
+            break;
+        case "light":
+            // console.log("light is working");
+            break;
+        case "moderate":
+            // console.log("moderate is working");
+            break;
+        case "active":
+            // console.log("active is working");
+            break;
+    }
+
+
 }
