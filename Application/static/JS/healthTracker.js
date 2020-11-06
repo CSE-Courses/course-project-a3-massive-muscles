@@ -114,7 +114,7 @@ function bmiTo_ColorAndRange(user_BMI) {
 // For Testing purposes
 // module.exports = {parseTotals, calculateBMI, bmiTo_ColorAndRange};
 
-/* I don't know javascript so this code is probably dogshit. Took me more than an hr to grab inputs smh... */
+/* I don't know javascript so this code is probably garbage. Took me more than an hr to grab inputs smh... */
 function calculateTDEE() {
     /* parseInt later makes it easier to check for invalid input */
     var bmr, height_inches,
@@ -131,31 +131,29 @@ function calculateTDEE() {
     height_inches = (parseInt(feet) * 12) + parseInt(inches); /* convert (feet and inches) to (inches) */
     switch(gender) {
         case "male":    /* formula: 66 + (6.23 * pounds) + (12.7 * height_inches) - (6.8 * age) */ 
-            bmr = Math.trunc((66 + (6.23 * parseInt(weight)) + (12.7 * height_inches) - (6.8 * parseInt(age))) + 0.5); /* round to nearest whole number */
+            bmr = (66 + (6.23 * parseInt(weight)) + (12.7 * height_inches) - (6.8 * parseInt(age))); /* round to nearest whole number */
             // console.log(bmr);
             break;
         case "female":  /* formula: 655 + (4.35 * pounds) + (4.7 * height_inches) - (4.7 * age) */
-            bmr = Math.trunc((655 + (4.35 * parseInt(weight)) + (4.7 * height_inches) - (4.7 * parseInt(age))) + 0.5); /* round to nearest whole number */
-            //console.log(bmr);
+            bmr = (655 + (4.35 * parseInt(weight)) + (4.7 * height_inches) - (4.7 * parseInt(age))); /* round to nearest whole number */
+            console.log(bmr);
             break; 
         default:
             console.log("something is wrong"); /* testing purposes; should never get to this point */
     }
-    switch(activity) {
+    switch(activity) { /* multiply bmr based on activity level, rounded to the nearest whole number. */ 
         case "sedentary": 
-            // console.log("sedentary is working");
-            
+            bmr = Math.trunc(bmr * 1.2 + 0.5); 
             break;
         case "light":
-            // console.log("light is working");
+            bmr = Math.trunc(bmr * 1.375 + 0.5);
             break;
         case "moderate":
-            // console.log("moderate is working");
+            bmr = Math.trunc(bmr * 1.55 + 0.5);
             break;
         case "active":
-            // console.log("active is working");
+            bmr = Math.trunc(bmr * 1.725 + 0.5);
             break;
     }
-
-
+    console.log(bmr);
 }
