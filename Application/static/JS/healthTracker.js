@@ -143,7 +143,10 @@ function calculateTDEE() {
         default:
             throw "something is wrong"; /* testing purposes; should never get to this point */
     }
-    switch(activity) { /* multiply bmr based on activity level, rounded to the nearest whole number. */ 
+    switch(activity) { /* multiply bmr based on activity level, rounded to the nearest whole number. */
+        case "bmr":
+            tdee = Math.trunc(bmr + 0.5);
+            break; 
         case "sedentary": 
             tdee = Math.trunc(bmr * 1.2 + 0.5); 
             break;
@@ -155,6 +158,9 @@ function calculateTDEE() {
             break;
         case "active":
             tdee = Math.trunc(bmr * 1.725 + 0.5);
+            break;
+        case "extreme":
+            tdee = Math.trunc(bmr * 1.9 + 0.5);
             break;
     }
     /* display calculation to the user */

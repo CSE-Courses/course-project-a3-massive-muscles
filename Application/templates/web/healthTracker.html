@@ -126,10 +126,12 @@
                 <label class="explain-prompt" data-toggle="modal" data-target="#explain_activity_levels"> (huh?) </label>
                 <select class="form-control" id="activity_lvl"> <!-- add a modal here explaining each instead of in the drop down menu? -->
                     <!-- add BMR option? -- Estimate calories your body burns to survive -->
-                    <option value="sedentary">Sedentary (desk job or work from home - no exercise)</option>
-                    <option value="light">Light (some standing/moving - exercise 1-3 days/week)</option>
-                    <option value="moderate">Moderate (mostly standing/moving - exercise 4-5 days/week)</option>
-                    <option value="active">Very Active (physical job, mostly moving/lifting - exercise 6-7 days/week)</option>
+                    <option value="bmr">BMR</option>
+                    <option value="sedentary">Sedentary</option>
+                    <option value="light">Light</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="active">Very Active</option>
+                    <option value="extreme">Extremely Active</option>
                 </select>
             </div>
             <!-- button is entirely from Iain, so it matches his BMI calculator. -->
@@ -154,7 +156,12 @@
             </button>
           </div>
           <div class="modal-body">
-              skrt skrt dab dab
+              <b>BMR:</b> Basal metabolic rate refers to the number of calories your body burns to survive and carry out basic functions.<br><br>
+              <b>Sedentary: </b>You have a desk job or work from home, and do little to no exercise.<br><br>
+              <b>Light: </b>Your job involves some standing or moving but not much (I.e.; teacher, movie usher, host). You exercise 1-3 days/week.<br><br>
+              <b>Moderate: </b>You are moving and standing quite a bit during the day. You exercise 4-5 days/week.<br><br>
+              <b>Very Active: </b>You are mostly standing and moving at work (I.e.; server/waiter, nurse, mail person). You exercise 6-7 days/week.<br><br>
+              <b>Extremely Active: </b>You have a physically demanding job (I.e.; construction worker, farmer, etc) or you do very intense exercise daily, or exercise twice a day.<br>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
