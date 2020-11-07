@@ -113,3 +113,59 @@ function bmiTo_ColorAndRange(user_BMI) {
 }
 // For Testing purposes
 // module.exports = {parseTotals, calculateBMI, bmiTo_ColorAndRange};
+
+/* I don't know javascript so this code is probably garbage. Took me more than an hr to grab inputs smh... */
+function calculateTDEE() {
+    /* parseFloat later makes it easier to check for invalid input */
+    var bmr, height_inches, tdee,
+        age = $("#tdee_age").val(),
+        feet = $("#tdee_height_feet").val(),
+        inches = $("#tdee_height_inches").val(),
+        weight = $("#tdee_weight").val(),
+        activity = $("select#activity_lvl" ).val(),
+        gender = $("input[type=radio][name=gender_radio]:checked" ).val();
+    /* console.log("Gender: " + gender + "\nAge: " + age + "\nHeight: " + feet + "\' " + inches + "\"" + "\nWeight: " + weight + "\nActivity Level: " + activity); */ 
+    /* throw error on invalid input */
+    if(gender == undefined || age < 12 || age > 80 || feet < 0 || inches < 0 || inches > 11 || weight <= 0) {
+        $('.tdee-title').css("color", "black");                 /* make font black for easier readability */
+        $('.tdee-title').html("Invalid Input");                 /* notify invalid input */
+        $('.tdee-title').css("background-color", "#e84141");    /* red typically signifies error */
+        return;
+    }
+    height_inches = (parseFloat(feet) * 12) + parseFloat(inches); /* convert (feet and inches) to (inches) */
+    switch(gender) {
+        case "male":    /* formula: 66 + (6.23 * pounds) + (12.7 * height_inches) - (6.8 * age) */ 
+            bmr = (66 + (6.23 * parseFloat(weight)) + (12.7 * height_inches) - (6.8 * parseFloat(age))); /* round to nearest whole number */
+            break;
+        case "female":  /* formula: 655 + (4.35 * pounds) + (4.7 * height_inches) - (4.7 * age) */
+            bmr = (655 + (4.35 * parseFloat(weight)) + (4.7 * height_inches) - (4.7 * parseFloat(age))); /* round to nearest whole number */
+            break; 
+        default:
+            throw "something is wrong"; /* testing purposes; should never get to this point */
+    }
+    switch(activity) { /* multiply bmr based on activity level, rounded to the nearest whole number. */
+        case "bmr":
+            tdee = Math.trunc(bmr + 0.5);
+            break; 
+        case "sedentary": 
+            tdee = Math.trunc(bmr * 1.2 + 0.5); 
+            break;
+        case "light":
+            tdee = Math.trunc(bmr * 1.375 + 0.5);
+            break;
+        case "moderate":
+            tdee = Math.trunc(bmr * 1.55 + 0.5);
+            break;
+        case "active":
+            tdee = Math.trunc(bmr * 1.725 + 0.5);
+            break;
+        case "extreme":
+            tdee = Math.trunc(bmr * 1.9 + 0.5);
+            break;
+    }
+    /* display calculation to the user */
+    $('.tdee-title').css("color", "black");                 /* make font black for easier readability */
+    $('.tdee-title').html("~" + tdee + " calories/day");    /* display calculated value */
+    $('.tdee-title').css("background-color", "#32d167");    /* change color to grab the user's attention*/
+    return(tdee);
+}
