@@ -446,7 +446,7 @@ input:focus {
     top: 0;
 }
 
-/* tdee form stuff start */
+/* start tdee calculator stuff */
 .tdee-title {
     /* same as Iain's form-title so page style matches. Has to be
        separate name so BMI calculate results don't also show on TDEE */
@@ -479,7 +479,16 @@ input:focus {
     font-size: 20px;
     margin: 5px 65px 5px 20px; /* top right bottom left */
 }
-/* tdee form stuff end */
+
+.explain-prompt {
+    text-decoration: underline;
+    font-size: 25px;
+    color: var(--main-theme-color);
+    letter-spacing: 1px;
+    font-family: 'Bebas Neue', cursive;
+    margin-left: 10px;
+}
+/* end tdee calculator stuff */
 
 /* Media Queries */
 @media screen and (max-width: 1200px) {
