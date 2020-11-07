@@ -122,6 +122,8 @@
             </div>
             <div class="wrap-input"> <!-- activity -->
                 <label for="activity_lvl" class="label-input">Activity Level</label>
+                <!-- activity level prompt -->
+                <label class="explain-text" data-toggle="modal" data-target="#explain_activity_levels"> (What's that?) </label>
                 <select class="form-control" id="activity_lvl"> <!-- add a modal here explaining each instead of in the drop down menu? -->
                     <!-- add BMR option? -- Estimate calories your body burns to survive -->
                     <option value="sedentary">Sedentary (desk job or work from home - no exercise)</option>
@@ -140,6 +142,26 @@
                 </div>
             </div>
         </div>
+
+    <!-- Modal to explain the different activity levels -->
+    <div class="modal fade" id="explain_activity_levels">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">What's My Activity Level?</h5>
+            <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              skrt skrt dab dab
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <!-- Side Navigation Bar -->
         <nav class="sidenav">
