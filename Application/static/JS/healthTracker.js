@@ -116,44 +116,50 @@ function bmiTo_ColorAndRange(user_BMI) {
 
 /* I don't know javascript so this code is probably garbage. Took me more than an hr to grab inputs smh... */
 function calculateTDEE() {
-    /* parseInt later makes it easier to check for invalid input */
-    var bmr, height_inches,
+    /* parseFloat later makes it easier to check for invalid input */
+    var bmr, height_inches, tdee,
         age = $("#tdee_age").val(),
         feet = $("#tdee_height_feet").val(),
         inches = $("#tdee_height_inches").val(),
         weight = $("#tdee_weight").val(),
         activity = $("select#activity_lvl" ).val(),
         gender = $("input[type=radio][name=gender_radio]:checked" ).val();
-    console.log("Gender: " + gender + "\nAge: " + age + "\nHeight: " + feet + "\' " + inches + "\"" + "\nWeight: " + weight + "\nActivity Level: " + activity);
+    /* console.log("Gender: " + gender + "\nAge: " + age + "\nHeight: " + feet + "\' " + inches + "\"" + "\nWeight: " + weight + "\nActivity Level: " + activity); */ 
     /* throw error on invalid input */
-    if(gender == undefined || age < 12 || age > 80 || feet < 0 || inches < 0 || inches > 11 || weight <= 0) alert("One or more of your inputs are invalid.");
-    
-    height_inches = (parseInt(feet) * 12) + parseInt(inches); /* convert (feet and inches) to (inches) */
+    if(gender == undefined || age < 12 || age > 80 || feet < 0 || inches < 0 || inches > 11 || weight <= 0) {
+        $('.tdee-title').css("color", "black");                 /* make font black for easier readability */
+        $('.tdee-title').html("Invalid Input");                 /* notify invalid input */
+        $('.tdee-title').css("background-color", "#e84141");    /* red typically signifies error */
+        return;
+    }
+    height_inches = (parseFloat(feet) * 12) + parseFloat(inches); /* convert (feet and inches) to (inches) */
     switch(gender) {
         case "male":    /* formula: 66 + (6.23 * pounds) + (12.7 * height_inches) - (6.8 * age) */ 
-            bmr = (66 + (6.23 * parseInt(weight)) + (12.7 * height_inches) - (6.8 * parseInt(age))); /* round to nearest whole number */
-            // console.log(bmr);
+            bmr = (66 + (6.23 * parseFloat(weight)) + (12.7 * height_inches) - (6.8 * parseFloat(age))); /* round to nearest whole number */
             break;
         case "female":  /* formula: 655 + (4.35 * pounds) + (4.7 * height_inches) - (4.7 * age) */
-            bmr = (655 + (4.35 * parseInt(weight)) + (4.7 * height_inches) - (4.7 * parseInt(age))); /* round to nearest whole number */
-            console.log(bmr);
+            bmr = (655 + (4.35 * parseFloat(weight)) + (4.7 * height_inches) - (4.7 * parseFloat(age))); /* round to nearest whole number */
             break; 
         default:
-            console.log("something is wrong"); /* testing purposes; should never get to this point */
+            throw "something is wrong"; /* testing purposes; should never get to this point */
     }
     switch(activity) { /* multiply bmr based on activity level, rounded to the nearest whole number. */ 
         case "sedentary": 
-            bmr = Math.trunc(bmr * 1.2 + 0.5); 
+            tdee = Math.trunc(bmr * 1.2 + 0.5); 
             break;
         case "light":
-            bmr = Math.trunc(bmr * 1.375 + 0.5);
+            tdee = Math.trunc(bmr * 1.375 + 0.5);
             break;
         case "moderate":
-            bmr = Math.trunc(bmr * 1.55 + 0.5);
+            tdee = Math.trunc(bmr * 1.55 + 0.5);
             break;
         case "active":
-            bmr = Math.trunc(bmr * 1.725 + 0.5);
+            tdee = Math.trunc(bmr * 1.725 + 0.5);
             break;
     }
-    console.log(bmr);
+    /* display calculation to the user */
+    $('.tdee-title').css("color", "black");                 /* make font black for easier readability */
+    $('.tdee-title').html("~" + tdee + " calories/day");    /* display calculated value */
+    $('.tdee-title').css("background-color", "#32d167");    /* change color to grab the user's attention*/
+    return(tdee);
 }
