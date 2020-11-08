@@ -44,8 +44,8 @@ class Forum(db.Model):
 
 
 class Thread(db.Model):
-    thread_id = db.Column(db.Integer, nullable=False, primary_key=True)
-    post_id = db.Column(db.Integer, nullable=False)
+    post_id = db.Column(db.Integer, nullable=False, primary_key=True)
+    thread_id = db.Column(db.Integer, nullable=False, unique=False)
 
 
 class Post(db.Model):
