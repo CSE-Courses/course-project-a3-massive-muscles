@@ -1,9 +1,7 @@
 from flask import jsonify, request
 
+import Application.models as DBModels
 from Application.app import db
-from Application.web import forum
-
-from . import models as DBModels
 
 # Error codes
 MISSING_USER_ID = 1

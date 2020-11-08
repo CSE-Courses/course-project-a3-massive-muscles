@@ -4,7 +4,7 @@ import json
 from .models import BMI, User
 from .app import db, bcrypt
 from .forms import RegistrationForm, LoginForm
-from . import forum as FAPI
+import Application.forum as FAPI
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
