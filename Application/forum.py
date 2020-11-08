@@ -44,7 +44,8 @@ def create():
 
     print("Creating thread ...")
     if "content" not in params or len(
-            params["content"]) > MAXIMUM_POST_CHARACTERS:
+            params["content"]) > MAXIMUM_POST_CHARACTERS or len(
+                params["content"]) == 0:
         return forum_error(MISSING_POST_CONTENT, "INVALID CONTENT")
 
     user_id = params["user_id"] if "user_id" in params else -1
@@ -75,7 +76,8 @@ def create_post():
 
     print("Creating post ...")
     if "content" not in params or len(
-            params["content"]) > MAXIMUM_POST_CHARACTERS:
+            params["content"]) > MAXIMUM_POST_CHARACTERS or len(
+                params["content"]) == 0:
         return forum_error(MISSING_POST_CONTENT, "INVALID CONTENT")
     if "thread_id" not in params or params["thread_id"] > _thread_counter:
         return forum_error(MISSING_THREAD_ID, "MISSING THREAD ID")
