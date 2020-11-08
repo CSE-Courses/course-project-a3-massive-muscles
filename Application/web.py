@@ -4,6 +4,7 @@ import json
 from .models import BMI, User
 from .app import db, bcrypt
 from .forms import RegistrationForm, LoginForm
+from . import forum as FAPI
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -66,22 +67,6 @@ def profile():
     return render_template('web/profile.html')
 
 
-@bp.route('/forum')
-@login_required
-def forum():
-    return render_template('web/forum/forum.html')
-
-
-@bp.route('/forum/create')
-def forum_create():
-    return render_template('web/forum/create.html')
-
-
-@bp.route('/forum/thread')
-def forum_thread():
-    return render_template('web/forum/thread.html')
-
-
 @bp.route('/edit')
 @login_required
 def edit():
@@ -117,3 +102,39 @@ def profile_data():
     replay["BMI"] = bmi_data
     json_msg = json.dumps(replay)
     return json_msg
+
+
+@bp.route('/forum')
+@login_required
+def forum():
+    return render_template('web/forum/forum.html')
+
+
+@bp.route('/forum/create')
+def forum_create():
+    return render_template('web/forum/create.html')
+
+
+@bp.route('/forum/thread')
+def forum_thread():
+    return render_template('web/forum/thread.html')
+
+
+@bp.route('/forum/api/create', methods=['POST'])
+def forum_api_create():
+    return FAPI.create()
+
+
+@bp.route('/forum/api/post', methods=['POST'])
+def forum_api_create_post():
+    return FAPI.create_post()
+
+
+@bp.route('/forum/api/latest', methods=['GET'])
+def forum_api_latest_threads():
+    return FAPI.latest()
+
+
+@bp.route('/forum/api/thread/<int:thread_id>', methods=['GET'])
+def forum_api_thread(thread_id):
+    return FAPI.get_thread(thread_id)
