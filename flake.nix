@@ -121,7 +121,7 @@
             nixpkgs.overlays = [ self.overlay ];
             environment.variables._PROJECT = pkgs.a3-massive-muscles + "/dist/main.py";
             environment.variables.PROJECT_INTERPRETER = pkgs.interpreter + "/bin/python";
-            environment.systemPackages = with pkgs; [ chromium ];
+            environment.systemPackages = with pkgs; [ chromium sqlite-analyzer sqlitebrowser ];
           })
         ];
       };
