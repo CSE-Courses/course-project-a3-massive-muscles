@@ -97,10 +97,13 @@ def create_post():
 
 def latest():
     print("Fetching latest threads ...")
-    threads_collection = DBModels.Thread.query\
-        .join(DBModels.Post, DBModels.Thread.post_id == DBModels.Post.post_id)\
-        .filter(DBModels.Thread.post_id == DBModels.Post.post_id)\
-        .order_by(DBModels.Post.time).limit(LATEST_THREAD_COUNT).all()
+    # Tuple of the form <Forum, Thread, Post)
+    threads_collection = db.session\
+        .query(DBModels.Forum, DBModels.Thread, DBModels.Post)\
+        .filter(DBModels.Forum.post_id == DBModels.Thread.post_id)\
+        .filter(DBModels.Post.post_id == DBModels.Thread.post_id)\
+        .order_by(DBModels.Post.time)\
+        .limit(LATEST_THREAD_COUNT).all()
     """
     Most recent (up to 10) threads created
 
@@ -108,7 +111,13 @@ def latest():
         - thread_id
         - content (first post in the thread's content
     """
-    return jsonify(threads_collection)
+    return jsonify(
+        list(
+            map(
+                lambda x: {
+                    "thread_id": x[1].thread_id,
+                    "content": x[2].content
+                }, threads_collection)))
 
 
 def get_thread(thread_id):
@@ -117,9 +126,11 @@ def get_thread(thread_id):
     if thread_id >= _thread_counter:
         return jsonify(forum_error(INVALID_THREAD_ID, "INVALID THREAD ID"))
 
-    threads_collection = DBModels.Thread.query\
-        .join(DBModels.Forum, DBModels.Thread.post_id == DBModels.Forum.post_id)\
-        .join(DBModels.Post, DBModels.Thread.post_id == DBModels.Post.post_id)\
+    # At this point I just questioned why I separated them in the first place
+    threads_collection = db.session\
+        .query(DBModels.Forum, DBModels.Thread, DBModels.Post)\
+        .filter(DBModels.Forum.post_id == DBModels.Thread.post_id)\
+        .filter(DBModels.Post.post_id == DBModels.Thread.post_id)\
         .filter(DBModels.Thread.thread_id == thread_id)\
         .order_by(DBModels.Post.time)\
         .all()
@@ -131,5 +142,11 @@ def get_thread(thread_id):
     - time[ of post]
     - content[ of post]
     """
-    # We don't care about DBModels.Thread now
-    return jsonify(threads_collection)
+    return jsonify(
+        list(
+            map(
+                lambda x: {
+                    "user_id": x[0].user_id,
+                    "time": x[2].time,
+                    "content": x[2].content
+                }, threads_collection)))
