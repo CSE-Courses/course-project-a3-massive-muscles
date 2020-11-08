@@ -130,7 +130,7 @@
                 '';
               in "${script}/bin/a3-massive-muscles";
             environment.shellAliases.curl-post = "curl --request POST -H 'Content-Type: application/json'";
-            environment.systemPackages = with pkgs; [ curl chromium sqlite-analyzer sqlitebrowser ];
+            environment.systemPackages = with pkgs; [ vim curl chromium sqlite-analyzer sqlitebrowser ];
           })
         ];
       };
