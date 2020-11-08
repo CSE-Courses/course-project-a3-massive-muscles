@@ -45,7 +45,7 @@ def create():
     print("Creating thread ...")
     if "content" not in params or len(
             params["content"]) > MAXIMUM_POST_CHARACTERS:
-        return jsonify(forum_error(MISSING_POST_CONTENT, "INVALID CONTENT"))
+        return forum_error(MISSING_POST_CONTENT, "INVALID CONTENT")
 
     user_id = params["user_id"] if "user_id" in params else -1
     thread_id = _thread_counter
@@ -60,7 +60,7 @@ def create():
     """
     - thread_id
     """
-    return jsonify({"thread_id": thread_id})
+    return {"thread_id": thread_id}
 
 
 def create_post():
@@ -76,9 +76,9 @@ def create_post():
     print("Creating post ...")
     if "content" not in params or len(
             params["content"]) > MAXIMUM_POST_CHARACTERS:
-        return jsonify(forum_error(MISSING_POST_CONTENT, "INVALID CONTENT"))
+        return forum_error(MISSING_POST_CONTENT, "INVALID CONTENT")
     if "thread_id" not in params or params["thread_id"] > _thread_counter:
-        return jsonify(forum_error(MISSING_THREAD_ID, "MISSING THREAD ID"))
+        return forum_error(MISSING_THREAD_ID, "MISSING THREAD ID")
 
     user_id = params["user_id"] if "user_id" in params else -1
     post_id = _post_counter
@@ -92,7 +92,7 @@ def create_post():
     """
     - post_id
     """
-    return jsonify({"post_id": post_id})
+    return {"post_id": post_id}
 
 
 def latest():
@@ -111,20 +111,20 @@ def latest():
         - thread_id
         - content (first post in the thread's content
     """
-    return jsonify(
-        list(
-            map(
-                lambda x: {
-                    "thread_id": x[1].thread_id,
-                    "content": x[2].content
-                }, threads_collection)))
+    return list(
+        map(
+            lambda x: {
+                "thread_id": x[1].thread_id,
+                "content": x[2].content,
+                "user_id": x[0].user_id
+            }, threads_collection))
 
 
 def get_thread(thread_id):
     global _thread_counter
     print(f"Getting thread with id {thread_id} ...")
     if thread_id >= _thread_counter:
-        return jsonify(forum_error(INVALID_THREAD_ID, "INVALID THREAD ID"))
+        return forum_error(INVALID_THREAD_ID, "INVALID THREAD ID")
 
     # At this point I just questioned why I separated them in the first place
     threads_collection = db.session\
@@ -142,11 +142,10 @@ def get_thread(thread_id):
     - time[ of post]
     - content[ of post]
     """
-    return jsonify(
-        list(
-            map(
-                lambda x: {
-                    "user_id": x[0].user_id,
-                    "time": x[2].time,
-                    "content": x[2].content
-                }, threads_collection)))
+    return list(
+        map(
+            lambda x: {
+                "user_id": x[0].user_id,
+                "time": x[2].time,
+                "content": x[2].content
+            }, threads_collection))

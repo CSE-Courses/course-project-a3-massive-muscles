@@ -6,7 +6,7 @@ from .app import db, bcrypt
 from .forms import RegistrationForm, LoginForm
 import Application.forum as FAPI
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, render_template, request, session, url_for, jsonify
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
@@ -122,19 +122,19 @@ def forum_thread():
 
 @bp.route('/forum/api/create', methods=['POST'])
 def forum_api_create():
-    return FAPI.create()
+    return jsonify(FAPI.create())
 
 
 @bp.route('/forum/api/post', methods=['POST'])
 def forum_api_create_post():
-    return FAPI.create_post()
+    return jsonify(FAPI.create_post())
 
 
 @bp.route('/forum/api/latest', methods=['GET'])
 def forum_api_latest_threads():
-    return FAPI.latest()
+    return jsonify(FAPI.latest())
 
 
 @bp.route('/forum/api/thread/<int:thread_id>', methods=['GET'])
 def forum_api_thread(thread_id):
-    return FAPI.get_thread(thread_id)
+    return jsonify(FAPI.get_thread(thread_id))
