@@ -26,8 +26,7 @@ def forum_error(code, msg):
 
 
 def _get_params():
-    request.get_json(force=True, cache=False)
-    return request.json
+    return request.get_json(force=True, cache=False) or {}
 
 
 def create():
@@ -97,7 +96,7 @@ def latest():
         - thread_id
         - content (first post in the thread's content
     """
-    return jsonify(threads_collection[1])
+    return jsonify(threads_collection)
 
 
 def get_thread(thread_id):
@@ -120,5 +119,5 @@ def get_thread(thread_id):
     - time[ of post]
     - content[ of post]
     """
-    return jsonify(
-        threads_collection[1, :])  # We don't care about DBModels.Thread now
+    # We don't care about DBModels.Thread now
+    return jsonify(threads_collection)
