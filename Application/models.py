@@ -37,13 +37,16 @@ class BMI(db.Model):
 
 # Forum
 
+
 class Forum(db.Model):
     post_id = db.Column(db.Integer, nullable=False, primary_key=True)
     user_id = db.Column(db.Integer, nullable=False)
 
+
 class Thread(db.Model):
     thread_id = db.Column(db.Integer, nullable=False, primary_key=True)
     post_id = db.Column(db.Integer, nullable=False)
+
 
 class Post(db.Model):
     post_id = db.Column(db.Integer, nullable=False, primary_key=True)
