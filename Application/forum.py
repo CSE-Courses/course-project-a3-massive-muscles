@@ -1,3 +1,5 @@
+from time import time
+
 from flask import jsonify, request
 
 import Application.models as DBModels
@@ -12,13 +14,14 @@ INVALID_THREAD_ID = 3
 LATEST_THREAD_COUNT = 10
 MAXIMUM_POST_CHARACTERS = 1000
 
-# Shitty tracking implementing
+# Shitty non-persistant tracking implementation
 _post_counter = 0
 _thread_counter = 0
 
 
 def forum_error(code, msg):
-    return {"err_code": code, "err": msg}
+    print(jsonify({"timestamp": time(), "err_code": code, "err": msg}))
+    return {"timestamp": time()}
 
 
 # ASSUMPTIONS:
