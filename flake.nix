@@ -102,7 +102,7 @@
         modules = [
           ({ modulesPath, pkgs, ... }: {
             imports = [ (modulesPath + "/virtualisation/qemu-vm.nix") ];
-            virtualisation.qemu.options = [ "-vga virtio" ];
+            virtualisation.qemu.options = [ "-m 2G" "-vga virtio" ];
 
             networking.networkmanager.enable = true;
             services.xserver.enable = true;
