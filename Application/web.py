@@ -115,9 +115,10 @@ def forum_create():
     return render_template('web/forum/create.html')
 
 
-@bp.route('/forum/thread')
-def forum_thread():
-    return render_template('web/forum/thread.html')
+@bp.route('/forum/thread/<int:thread_id>')
+def forum_thread(thread_id):
+    return render_template('web/forum/thread.j2',
+                           posts=FAPI.get_thread(thread_id))
 
 
 @bp.route('/forum/api/create', methods=['POST'])
