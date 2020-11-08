@@ -119,9 +119,18 @@
             };
 
             nixpkgs.overlays = [ self.overlay ];
-            environment.variables._PROJECT = pkgs.a3-massive-muscles + "/dist/main.py";
+            environment.variables.PROJECT_SRC = pkgs.a3-massive-muscles + "/dist/main.py";
             environment.variables.PROJECT_INTERPRETER = pkgs.interpreter + "/bin/python";
-            environment.systemPackages = with pkgs; [ chromium sqlite-analyzer sqlitebrowser ];
+            environment.shellAliases.a3-massive-muscles =
+              let
+                script = pkgs.writeShellScriptBin "a3-massive-muscles" ''
+                  [ -d a3-massive-muscles ] && rm -rf a3-massive-muscles
+                  cp -r --no-preserve=all ${pkgs.a3-massive-muscles}/dist/ a3-massive-muscles
+                  $PROJECT_INTERPRETER a3-massive-muscles/main.py
+                '';
+              in "${script}/bin/a3-massive-muscles";
+            environment.shellAliases.curl-post = "curl --request POST -H 'Content-Type: application/json'";
+            environment.systemPackages = with pkgs; [ curl chromium sqlite-analyzer sqlitebrowser ];
           })
         ];
       };
