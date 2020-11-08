@@ -9,6 +9,7 @@ from Application.app import db
 MISSING_USER_ID = 1
 MISSING_POST_CONTENT = 2
 INVALID_THREAD_ID = 3
+MISSING_THREAD_ID = 4
 
 # Constants
 LATEST_THREAD_COUNT = 10
@@ -42,18 +43,16 @@ def create():
     params = _get_params()
 
     print("Creating thread ...")
-    # if "user_id" not in params:
-    #     return jsonify(forum_error(MISSING_USER_ID, "INVALID USER ID"))
     if "content" not in params or len(
             params["content"]) > MAXIMUM_POST_CHARACTERS:
         return jsonify(forum_error(MISSING_POST_CONTENT, "INVALID CONTENT"))
 
     user_id = params["user_id"] if "user_id" in params else -1
-    db.session.add(DBModels.Forum(post_id=_post_counter, user_id=user_id))
-    db.session.add(
-        DBModels.Thread(thread_id=_thread_counter, post_id=_post_counter))
-    db.session.add(
-        DBModels.Post(post_id=_post_counter, content=params["content"]))
+    thread_id = _thread_counter
+    post_id = _post_counter
+    db.session.add(DBModels.Forum(post_id=post_id, user_id=user_id))
+    db.session.add(DBModels.Thread(thread_id=thread_id, post_id=post_id))
+    db.session.add(DBModels.Post(post_id=post_id, content=params["content"]))
 
     _post_counter = _post_counter + 1
     _thread_counter = _thread_counter + 1
@@ -61,14 +60,16 @@ def create():
     """
     - thread_id
     """
-    return _thread_counter - 1
+    return jsonify({"thread_id": thread_id})
 
 
 def create_post():
     global _post_counter
+    global _thread_counter
     """
     - user_id (optional, defaults to -1)
     - content (post content)
+    - thread_id
     """
     params = _get_params()
 
@@ -76,14 +77,22 @@ def create_post():
     if "content" not in params or len(
             params["content"]) > MAXIMUM_POST_CHARACTERS:
         return jsonify(forum_error(MISSING_POST_CONTENT, "INVALID CONTENT"))
+    if "thread_id" not in params or params["thread_id"] > _thread_counter:
+        return jsonify(forum_error(MISSING_THREAD_ID, "MISSING THREAD ID"))
 
     user_id = params["user_id"] if "user_id" in params else -1
-    db.session.add(DBModels.Forum(post_id=_post_counter, user_id=user_id))
+    post_id = _post_counter
+    db.session.add(DBModels.Forum(post_id=post_id, user_id=user_id))
     db.session.add(
-        DBModels.Forum(post_id=_post_counter, content=params["content"]))
+        DBModels.Thread(thread_id=params["thread_id"], post_id=post_id))
+    db.session.add(DBModels.Post(post_id=post_id, content=params["content"]))
 
     _post_counter = _post_counter + 1
     db.session.commit()
+    """
+    - post_id
+    """
+    return jsonify({"post_id": post_id})
 
 
 def latest():
