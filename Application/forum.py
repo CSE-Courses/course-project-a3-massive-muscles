@@ -42,15 +42,15 @@ def create():
     # if "user_id" not in params:
     #     return jsonify(forum_error(MISSING_USER_ID, "INVALID USER ID"))
     if "content" not in params or len(
-            params.content) > MAXIMUM_POST_CHARACTERS:
+            params["content"]) > MAXIMUM_POST_CHARACTERS:
         return jsonify(forum_error(MISSING_POST_CONTENT, "INVALID CONTENT"))
 
-    db.session.add(
-        DBModels.Forum(post_id=_post_counter, user_id=params.user_id or -1))
+    user_id = params["user_id"] if "user_id" in params else -1
+    db.session.add(DBModels.Forum(post_id=_post_counter, user_id=user_id))
     db.session.add(
         DBModels.Thread(thread_id=_thread_counter, post_id=_post_counter))
-    db.session.add(DBModels.Post(post_id=_post_counter,
-                                 content=params.content))
+    db.session.add(
+        DBModels.Post(post_id=_post_counter, content=params["content"]))
 
     _post_counter = _post_counter + 1
     _thread_counter = _thread_counter + 1
@@ -71,13 +71,13 @@ def create_post():
 
     print("Creating post ...")
     if "content" not in params or len(
-            params.content) > MAXIMUM_POST_CHARACTERS:
+            params["content"]) > MAXIMUM_POST_CHARACTERS:
         return jsonify(forum_error(MISSING_POST_CONTENT, "INVALID CONTENT"))
 
+    user_id = params["user_id"] if "user_id" in params else -1
+    db.session.add(DBModels.Forum(post_id=_post_counter, user_id=user_id))
     db.session.add(
-        DBModels.Forum(post_id=_post_counter, user_id=params.user_id or -1))
-    db.session.add(
-        DBModels.Forum(post_id=_post_counter, content=params.content))
+        DBModels.Forum(post_id=_post_counter, content=params["content"]))
 
     _post_counter = _post_counter + 1
     db.session.commit()
