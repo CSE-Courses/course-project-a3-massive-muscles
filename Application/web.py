@@ -107,7 +107,7 @@ def profile_data():
 @bp.route('/forum')
 @login_required
 def forum():
-    return render_template('web/forum/forum.html')
+    return render_template('web/forum/forum.j2', threads=FAPI.latest())
 
 
 @bp.route('/forum/create')

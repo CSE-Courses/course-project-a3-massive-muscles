@@ -1,3 +1,28 @@
+{% macro tag_template(tag) -%}
+  <div class="thd-Misc-Tag">
+    <span class="text-primary">{{tag}}</span>
+  </div>
+{%- endmacro %}
+
+{% macro thread_template(content, author, thread_id) -%}
+<div class="thd-Container_Root">
+  <a href="{{ url_for('web.forum_thread', thread_id=thread_id) }}"></a>
+
+  <div class="bg-dark thd-Container">
+    <div class="thd-Title">
+      <span class="text-light thd-Title_Label">{{ content|truncate(20,true,'') }}</span>
+      <span class="text-info thd-Title_Author">{{ author }}</span>
+    </div>
+
+    <div class="thd-Misc">
+      {{ tag_template('Thread') }}
+    </div>
+
+    <div class="thd-Flexer"></div>
+  </div>
+</div>
+{%- endmacro %}
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -37,6 +62,9 @@
       </div>
 
       <div class="frm-Container_Threads">
+        {% for thread in threads %}
+          {{ thread_template(thread.content, thread.user_id, thread.thread_id) }}
+        {% endfor %}
       </div>
     </div>
   </div>
