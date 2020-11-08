@@ -86,10 +86,10 @@ def create_post():
 
 def latest():
     print("Fetching latest threads ...")
-    threads_collection = (db.session.query(
-        DBModels.Thread, DBModels.Post).join(DBModels.Post).filter(
-            DBModels.Thread.post_id == DBModels.Post.post_id).order_by(
-                DBModels.Post.time)).limit(LATEST_THREAD_COUNT).all()
+    threads_collection = DBModels.Thread.query\
+        .join(DBModels.Post, DBModels.Thread.post_id == DBModels.Post.post_id)\
+        .filter(DBModels.Thread.post_id == DBModels.Post.post_id)\
+        .order_by(DBModels.Post.time).limit(LATEST_THREAD_COUNT).all()
     """
     Most recent (up to 10) threads created
 
@@ -106,11 +106,12 @@ def get_thread(thread_id):
     if thread_id >= _thread_counter:
         return jsonify(forum_error(INVALID_THREAD_ID, "INVALID THREAD ID"))
 
-    threads_collection = (db.session.query(
-        DBModels.Thread, DBModels.Forum,
-        DBModels.Post).join(DBModels.Forum).join(DBModels.Post).filter(
-            DBModels.Thread.thread_id == thread_id).order_by(
-                DBModels.Post.time)).all()
+    threads_collection = DBModels.Thread.query\
+        .join(DBModels.Forum, DBModels.Thread.post_id == DBModels.Forum.post_id)\
+        .join(DBModels.Post, DBModels.Thread.post_id == DBModels.Post.post_id)\
+        .filter(DBModels.Thread.thread_id == thread_id)\
+        .order_by(DBModels.Post.time)\
+        .all()
     """
     All posts in the thread
 
