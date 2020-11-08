@@ -92,9 +92,10 @@ def create_post():
     _post_counter = _post_counter + 1
     db.session.commit()
     """
+    - thread_id
     - post_id
     """
-    return {"post_id": post_id}
+    return {"thread_id": params["thread_id"], "post_id": post_id}
 
 
 def latest():
