@@ -40,3 +40,51 @@
 .pst-Metadata_Author {
   margin-right: 4%;
 }
+
+/* create.css ripoff */
+/* Normalize */
+textarea {
+  resize: none;
+}
+
+.frm-Container_Create {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.ct-Container {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+  padding: 2%;
+}
+
+.ct-Container_Title span {
+  width: 100%;
+  height: 100%;
+  display: block;
+  font-size: 1.25rem;
+
+  border-bottom: white 1px solid;
+}
+
+.ct-Container_Content {
+  height: 100%;
+  margin: 10px 0;
+}
+
+.ct-Container_Actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Additions */
+.frm-Container_Create {
+  height: 40vh;
+  min-height: 40vh;
+}

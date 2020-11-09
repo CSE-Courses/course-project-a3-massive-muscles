@@ -45,9 +45,25 @@
     <!-- NAVBAR END -->
 
     <div class="thd-Container">
+
       {% for post in posts %}
         {{ post_template(post.content, post.user_id, post.time) }}
       {% endfor %}
+
+      <div class="frm-Container_Create">
+        <div class="ct-Container bg-dark">
+          <textarea class="bg-dark ct-Container_Content text-light"></textarea>
+
+          <div class="ct-Container_Actions">
+            <span class="text-info">Maximum post length is 1000 characters</span>
+
+            <button class="frm-Category_Create btn btn-light">
+              <span>Reply</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </body>
