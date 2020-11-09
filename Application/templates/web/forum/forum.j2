@@ -1,6 +1,6 @@
 {% macro tag_template(tag) -%}
   <div class="thd-Misc-Tag">
-    <span class="text-primary">{{tag}}</span>
+    <span class="text-primary">{{ tag|e }}</span>
   </div>
 {%- endmacro %}
 
@@ -10,8 +10,8 @@
 
   <div class="bg-dark thd-Container">
     <div class="thd-Title">
-      <span class="text-light thd-Title_Label">{{ content|truncate(20,true,'') }}</span>
-      <span class="text-info thd-Title_Author">{{ author }}</span>
+      <span class="text-light thd-Title_Label">{{ content|e|truncate(20,true,'') }}</span>
+      <span class="text-info thd-Title_Author">{{ author|e }}</span>
     </div>
 
     <div class="thd-Misc">

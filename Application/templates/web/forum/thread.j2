@@ -1,14 +1,14 @@
 {% macro post_template(content, author, datetime) -%}
   <div class="pst-Container bg-dark">
-    <div class="pst-Container_Content text-light">{{content}}</div>
+    <div class="pst-Container_Content text-light">{{ content|e }}</div>
 
     <div class="pst-Container_Metadata">
       <div class="pst-Metadata_Author">
-        <span class="text-info">{{author}}</span>
+        <span class="text-info">{{ author|e }}</span>
       </div>
 
       <div class="pst-Metadata_Time">
-        <span class="text-info">{{datetime}}</span>
+        <span class="text-info">{{ datetime|e }}</span>
       </div>
     </div>
   </div>
