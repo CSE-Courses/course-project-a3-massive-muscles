@@ -79,7 +79,7 @@ def create_post():
             params["content"]) > MAXIMUM_POST_CHARACTERS or len(
                 params["content"]) == 0:
         return forum_error(MISSING_POST_CONTENT, "INVALID CONTENT")
-    if "thread_id" not in params or params["thread_id"] > _thread_counter:
+    if "thread_id" not in params or int(params["thread_id"]) > _thread_counter:
         return forum_error(MISSING_THREAD_ID, "MISSING THREAD ID")
 
     user_id = params["user_id"] if "user_id" in params else -1
