@@ -37,7 +37,7 @@ class TestForumCreate(unittest.TestCase):
 
     def test_forum_thread_endpoint(self):
         res = self.client.get("/web/forum/thread/1")
-        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.status_code, 404)
 
 
 if __name__ == '__main__':
