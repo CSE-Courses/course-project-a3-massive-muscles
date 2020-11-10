@@ -43,6 +43,7 @@ def create_app(test_config=None):
     with app.app_context():
         import Application.models as _
         db.init_app(app)
+        db.drop_all()
         db.create_all()
 
     bcrypt.init_app(app)
