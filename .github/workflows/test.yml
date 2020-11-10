@@ -1,0 +1,29 @@
+name: a3-massive-muscles-tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 720
+    strategy:
+      fail-fast: false
+      matrix:
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: setup test environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install python3 python3-pip
+          pip3 install -r requirements.txt
+      - name: forum backend reachability test
+        run: |
+          python3 test/backend/forum/test_endpoints.py
+      - name: forum frontend reachability test
+        run: |
+          python3 test/frontend/forum/test_host.py
