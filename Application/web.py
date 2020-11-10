@@ -2,8 +2,8 @@ import functools
 import json
 from datetime import datetime
 
-from flask import (Blueprint, flash, g, jsonify, redirect, render_template,
-                   request, session, url_for)
+from flask import (Blueprint, abort, flash, g, jsonify, redirect,
+                   render_template, request, session, url_for)
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -127,8 +127,9 @@ def forum_create():
 
 @bp.route('/forum/thread/<int:thread_id>')
 def forum_thread(thread_id):
-    return render_template('web/forum/thread.j2',
-                           posts=FAPI.get_thread(thread_id))
+    thread_contents = FAPI.get_thread(thread_id)
+    return abort(404) if "timestamp" in thread_contents else render_template(
+        'web/forum/thread.j2', posts=thread_contents)
 
 
 @bp.route('/forum/api/create', methods=['POST'])
