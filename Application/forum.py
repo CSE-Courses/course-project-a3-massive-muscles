@@ -105,6 +105,7 @@ def latest():
         .query(DBModels.Forum, DBModels.Thread, DBModels.Post)\
         .filter(DBModels.Forum.post_id == DBModels.Thread.post_id)\
         .filter(DBModels.Post.post_id == DBModels.Thread.post_id)\
+        .group_by(DBModels.Thread.thread_id)\
         .order_by(DBModels.Post.time)\
         .limit(LATEST_THREAD_COUNT).all()
     """
