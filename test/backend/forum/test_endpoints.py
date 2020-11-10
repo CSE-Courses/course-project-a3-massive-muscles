@@ -37,7 +37,7 @@ class TestForumCreate(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
 
     def test_api_latest_threads(self):
-        res = self.client.post("/web/forum/api/latest", data=json.dumps({}))
+        res = self.client.get("/web/forum/api/latest")
         self.assertEqual(res.status_code, 200)
 
     def test_forum_api_thread(self):
