@@ -73,6 +73,10 @@ def home():
 def healthTracker():
     return render_template('web/healthTracker.html')
 
+@bp.route('/music')
+@login_required
+def musicPlayer():
+    return render_template('web/musicPlayer.html')
 
 @bp.route('/profile')
 @login_required
