@@ -25,3 +25,4 @@ __pycache__
 # Sqlite
 *.db
 *.sqlite
+server.db
