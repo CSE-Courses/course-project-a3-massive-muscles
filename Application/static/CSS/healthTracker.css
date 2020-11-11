@@ -487,6 +487,7 @@ input:focus {
     letter-spacing: 1px;
     font-family: 'Bebas Neue', cursive;
     margin-left: 10px;
+    cursor: pointer;
 }
 /* end tdee calculator stuff */
 

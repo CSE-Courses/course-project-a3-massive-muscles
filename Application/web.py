@@ -1,11 +1,11 @@
 import functools
 from datetime import datetime
 import json
-from .models import BMI, User
+from .models import BMI, User, Nutrition
 from .app import db, bcrypt
 from .forms import RegistrationForm, LoginForm
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, render_template, request, session, url_for, jsonify
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
@@ -93,6 +93,43 @@ def timer():
 @bp.route('/contactPage')
 def contactPage():
     return render_template('web/contactPage.html')
+
+
+@bp.route('/nutrition', methods=['GET', 'POST'])
+@login_required
+def nutrition_data():
+    #Get reqest
+    if request.method == "GET":
+        nutrition_object = {}
+        for i in range(len(current_user.nutrition_intake)):
+            curr_nutrient_object = {}
+            curNutrient = current_user.nutrition_intake[i]
+            curr_nutrient_object['id'] = curNutrient.user_id
+            curr_nutrient_object['description'] = curNutrient.description
+            curr_nutrient_object['calories'] = curNutrient.calories
+            curr_nutrient_object['fat'] = curNutrient.fat
+            curr_nutrient_object['carbs'] = curNutrient.carbs
+            curr_nutrient_object['protein'] = curNutrient.protein
+            nutrition_object['item ' + str(i)] = curr_nutrient_object
+        return json.dumps(nutrition_object)
+    #Post reqest
+    else:
+        data = json.loads(request.form['entry'])
+        description = str(data['description'])
+        calories = int(data['calories'])
+        fat = int(data['fat'])
+        carbs = int(data['carbs'])
+        protein = int(data['protein'])
+        if len(description) > 200:
+            return 'Method Not Allowed', 405
+        if calories > 10000 or fat > 10000 or carbs > 10000 or protein > 10000:
+            return 'Method Not Allowed', 405
+        nutrition_entry = Nutrition(description=description, calories=calories, fat=fat, carbs=carbs, protein=protein, user_id=current_user.id)
+        db.session.add(nutrition_entry)
+        db.session.commit()
+        return 'OK', 200
+        
+
 
 
 @bp.route('profile/get_data')

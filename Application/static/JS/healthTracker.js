@@ -1,3 +1,19 @@
+
+// Ajax requests to retrieve and update nutrition data
+
+// Retrieve Nutrition data
+var nutritionEntries = [];
+$(function() {
+    $.get("/web/nutrition", function(data) {
+        let nutrients = $.parseJSON(data);
+        for (let [key, value] of Object.entries(nutrients)) {
+            nutritionEntries.push(value);
+        }
+    })
+});
+
+
+
 // import Vue from 'vue';
 // Health Tracker Vue app and methods
 var myapp = new Vue({
@@ -13,24 +29,34 @@ var myapp = new Vue({
         totalFat: '',
         totalCarbs: '',
         totalProtein: '',
-        entries: [
-            { id: 1, description:'Example: Slice of Pizza', calories: 285, fat: 10, carbs: 36, protein: 12 }
-        ],
+        entries: nutritionEntries
     },
     methods: {
+        updateEntry: function (entry) {
+            this.entries.push(entry);
+            this.newDescription = '';
+            this.newCalories = '';
+            this.newFat = '';
+            this.newCarbs = '';
+            this.newProtein = '';
+        },
         addEntry: function () {
             var description = this.newDescription.trim(),
             calories = Math.abs(parseInt(this.newCalories.trim())) || 0,
             fat = Math.abs(parseInt(this.newFat.trim())) || 0,
             carbs = Math.abs(parseInt(this.newCarbs.trim())) || 0,
             protein = Math.abs(parseInt(this.newProtein.trim())) || 0;
+            if (description.length > 200){
+                alert("Description cannot exceed 200 characters");
+                return;
+            }
+            if(calories > 10000 || fat > 10000 || carbs > 10000 || protein > 10000){
+                alert("Nutritional values cannot exceed 10,000");
+                return;
+            }
             if (description && calories) {
-                this.entries.push({ id: this.entries.length + 1, description: description, calories: calories, fat: fat, carbs: carbs, protein: protein });
-                this.newDescription = '';
-                this.newCalories = '';
-                this.newFat = '';
-                this.newCarbs = '';
-                this.newProtein = '';
+                let entry = { id: this.entries.length + 1, description: description, calories: calories, fat: fat, carbs: carbs, protein: protein};
+                $.post("/web/nutrition", {entry:JSON.stringify(entry)}, this.updateEntry(entry));
                 calculateTotals(this);
             }
             else {
