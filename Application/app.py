@@ -17,9 +17,11 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='muscles',
-        SQLALCHEMY_DATABASE_URI='sqlite:///server.db',
-        SQLALCHEMY_TRACK_MODIFICATIONS=False
-    )
+        SQLALCHEMY_DATABASE_URI='sqlite:///' +
+        os.path.join(os.path.dirname(os.path.realpath(__file__)), '..',
+                     'server.sqlite'),
+        SQLALCHEMY_TRACK_MODIFICATIONS=False)
+
     if test_config is None:
         # load the instance config, if it exists, when not testing
         app.config.from_pyfile('config.py', silent=True)
@@ -38,9 +40,15 @@ def create_app(test_config=None):
         return render_template('web/index.html')
 
     # initializes the database and the login manager to manage the user session
-    db.init_app(app)
+    with app.app_context():
+        import Application.models as _
+        db.init_app(app)
+        db.drop_all()
+        db.create_all()
+
     bcrypt.init_app(app)
     login_manager.init_app(app)
+
     # redirects the unauthenticated user to the login page
     login_manager.login_view = 'web.login'
     login_manager.login_message_category = 'warning'
