@@ -5,8 +5,6 @@ from flask_login import UserMixin
 '''
 Keeps track of the logged in user and reference it by the user ID 
 '''
-
-
 @login_manager.user_loader
 def loader_user(user_id):
     return User.query.get(int(user_id))
@@ -18,8 +16,6 @@ Id: is row number
 BMIs: is the refrence for the BMI table
 measurement: measurement to be uploaded
 '''
-
-
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
@@ -40,8 +36,6 @@ measurement: BMI data to be uploaded to the table
 date: automatically updates the time and date of the uploaded data
 user_id: references the id of the user who uploaded the data
 '''
-
-
 class BMI(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
@@ -53,7 +47,6 @@ class BMI(db.Model):
 
 
 # Forum
-
 
 class Forum(db.Model):
     post_id = db.Column(db.Integer, nullable=False, primary_key=True)
@@ -76,8 +69,6 @@ measurement: measurement to be uploaded
 date: automatically updates the time and date of the uploaded data
 user_id: references the id of the user who uploaded the data
 '''
-
-
 class Calorie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
@@ -86,6 +77,7 @@ class Calorie(db.Model):
 
     def __repr__(self):
         return f"Calorie({self.date}, {self.measurement})"
+
 
 # creates a table for user nutrition data
 class Nutrition(db.Model):
