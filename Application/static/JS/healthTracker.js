@@ -126,7 +126,7 @@ function calculateTDEE() {
         gender = $("input[type=radio][name=gender_radio]:checked" ).val();
     /* console.log("Gender: " + gender + "\nAge: " + age + "\nHeight: " + feet + "\' " + inches + "\"" + "\nWeight: " + weight + "\nActivity Level: " + activity); */ 
     /* throw error on invalid input */
-    if(gender == undefined || age < 12 || age > 80 || feet < 0 || inches < 0 || inches > 11 || weight <= 0) {
+    if(gender == undefined || age < 12 || age > 80 || feet < 0 || inches < 0 || !(inches < 12) || weight <= 0) {
         $('.tdee-title').css("color", "black");                 /* make font black for easier readability */
         $('.tdee-title').html("Invalid Input");                 /* notify invalid input */
         $('.tdee-title').css("background-color", "#e84141");    /* red typically signifies error */
