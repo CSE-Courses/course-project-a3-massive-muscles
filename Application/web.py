@@ -1,7 +1,7 @@
 import functools
-from datetime import datetime
+import datetime
 import json
-from .models import BMI, User
+from .models import BMI, User, Calorie
 from .app import db, bcrypt
 from .forms import RegistrationForm, LoginForm
 from flask import (
@@ -9,7 +9,9 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
+
 bp = Blueprint('web', __name__, url_prefix='/web')
+import random
 
 
 @bp.route('/register', methods=['GET', 'POST'])
@@ -90,15 +92,47 @@ def timer():
     return render_template('web/timer.html')
 
 
+@bp.route('profile/generateData')
+@login_required
+def profile_data_generator():
+    for month in range(1, 13):
+        measurement = random.randint(25, 28)
+        bmi = BMI(user_id=current_user.id,
+                  measurement=measurement,
+                  date=datetime.datetime(2020, month, 1)
+                  )
+        db.session.add(bmi)
+        db.session.commit()
+    for day in range(1, 31):
+        measurement = random.randint(2000, 3000)
+        calorie = Calorie(user_id=current_user.id,
+                          measurement=measurement,
+                          date=datetime.datetime(2020, 10, day)
+                          )
+        db.session.add(calorie)
+        db.session.commit()
+    return render_template('web/profile.html')
+
+
 @bp.route('profile/get_data')
 @login_required
 def profile_data():
     replay = {}
-    BMI_list = BMI.query.all()
-    bmi_data = {}
-    for bmi in BMI_list:
-        date = datetime.strftime(bmi.date.date(), "%m_%d_%Y")
-        bmi_data[date] = bmi.measurement
-    replay["BMI"] = bmi_data
+    user = User.query.filter_by(username=current_user.username).first()
+    bmi_data = user.BMIs
+    calorie_data = user.calories
+    bmi_data_list = {}
+    calorie_data_list = {}
+    if len(bmi_data) != 0 or len(calorie_data) != 0:
+        for index in range(0, 12):
+            bmi = bmi_data[index]
+            date = datetime.datetime.strftime(bmi.date.date(), "%m")
+            bmi_data_list[date] = bmi.measurement
+        for index in range(0, 30):
+            cal = calorie_data[index]
+            date = datetime.datetime.strftime(cal.date.date(), "%m/%d")
+            calorie_data_list[date] = cal.measurement
+    replay["BMI"] = bmi_data_list
+    replay["Calories"] = calorie_data_list
     json_msg = json.dumps(replay)
     return json_msg

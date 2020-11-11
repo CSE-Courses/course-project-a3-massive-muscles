@@ -1,7 +1,8 @@
 from Application.app import db, create_app, bcrypt
-from Application.models import User, BMI
+from Application.models import User, BMI, Calorie
 from sqlalchemy import or_
 import time
+import datetime
 
 
 def create_user_test(username, email, password):
@@ -44,7 +45,7 @@ def create_BMI_test(username, measurement):
         user = User.query.filter_by(username=username).first()
         # If the user by exist prints the user exist
         if user:
-            bmi = BMI(user_id=user.id, measurement=measurement)
+            bmi = BMI(user_id=user.id, measurement=measurement, date=datetime.datetime(2020, 10, 1))
             db.session.add(bmi)
             db.session.commit()
             bmi = BMI.query.filter_by(user_id=user.id).all()
@@ -54,7 +55,24 @@ def create_BMI_test(username, measurement):
             print(f'------------\n')
 
 
+def create_calorie_test(username, measurement):
+    with create_app().app_context():
+        # Filters the users by username or email address
+        user = User.query.filter_by(username=username).first()
+        # If the user by exist prints the user exist
+        if user:
+            cal = Calorie(user_id=user.id, measurement=measurement, date=datetime.datetime(2020, 10, 1))
+            db.session.add(cal)
+            db.session.commit()
+            cal = Calorie.query.filter_by(user_id=user.id).all()
+            print(f'------------')
+            print(f'BMI data for {user.username} created')
+            print(f'{user.username} BMIs: {cal}')
+            print(f'------------\n')
+
+
 user1 = create_user_test('Joe', 'Joe@company.com', 'test')
 create_BMI_test('Joe', 25)
 user2 = create_user_test('Tom', 'Tom@company.com', 'test')
 create_BMI_test('Tom', 25)
+create_calorie_test('Tom', 2300)
