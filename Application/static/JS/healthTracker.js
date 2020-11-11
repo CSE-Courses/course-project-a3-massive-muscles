@@ -1,17 +1,26 @@
 
-// Ajax requests to retrieve and update nutrition data
-
-// Retrieve Nutrition data
+// Ajax GET request to retrieve nutrition data
 var nutritionEntries = [];
 $(function() {
-    $.get("/web/nutrition", function(data) {
-        let nutrients = $.parseJSON(data);
+    $.get("/web/add_and_get_entries", function(data) {
+        let nutrients = $.parseJSON(data),
+        totalCalories = 0,
+        totalFat = 0,
+        totalCarbs = 0,
+        totalProtein = 0;
         for (let [key, value] of Object.entries(nutrients)) {
             nutritionEntries.push(value);
+            totalCalories += value.calories;
+            totalFat += value.fat;
+            totalCarbs += value.carbs;
+            totalProtein += value.protein;
         }
+        myapp.totalCalories = totalCalories;
+        myapp.totalFat = totalFat;
+        myapp.totalCarbs = totalCarbs;
+        myapp.totalProtein = totalProtein;
     })
 });
-
 
 
 // import Vue from 'vue';
@@ -56,15 +65,20 @@ var myapp = new Vue({
             }
             if (description && calories) {
                 let entry = { id: this.entries.length + 1, description: description, calories: calories, fat: fat, carbs: carbs, protein: protein};
-                $.post("/web/nutrition", {entry:JSON.stringify(entry)}, this.updateEntry(entry));
+                // Ajax POST request to store food item
+                $.post("/web/add_and_get_entries", {entry:JSON.stringify(entry)}, this.updateEntry(entry));
                 calculateTotals(this);
             }
             else {
                 alert("Description and calorie count required.");
             }
         },
-        removeEntry: function (index) {
+        localRemove: function (index) {
             this.entries.splice(index, 1);
+        },
+        removeEntry: function (index) {
+            let entry = this.entries[index]
+            $.post("/web/delete_entries", {entry:JSON.stringify(entry)}, this.localRemove(index));
             calculateTotals(this);
         },
         saveEntry: function() {

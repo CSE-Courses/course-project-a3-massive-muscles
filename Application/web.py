@@ -95,16 +95,17 @@ def contactPage():
     return render_template('web/contactPage.html')
 
 
-@bp.route('/nutrition', methods=['GET', 'POST'])
+@bp.route('/add_and_get_entries', methods=['GET', 'POST'])
 @login_required
 def nutrition_data():
     #Get reqest
+    #Gets all food items from the current user and sends them back to the JavaScript file
     if request.method == "GET":
         nutrition_object = {}
         for i in range(len(current_user.nutrition_intake)):
             curr_nutrient_object = {}
             curNutrient = current_user.nutrition_intake[i]
-            curr_nutrient_object['id'] = curNutrient.user_id
+            curr_nutrient_object['id'] = curNutrient.id
             curr_nutrient_object['description'] = curNutrient.description
             curr_nutrient_object['calories'] = curNutrient.calories
             curr_nutrient_object['fat'] = curNutrient.fat
@@ -113,6 +114,7 @@ def nutrition_data():
             nutrition_object['item ' + str(i)] = curr_nutrient_object
         return json.dumps(nutrition_object)
     #Post reqest
+    #Takes a food item and stores it into the database under the current user
     else:
         data = json.loads(request.form['entry'])
         description = str(data['description'])
@@ -128,6 +130,26 @@ def nutrition_data():
         db.session.add(nutrition_entry)
         db.session.commit()
         return 'OK', 200
+
+@bp.route('/delete_entries', methods=['POST'])
+@login_required
+def delete_entry():
+    data = json.loads(request.form['entry'])
+    id = int(data['id'])
+    description = str(data['description'])
+    calories = int(data['calories'])
+    fat = int(data['fat'])
+    carbs = int(data['carbs'])
+    protein = int(data['protein'])
+    if len(description) > 200:
+        return 'Method Not Allowed', 405
+    if calories > 10000 or fat > 10000 or carbs > 10000 or protein > 10000:
+        return 'Method Not Allowed', 405
+    entry = Nutrition.query.filter_by(id=id,description=description).first()
+    print(entry)
+    db.session.delete(entry)
+    db.session.commit()
+    return 'OK', 200
         
 
 
