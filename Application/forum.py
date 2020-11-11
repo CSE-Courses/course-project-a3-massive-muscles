@@ -1,6 +1,7 @@
 from time import time
 
 from flask import jsonify, request
+from flask_login import current_user
 
 import Application.models as DBModels
 from Application.app import db
@@ -48,7 +49,7 @@ def create():
                 params["content"]) == 0:
         return forum_error(MISSING_POST_CONTENT, "INVALID CONTENT")
 
-    user_id = params["user_id"] if "user_id" in params else -1
+    user_id = current_user.get_id() if current_user.is_authenticated else -1
     thread_id = _thread_counter
     post_id = _post_counter
     db.session.add(DBModels.Forum(post_id=post_id, user_id=user_id))
@@ -82,7 +83,7 @@ def create_post():
     if "thread_id" not in params or int(params["thread_id"]) > _thread_counter:
         return forum_error(MISSING_THREAD_ID, "MISSING THREAD ID")
 
-    user_id = params["user_id"] if "user_id" in params else -1
+    user_id = current_user.get_id() if current_user.is_authenticated else -1
     post_id = _post_counter
     db.session.add(DBModels.Forum(post_id=post_id, user_id=user_id))
     db.session.add(
