@@ -27,8 +27,8 @@ body{
 }
 
 .contactButton {
-    top: 360px; left: 50vw;
-    transform: translate(-50%,-50%);
+    top: auto; left: 50vw;
+    transform: translate(-50%,-155%);
     position: absolute;
 }
 
