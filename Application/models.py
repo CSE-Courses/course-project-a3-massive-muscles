@@ -11,7 +11,6 @@ Keeps track of the logged in user and reference it by the user ID
 def loader_user(user_id):
     return User.query.get(int(user_id))
 
-<<<<<<< HEAD
 
 '''
 creates a table for Users data
@@ -21,12 +20,6 @@ measurement: measurement to be uploaded
 '''
 
 
-=======
-# creates a table for Users data
-# Id: is row number
-# BMIs: is the reference for the BMI table
-# measurement: measurement to be uploaded
->>>>>>> story/4pt3
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
@@ -34,11 +27,8 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     BMIs = db.relationship('BMI', backref='user', lazy=True)
-<<<<<<< HEAD
     calories = db.relationship('Calorie', backref='user', lazy=True)
-=======
     nutrition_intake = db.relationship('Nutrition', backref='user',lazy=True)
->>>>>>> story/4pt3
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"

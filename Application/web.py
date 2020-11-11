@@ -1,25 +1,17 @@
 import functools
 import json
-<<<<<<< HEAD
 import datetime
-from flask import (Blueprint, abort, flash, g, jsonify, redirect,
-                   render_template, request, session, url_for)
-from flask_login import current_user, login_required, login_user, logout_user
-=======
-from .models import BMI, User, Nutrition
-from .app import db, bcrypt
-from .forms import RegistrationForm, LoginForm
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for, jsonify
-)
->>>>>>> story/4pt3
-from werkzeug.security import check_password_hash, generate_password_hash
-
 import Application.forum as FAPI
+
+from flask_login import current_user, login_required, login_user, logout_user
+from flask import (
+    Blueprint, abort, flash, g, jsonify, redirect, render_template, request, session, url_for
+)
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from .app import bcrypt, db
 from .forms import LoginForm, RegistrationForm
-from .models import BMI, User, Calorie
+from .models import BMI, User, Calorie, Nutrition
 
 
 bp = Blueprint('web', __name__, url_prefix='/web')
