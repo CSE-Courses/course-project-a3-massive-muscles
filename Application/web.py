@@ -1,14 +1,18 @@
 import functools
-from datetime import datetime
 import json
-from .models import BMI, User
-from .app import db, bcrypt
-from .forms import RegistrationForm, LoginForm
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
+from datetime import datetime
+
+from flask import (Blueprint, abort, flash, g, jsonify, redirect,
+                   render_template, request, session, url_for)
+from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_login import login_user, current_user, logout_user, login_required
+
+import Application.forum as FAPI
+
+from .app import bcrypt, db
+from .forms import LoginForm, RegistrationForm
+from .models import BMI, User
+
 bp = Blueprint('web', __name__, url_prefix='/web')
 
 
@@ -18,11 +22,16 @@ def register():
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data).decode('utf-8')
+        user = User(username=form.username.data,
+                    email=form.email.data,
+                    password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash(f'Account created for {form.username.data}, now you are able to log in', 'success')
+        flash(
+            f'Account created for {form.username.data}, now you are able to log in',
+            'success')
         return redirect(url_for("web.login"))
     return render_template('web/register.html', title='Register', form=form)
 
@@ -34,12 +43,15 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
+        if user and bcrypt.check_password_hash(user.password,
+                                               form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('web.home'))
+            return redirect(next_page) if next_page else redirect(
+                url_for('web.home'))
         else:
-            flash(f'Login Unsuccessful. Please check email and password!', 'danger')
+            flash(f'Login Unsuccessful. Please check email and password!',
+                  'danger')
     return render_template('web/login.html', title='Login', form=form)
 
 
@@ -64,12 +76,6 @@ def healthTracker():
 @login_required
 def profile():
     return render_template('web/profile.html')
-
-
-@bp.route('/forum')
-@login_required
-def forum():
-    return render_template('web/forum.html')
 
 
 @bp.route('/edit')
@@ -107,3 +113,48 @@ def profile_data():
     replay["BMI"] = bmi_data
     json_msg = json.dumps(replay)
     return json_msg
+
+
+@bp.route('/forum')
+def forum():
+    return render_template('web/forum/forum.j2', threads=FAPI.latest())
+
+
+@bp.route('/forum/create')
+def forum_create():
+    return render_template('web/forum/create.html')
+
+
+@bp.route('/forum/thread/<int:thread_id>')
+def forum_thread(thread_id):
+    thread_contents = FAPI.get_thread(thread_id)
+    return abort(404) if "timestamp" in thread_contents else render_template(
+        'web/forum/thread.j2', posts=thread_contents)
+
+
+@bp.route('/forum/api/create', methods=['POST'])
+def forum_api_create():
+    response = FAPI.create()
+    return jsonify({
+        "redirect":
+        url_for("web.forum_thread", thread_id=response["thread_id"])
+    }) if "thread_id" in response else jsonify(response)
+
+
+@bp.route('/forum/api/post', methods=['POST'])
+def forum_api_create_post():
+    response = FAPI.create_post()
+    return jsonify({
+        "redirect":
+        url_for("web.forum_thread", thread_id=response["thread_id"])
+    }) if "thread_id" in response else jsonify(response)
+
+
+@bp.route('/forum/api/latest', methods=['GET'])
+def forum_api_latest_threads():
+    return jsonify(FAPI.latest())
+
+
+@bp.route('/forum/api/thread/<int:thread_id>', methods=['GET'])
+def forum_api_thread(thread_id):
+    return jsonify(FAPI.get_thread(thread_id))

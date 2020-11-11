@@ -34,3 +34,21 @@ class BMI(db.Model):
     def __repr__(self):
         return f"BMI({self.date}, {self.measurement})"
 
+
+# Forum
+
+
+class Forum(db.Model):
+    post_id = db.Column(db.Integer, nullable=False, primary_key=True)
+    user_id = db.Column(db.Integer, nullable=False)
+
+
+class Thread(db.Model):
+    post_id = db.Column(db.Integer, nullable=False, primary_key=True)
+    thread_id = db.Column(db.Integer, nullable=False, unique=False)
+
+
+class Post(db.Model):
+    post_id = db.Column(db.Integer, nullable=False, primary_key=True)
+    time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    content = db.Column(db.UnicodeText, nullable=False)
