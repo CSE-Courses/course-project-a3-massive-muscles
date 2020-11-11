@@ -34,14 +34,23 @@
                   </li>
               </ul>
            </div>
-
           <div class="row pb-2">
                 <div class="col mt-4">
                        <div class="col"></div>
                   <div class="shadow card mt-2 border-0 ">
                     <h5 class="card-header title-color">About</h5>
                     <div class="card-body">
-                      <p class="card-text">Some story about the user  describing themselves to other users  .</p>
+                      <p class="card-text">Some story about the user  describing themselves to other users. </p>
+                      <p></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col mt-4">
+                       <div class="col"></div>
+                  <div class="shadow card mt-2 border-0 ">
+                    <h5 class="card-header title-color">Generate data</h5>
+                    <div class="card-body">
+                      <button type="submit" id="generateData" class="btn btn-danger title-color pb-2 border-0 ">Generate data</button>
                     </div>
                   </div>
                 </div>
@@ -56,7 +65,8 @@
                     </div>
                   </div>
                 </div>
-
+           </div>
+           <div class="row pb-2">
                 <div class="col mt-4">
                   <div class="shadow card mt-2 border-0">
                     <h5 class="card-header title-color">Calorie intake chart</h5>
@@ -67,19 +77,19 @@
                 </div>
            </div>
 
-           <div class="row pb-2">
-                <div class="col mt-4">
-                       <div class="col"></div>
-                  <div class="shadow card mt-2  border-0">
-                    <h5 class="card-header title-color">Daily steps chart</h5>
-                    <div class="card-body">
-                      <canvas id="stepsChart"></canvas>
-                    </div>
-                  </div>
-                </div>
-           </div>
+{#           <div class="row pb-2">#}
+{#                <div class="col mt-4">#}
+{#                       <div class="col"></div>#}
+{#                  <div class="shadow card mt-2  border-0">#}
+{#                    <h5 class="card-header title-color">Daily steps chart</h5>#}
+{#                    <div class="card-body">#}
+{#                      <canvas id="stepsChart"></canvas>#}
+{#                    </div>#}
+{#                  </div>#}
+{#                </div>#}
+{#           </div>#}
 
            <!-- chart generator code -->
-           <script src="../../static/JS/chartGenerator.js"></script>
+           <script src="{{url_for("static", filename='JS/chartGenerator.js')}}" defer></script>
         </div>
     {% endblock content %}
