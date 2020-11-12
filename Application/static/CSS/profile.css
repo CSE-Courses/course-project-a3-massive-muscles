@@ -9,3 +9,8 @@
 body{
     background-color: var(--main-theme-color);
 }
+.title-color{
+    background-color: #072861;
+    color: #4e9cf5;
+    font-family: 'Bebas Neue', cursive;
+}

@@ -446,6 +446,51 @@ input:focus {
     top: 0;
 }
 
+/* start tdee calculator stuff */
+.tdee-title {
+    /* same as Iain's form-title so page style matches. Has to be
+       separate name so BMI calculate results don't also show on TDEE */
+    display: block;
+    font-size: 40px;
+    color: var(--main-theme-color);
+    line-height: 1.2;
+    width: 510px;
+    margin-left: -60px;
+    text-align: center;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    margin-bottom: 20px;
+    background-color: #072861;
+    position: relative;
+    font-family: 'Bebas Neue', cursive;
+}
+
+.tdee-box {
+    width: 450px;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 0px 25px 15px 25px; /* top right bottom left */
+    overflow: auto;
+    box-shadow: -.1rem 0rem 2rem #000;
+    margin: 0 auto 15% auto;
+}
+
+.gender-radio {
+    font-size: 20px;
+    margin: 5px 65px 5px 20px; /* top right bottom left */
+}
+
+.explain-prompt {
+    text-decoration: underline;
+    font-size: 25px;
+    color: var(--main-theme-color);
+    letter-spacing: 1px;
+    font-family: 'Bebas Neue', cursive;
+    margin-left: 10px;
+    cursor: pointer;
+}
+/* end tdee calculator stuff */
+
 /* Media Queries */
 @media screen and (max-width: 1200px) {
     .ytVid {width: 350px; height: 200px;}

@@ -1,115 +1,57 @@
-// from the database
-var BMIReport = {
-    "Jan": 30,
-
-    "Feb": 31,
-
-    "Mar": 30.5,
-
-    "Apr": 29,
-
-    "May": 29,
-
-    "Jun": 28.5,
-
-    "Jul": 28,
-
-    "Aug": 27,
-
-    "Sep": 27,
-
-    "Oct": 26,
-
-    "Nov": 25,
-
-    "Dec": 25,
-};
+var hostname = document.location.hostname;
+var port = document.location.port;
+var xhttp = new XMLHttpRequest();
 
 // from the database
-var calorieIntakeReport = {
-    "01-01-2020": 2200,
-    "01-02-2020": 2400,
-    "01-03-2020": 1900,
-    "01-04-2020": 3000,
-    "01-05-2020": 2300,
-    "01-06-2020": 2000,
-    "01-07-2020": 1800,
-    "01-08-2020": 1900,
-    "01-09-2020": 2300,
-    "01-10-2020": 2700,
-    "01-11-2020": 2500,
-    "01-12-2020": 1900,
-    "01-13-2020": 2000,
-    "01-14-2020": 2100,
-    "01-15-2020": 1950,
-    "01-16-2020": 2200,
-    "01-17-2020": 2330,
-    "01-18-2020": 1980,
-    "01-19-2020": 2400,
-    "01-20-2020": 2300,
-    "01-21-2020": 2250,
-    "01-22-2020": 2320,
-    "01-23-2020": 1940,
-    "01-24-2020": 2010,
-    "01-25-2020": 2300,
-    "01-26-2020": 1890,
-    "01-27-2020": 2201,
-    "01-28-2020": 2100,
-    "01-29-2020": 2400,
-    "01-30-2020": 1900,
-};
-var stepsReport = {
-    "01-01-2020": 3000,
-    "01-02-2020": 20,
-    "01-03-2020": 4000,
-    "01-04-2020": 200,
-    "01-05-2020": 220,
-    "01-06-2020": 4000,
-    "01-07-2020": 8000,
-    "01-08-2020": 5400,
-    "01-09-2020": 3040,
-    "01-10-2020": 230,
-    "01-11-2020": 4300,
-    "01-12-2020": 902,
-    "01-13-2020": 2000,
-    "01-14-2020": 6000,
-    "01-15-2020": 1300,
-    "01-16-2020": 5200,
-    "01-17-2020": 2330,
-    "01-18-2020": 2280,
-    "01-19-2020": 6400,
-    "01-20-2020": 2300,
-    "01-21-2020": 5250,
-    "01-22-2020": 5520,
-    "01-23-2020": 3940,
-    "01-24-2020": 1010,
-    "01-25-2020": 230,
-    "01-26-2020": 20,
-    "01-27-2020": 2201,
-    "01-28-2020": 900,
-    "01-29-2020": 10000,
-    "01-30-2020": 300,
-};
-let labels = [];
-let data = [];
-labels = label_data_extractor(BMIReport)[0];
-data = label_data_extractor(BMIReport)[1];
-let BMIElem = document.getElementById('BMIChart').getContext('2d');
-chartGenerator(BMIElem, labels, data, "BMI status over a year", "Months", "BMI")
+var BMIReport = {};
 
-labels = [];
-data = [];
-labels = label_data_extractor(calorieIntakeReport)[0];
-data = label_data_extractor(calorieIntakeReport)[1];
-let calorieIntakeElem = document.getElementById('calorieIntakeChart').getContext('2d');
-chartGenerator(calorieIntakeElem, labels, data, "Calorie intake over 30 days", "days", "calories",)
+// from the database
+var calorieIntakeReport = {};
 
-labels = [];
-data = [];
-labels = label_data_extractor(stepsReport)[0];
-data = label_data_extractor(stepsReport)[1];
-let stepsReportElem = document.getElementById('stepsChart').getContext('2d');
-chartGenerator(stepsReportElem, labels, data, "steps average over 30 days", "days", "steps",)
+var genBtn = document.getElementById("generateData");
+genBtn.onclick = function () {
+    xhttp.open("GET", `/web/profile/generateData`);
+    xhttp.send();
+    xhttp.response;
+};
+
+
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var data = this.response;
+            BMIReport = JSON.parse(data)["BMI"];
+            calorieIntakeReport = JSON.parse(data)["Calories"];
+            let extractedData =label_data_extractor(BMIReport);
+            let labels = extractedData[0];
+            let bmi_data = extractedData[1];
+            let BMIElem = document.getElementById('BMIChart').getContext('2d');
+            chartGenerator( BMIElem,
+                            labels,
+                             bmi_data,
+                            "BMI status over a year",
+                            "Months",
+                            "BMI"
+            );
+            labels = [];
+            data = [];
+            extractedData =label_data_extractor(calorieIntakeReport);
+            labels = extractedData[0];
+            let cal_data = extractedData[1];
+            let calorieIntakeElem = document.getElementById('calorieIntakeChart').getContext('2d');
+            chartGenerator(calorieIntakeElem,
+                labels,
+                cal_data,
+                "Calorie intake over 30 days",
+                "days",
+                "calories"
+            );
+    }
+  };
+xhttp.open("GET", `/web/profile/get_data`);
+xhttp.send();
+xhttp.response;
+
+
 /**
  * @param canvas_element: {html canvas element} the element where the chart is out to be displayed
  * @param labels: {array} array list of key values {string} or {int} or {date} to palce in the x-axis

@@ -18,3 +18,11 @@ package.json
 
 # Python
 __pycache__
+
+# Qemu
+*.qcow2
+
+# Sqlite
+*.db
+*.sqlite
+server.db

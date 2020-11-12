@@ -20,10 +20,16 @@ body{
     height: 166px;
     top: 200px; left: 50vw;
     transform: translate(-50%,-50%);
-    position: fixed;
+    position: absolute;
     border-radius: 20px;
     border: 2px solid white;
     box-shadow: .1rem 0 3rem black;
+}
+
+.contactButton {
+    top: auto; left: 50vw;
+    transform: translate(-50%,-155%);
+    position: absolute;
 }
 
 /* placeholder */
@@ -52,6 +58,27 @@ p,h1,h3 {
     min-width: 100%;
     min-height: 100vh;
     top: 0; left: 0; right: 0; bottom: 0;
+}
+
+/* same as wrapper; for some reason if I use wrapper
+   the view gets messed up, but  separately it works? */
+#contactWrapper {
+    border-radius: 15px;
+    padding: 10px 14px 14px 14px;
+    margin: 30px auto 30px auto;
+    background: var(--main-theme-color);
+    width:650px;
+    height:150px;
+    color:white;
+    transition: all .3s;
+    box-shadow: .1rem 0 1rem #000;
+    display: flex;
+    flex-direction: column;
+    transition: .2s;
+    scroll-snap-align: start;
+    clear: both;
+    position: relative;
+    cursor: default;
 }
 
 #wrapper {

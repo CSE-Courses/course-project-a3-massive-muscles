@@ -1,3 +1,28 @@
+{% macro tag_template(tag) -%}
+  <div class="thd-Misc-Tag">
+    <span class="text-primary">{{ tag|e }}</span>
+  </div>
+{%- endmacro %}
+
+{% macro thread_template(content, author, thread_id) -%}
+<div class="thd-Container_Root">
+  <a href="{{ url_for('web.forum_thread', thread_id=thread_id) }}"></a>
+
+  <div class="bg-dark thd-Container">
+    <div class="thd-Title">
+      <span class="text-light thd-Title_Label">{{ content|e|truncate(20,true,'') }}</span>
+      <span class="text-info thd-Title_Author">{{ author|e }}</span>
+    </div>
+
+    <div class="thd-Misc">
+      {{ tag_template('Thread') }}
+    </div>
+
+    <div class="thd-Flexer"></div>
+  </div>
+</div>
+{%- endmacro %}
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -12,15 +37,17 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet">
   <!-- Main css styling -->
-  <link rel="stylesheet" type="text/css" href="../../static/CSS/main.css">
+  <link rel="stylesheet" type="text/css" href="../../../static/CSS/main.css">
 
-  <link rel="stylesheet" type="text/css" href="../../static/CSS/forum.css">
+  <link rel="stylesheet" type="text/css" href="../../../static/CSS/forum/forum.css">
 </head>
 <body>
   <div class="bg-primary pg-Container">
+    <!-- NAVBAR START... basic navbar from https://getbootstrap.com/docs/4.0/components/navbar/ -->
     <nav class="bg-dark navbar navbar-expand-lg navbar-dark">
       <a class="navbar-brand" href="{{ url_for('web.home') }}">Massive Muscles</a>
     </nav>
+    <!-- NAVBAR END -->
 
     <div class="frm-Container">
 
@@ -28,9 +55,16 @@
         <span class="frm-Category_Label">
           <h2 class="text-light">Threads</h2>
         </span>
+
+        <button class="frm-Category_Create btn btn-dark">
+          <a href="{{ url_for('web.forum_create') }}">Create Thread</a>
+        </button>
       </div>
 
       <div class="frm-Container_Threads">
+        {% for thread in threads %}
+          {{ thread_template(thread.content, thread.user_id, thread.thread_id) }}
+        {% endfor %}
       </div>
     </div>
   </div>

@@ -1,3 +1,45 @@
+.pg-Container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.frm-Container {
+  /* Inherit .navbar padding for consistent look */
+  padding: .5rem 1rem;
+}
+
+.frm-Category {
+  padding: .25rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  width: 100%;
+  border-bottom: 2px white solid;
+}
+
+.frm-Category h2 {
+  /* We don't want any margins */
+  margin: 0;
+}
+
+.thd-Container_Root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.thd-Container_Root a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 100
+}
+
 .thd-Container {
   display: flex;
   justify-content: space-between;

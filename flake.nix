@@ -56,6 +56,16 @@
           uglify-js = uglifyjs; # Compatibility with node package name
           selenium-webdriver = callPackage ./nix/npm/selenium-webdriver.nix { };
 
+          interpreter = python3.withPackages (ps:
+            with ps;
+            [
+              pip pytz jinja2 werkzeug itsdangerous click numpy setuptools markupsafe
+              pandas dateutil six openpyxl jdcal attrs jsonschema pyrsistent
+              colour flask gunicorn flask_sqlalchemy flask_wtf wtforms email_validator
+              bcrypt flask-bcrypt flask_login
+              # missing `StyleFrame~=3.0.5` but shit is just a big clump of random dependencies anyway
+            ]);
+
           a3-massive-muscles = callPackage ./nix {
             inherit (nodePackages) html-minifier;
           } {
@@ -75,6 +85,7 @@
             babel-cli babel-core babel-preset-env
             babel-plugin-proposal-class-properties uglifyjs
             selenium-webdriver
+            interpreter
             a3-massive-muscles;
 
           inherit (nodePackages)
@@ -83,6 +94,51 @@
         });
 
       defaultPackage = forAllSystems (system: self.packages.${system}.a3-massive-muscles);
+
+      # NixOS system configuration, if applicable
+      # nix build -L .#nixosConfigurations.a3-massive-muscles.config.system.build.vm
+      nixosConfigurations.a3-massive-muscles = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux"; # Hardcoded
+        modules = [
+          ({ modulesPath, pkgs, ... }: {
+            imports = [ (modulesPath + "/virtualisation/qemu-vm.nix") ];
+            virtualisation.qemu.options = [ "-m 2G" "-vga virtio" ];
+
+            networking.networkmanager.enable = true;
+            services.xserver.enable = true;
+            services.xserver.layout = "us";
+            services.xserver.windowManager.i3.enable = true;
+            services.xserver.displayManager.lightdm.enable = true;
+
+            users.mutableUsers = false;
+            users.users.whothis = {
+              password = "whothis"; # yes, very secure, I know
+              createHome = true;
+              isNormalUser = true;
+              extraGroups = [ "wheel" ];
+            };
+
+            nixpkgs.overlays = [ self.overlay ];
+            nixpkgs.config.allowUnfree = true;
+            environment.variables.CHROME_BINARY = pkgs.google-chrome + "/bin/google-chrome-stable";
+            environment.variables.NODE_PATH = pkgs.a3-massive-muscles.node_modules.outPath;
+            environment.variables.PROJECT_SRC = toString pkgs.a3-massive-muscles.src;
+            environment.variables.PROJECT_INTERPRETER = pkgs.interpreter + "/bin/python";
+            environment.shellAliases.a3-massive-muscles =
+              let
+                script = pkgs.writeShellScriptBin "a3-massive-muscles" ''
+                  [ -d a3-massive-muscles ] && rm -rf a3-massive-muscles
+                  cp -r --no-preserve=all ${pkgs.a3-massive-muscles}/dist/ a3-massive-muscles
+                  $PROJECT_INTERPRETER a3-massive-muscles/main.py
+                '';
+              in "${script}/bin/a3-massive-muscles";
+            environment.systemPackages = with pkgs; [
+              nodejs chromedriver
+              vim curl chromium sqlite-analyzer sqlitebrowser
+            ];
+          })
+        ];
+      };
 
       # Tests run by 'nix flake check' and by Hydra.
       checks = forAllSystems (system:

@@ -77,7 +77,7 @@ p,h1,h3 {
 }
 
 .blobContainer {
-    margin: 40vh 0 0 0;
+    margin: 30vh 0 0 0;
 }
 
 #wrapper:focus-within~#wrapper, #wrapper:hover~#wrapper {
