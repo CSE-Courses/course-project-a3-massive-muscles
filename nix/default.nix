@@ -52,12 +52,6 @@ stdenv.mkDerivation {
   '';
 
   fixupPhase = ''
-    # Minify HTML
-    html-minifier --file-ext html --input-dir $out --output-dir $out \
-      --use-short-doctype \
-      --remove-comments --decode-entities --remove-redundant-attributes \
-      --remove-script-type-attributes --remove-style-link-type-attributes
-
     # Compress and polyfill CSS
     find $out -name '*.css' | while read -r file; do
       postcss "$file" --replace --no-map --verbose --use cssnano --use postcss-preset-env
