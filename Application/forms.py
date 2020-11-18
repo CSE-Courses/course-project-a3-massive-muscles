@@ -29,9 +29,10 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Log in")
 
 
+# The edit form in the edit.html page
 class EditProfile(FlaskForm):
     username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField("Confirm password", validators=[DataRequired(), EqualTo("password")])
-    submit = SubmitField("Save changes")
+    submit = SubmitField("Save Changes")
