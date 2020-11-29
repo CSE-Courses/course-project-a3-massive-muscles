@@ -121,11 +121,14 @@ form input {
     repeat(#cols, col width);. Auto-fit collapses entries on browser resize.
     minmax() for responsiveness. Min ###px, max 1fr (1 part of whole) */
     margin-top: 60px;               /* gap between search bar and results */
+    margin-bottom: 100px;
 }
 
 .recipe-content {
     color: #FFFFFF;
     text-align: center;
+    overflow: hidden;
+    height: 150px;
 }
 
 .recipe-name {
