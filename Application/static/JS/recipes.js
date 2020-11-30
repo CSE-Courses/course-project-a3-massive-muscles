@@ -18,8 +18,13 @@ form.addEventListener("submit", (event) => {
 
 /* since we're calling to an API, we need an async function to await for an answer. */
 let getRecipes = async () => {
-    let results = await (await fetch(url)).json(); /* await response from API url; await json-ified results  */ 
-    display(results.hits);                         /* hits is the returned recipe array from the API call. */ 
+    let results = await (await fetch(url)).json();  /* await response from API url; await json-ified results  */ 
+    display(results.hits);                          /* hits is the returned recipe array from the API call. */ 
+    
+    /* task#106, task#107 tests */
+    console.log("******************************\nUser searched for: \'" + search_input + "\'\n" + results.count + " unique recipes returned.\nFull response from API call: ");
+    console.log(results);   /* (+ results does not work, must be printed separately) */
+    console.log("******************************\n"); 
 };
 
 /*  displays the contents of each recipe, specific to each returned recipe. 
