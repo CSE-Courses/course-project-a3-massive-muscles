@@ -8,11 +8,11 @@ from Application.app import db
 
 
 def pre_req():
-    g.req_tick = time.time()  # Track request "latency"
+    g.req_tick = time.time_ns()  # Track request "latency"
 
 
 def post_req(response):
-    tick = time.time()
+    tick = time.time_ns()
     req_latency = g.req_tick - tick
     db.session.add(DBModels.RequestLatency(latency=req_latency))
 
