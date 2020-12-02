@@ -22,7 +22,7 @@ def post_req(response):
                             url=request.url,
                             path=request.path,
                             protocol=request.method,
-                            user_agent=request.user_agent))
+                            user_agent=request.user_agent.string))
 
     db.session.commit()
     return response
