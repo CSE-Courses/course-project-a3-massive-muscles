@@ -6,8 +6,6 @@ from flask import (
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
-import Application.statistics as _SAPI
-
 # links app database to SQLAlchemy for data modeling
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -56,9 +54,5 @@ def create_app(test_config=None):
     login_manager.login_message_category = 'warning'
     from Application import web
     app.register_blueprint(web.bp)
-
-    # Hooks for every request
-    app.before_request(_SAPI.pre_req)
-    app.after_request(_SAPI.post_req)
 
     return app
