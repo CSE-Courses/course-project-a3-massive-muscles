@@ -49,8 +49,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="col mt-4">
-                       <div class="col"></div>
+              {% if current_user.BMIs%}
+                  <div id="generateData" >
+                  </div>
+              {% else %}
+                  <div class="col mt-4">
+                      <div class="col"></div>
                   <div class="shadow card mt-2 border-0 ">
                     <h5 class="card-header title-color">Generate data</h5>
                     <div class="card-body">
@@ -58,6 +62,7 @@
                     </div>
                   </div>
                 </div>
+              {% endif %}
            </div>
            <!--  Displayable charts -->
            <div class="row pb-2">
@@ -81,19 +86,6 @@
                 </div>
            </div>
 
-{#           <div class="row pb-2">#}
-{#                <div class="col mt-4">#}
-{#                       <div class="col"></div>#}
-{#                  <div class="shadow card mt-2  border-0">#}
-{#                    <h5 class="card-header title-color">Daily steps chart</h5>#}
-{#                    <div class="card-body">#}
-{#                      <canvas id="stepsChart"></canvas>#}
-{#                    </div>#}
-{#                  </div>#}
-{#                </div>#}
-{#           </div>#}
-
-           <!-- chart generator code -->
            <script src="{{url_for("static", filename='JS/chartGenerator.js')}}" defer></script>
         </div>
     {% endblock content %}
