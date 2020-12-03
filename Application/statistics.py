@@ -13,7 +13,7 @@ def pre_req():
 
 def post_req(response):
     tick = time_ns()
-    req_latency = g.req_tick - tick
+    req_latency = tick - g.req_tick
     db.session.add(DBModels.RequestLatency(latency=req_latency))
 
     user_id = current_user.get_id() if current_user.is_authenticated else -1
