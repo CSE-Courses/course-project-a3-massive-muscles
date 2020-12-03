@@ -10,7 +10,7 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .app import bcrypt, db
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, EditPasswordForm, EditProfileForm
 from .models import BMI, User, Calorie, Nutrition
 
 
@@ -81,13 +81,30 @@ def musicPlayer():
 @bp.route('/profile')
 @login_required
 def profile():
-    return render_template('web/profile.html')
+    photo = url_for('static', filename=f'profile_pics/{current_user.image_file}')
+    return render_template('web/profile.html', photo=photo)
 
 
-@bp.route('/edit')
+@bp.route('/edit', methods=['GET', 'POST'])
 @login_required
 def edit():
-    return render_template('web/edit.html')
+    photo = url_for('static', filename=f'profile_pics/{current_user.image_file}')
+    edit_profile_form = EditProfileForm()
+    password_form = EditPasswordForm()
+    if edit_profile_form.validate_on_submit():
+        current_user.username = edit_profile_form.username.data
+        current_user.email = edit_profile_form.email.data
+        current_user.about = edit_profile_form.about.data
+        db.session.commit()
+        flash('your account has been updated!', 'success')
+        return redirect(url_for('web.profile'))
+    elif request.method == 'GET':
+        edit_profile_form.username.data = current_user.username
+        edit_profile_form.email.data = current_user.email
+        edit_profile_form.about.data = current_user.about
+    return render_template('web/edit.html', title='Edit page', photo=photo,
+                           edit_profile_form=edit_profile_form,
+                           password_form=password_form)
 
 
 @bp.route('/exercises')
