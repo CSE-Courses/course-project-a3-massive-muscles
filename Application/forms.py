@@ -32,7 +32,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Log in")
 
 
-# The edit form in the edit.html page
+# This edits the user data: username, email profile picture and passwords
 class EditProfileForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField("Email", validators=[DataRequired(), Email()])
