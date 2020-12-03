@@ -1,5 +1,6 @@
 var source, context, analyser, frequencyArray, inputURL,
-	trackName, audio, toggle_Play, artist, title, img_url, mouseOver;
+    trackName, audio, toggle_Play, artist, title, img_url,
+    mouseOver, search_results;
 
 var client_id = "8df0d68fcc1920c92fc389b89e7ce20f";
 
@@ -34,6 +35,10 @@ function refresh_canvasSize() {
 
 function handleSubmit_Button() {
     let userURL = $("#user_URL").val();
+    // Remove previous search results
+    $( ".resultsContainer ul").empty();
+    search_results = [];
+
     // Check for search query instead of url
     if(userURL.search("soundcloud.com") === -1 || userURL.search("api.soundcloud.com") !== -1){
         fetch('https://api.soundcloud.com/tracks/?client_id=' + client_id + '&q=' + userURL).then(function(response) {
@@ -43,6 +48,7 @@ function handleSubmit_Button() {
             }
             response.json().then(function(data) {
             if (data[0] == null){
+                $('<h3>No Search Results</h3>').appendTo('.resultsContainer ul');
                 alert('Sorry! No search results were found. Try searching by track name and/or user.');
             }
             else getSearch_Results(data);
@@ -68,6 +74,32 @@ function getSearch_Results(tracks) {
     title = tracks[0].title;
     img_url = tracks[0].artwork_url;
     artist = tracks[0].user.username;
+    displaySearch_Results(tracks);
+    playAudio();
+}
+
+function displaySearch_Results(tracks) {
+    for (let i=0; i < tracks.length; i++){
+        search_results.push(tracks[i].stream_url + "?client_id=" + client_id);
+
+        title = tracks[i].title;
+        img_url = tracks[i].artwork_url;
+        artist = tracks[i].user.username;
+        $('<li onClick="playSearch_Results(this.id)" id="'+ i +'"><img src="'+ img_url + '"></img><h3>'+ title +
+        '</h3><p>'+ artist +'</p></li>').appendTo('.resultsContainer ul');
+    }
+    $("#0").css("background", "rgba(0, 105, 204, 0.6)");
+}
+
+// Called when a search resulsts list element is selected. 
+// Plays the selected song from the search results and updates 
+// the background of the list element for the old and new songs.
+function playSearch_Results(id){
+    inputURL = search_results[id];
+    for (let i=0; i < search_results.length; i++){
+        $('#' + i).css("background", "transparent");
+    }
+    $('#' + id).css("background", "rgba(0, 105, 204, 0.6)");
     playAudio();
 }
 
@@ -124,13 +156,6 @@ function playAudio() {
 	toggle_Play = true;
 	document.getElementById("toggle").innerHTML = "&#10074;&#10074;";
 	audio.play();
-	
-	$("#artistname").html(artist);
-	$("#songname").html(title);
-	$("#pagetitle").html(title + " by " + artist);
-	$("#artwork").attr("src", img_url);
-	// JS styling to prevent border form appearing before image does
-	$("#artwork").css("opacity", "100");
 }
 
 // Fast forwards/ rewinds the current time of the track depending
@@ -143,7 +168,7 @@ function sliderTime() {
 // and updates the audio slider/timer.
 // Calculates the frequency every call to update the visualizer.
 function canvasUpdater() {
-	window.requestAnimationFrame(canvasUpdater);
+    window.requestAnimationFrame(canvasUpdater);
 	// Update audio timer and slider
 	// Slider
 	if(!mouseOver) $("#audioSlider").val((100 / audio.duration) * audio.currentTime);
