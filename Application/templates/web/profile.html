@@ -19,8 +19,12 @@
         <div class="container mt-0">
           <div class=" shadow-sm row ml-0 mr-0 pt-4 pb-3 pl-0 rounded-top title-color">
             <!-- user photo -->
-            <img src="https://images.unsplash.com/photo-1445583934509-4ad5ffe6ef08?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" class="shadow-lg rounded-circle ml-5 " id="userPhoto" width="100px" height="90px">
-            <h3 class="pt-4 pl-3">{{current_user.username}}</h3>
+            <img src="{{photo}}" class="shadow-lg rounded-circle ml-5 " id="userPhoto" width="100px" height="90px">
+              <di>
+                  <h3 class="pt-4 pl-3">{{current_user.username}}</h3>
+                  <h6 class="pt-1 pl-3">{{current_user.email}}</h6>
+              </di>
+
            </div>
 
             <!-- nav buttons for profile and settings -->
@@ -40,7 +44,7 @@
                   <div class="shadow card mt-2 border-0 ">
                     <h5 class="card-header title-color">About</h5>
                     <div class="card-body">
-                      <p class="card-text">Some story about the user  describing themselves to other users. </p>
+                      <p class="card-text">{{current_user.about}}</p>
                       <p></p>
                     </div>
                   </div>

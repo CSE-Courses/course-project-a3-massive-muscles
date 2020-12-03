@@ -94,9 +94,8 @@
 
            <!--   profile edit form -->
             <div class=" mt-3 pl-0 pr-0 col-lg-6 col-sm-12 col-md-12">
-               <button type="button" class="btn title-color  w-100" data-toggle="collapse" data-target="#photo">user data and Photo</button>
-               <div id="photo" class="collapse">
-                  <form class="ml-0 mr-0" method="post" action="">
+               <div type="button" class=" title-color pt-3 pb-2 w-100 rounded pl-5 " >Update User data and photo</div>
+                  <form class="ml-1 mr-0 mt-1" method="post" action="">
                     {{ edit_profile_form.hidden_tag() }}
 {#                    <div class="form-group border-box-sizing">#}
 {#                        {{ edit_profile_form.link.label(class="form-control-label") }}#}
@@ -150,62 +149,38 @@
                             {{ edit_profile_form.about(class="form-control bg-light ") }}
                         {% endif %}
                     </div>
-                    <div class="form-group">
-                        {{ edit_profile_form.submit(class='btn btn-danger title-color border-0 mt-2 mb-2 p-3')}}
-                    </div>
-                  </form>
-                </div>
-           </div>
-           <div class=" mt-3 pl-0 pr-0 col-lg-6 col-sm-12 col-md-12">
-               <button type="button" class="btn title-color  w-100" data-toggle="collapse" data-target="#about">update password</button>
-               <div id="about" class="collapse">
-                  <form class="ml-0 mr-0" method="post" action="">
-                    {{ password_form.hidden_tag() }}
                     <div class="form-group border-box-sizing">
-                        {{ password_form.old_password.label(class="form-control-label") }}
-                        {% if password_form.old_password.errors %}
-                            {{ password_form.old_password(class="form-control bg-light is-invalid") }}
+                        {{ edit_profile_form.new_password.label(class="form-control-label") }}
+                        {% if edit_profile_form.new_password.errors %}
+                            {{ edit_profile_form.new_password(class="form-control bg-light is-invalid") }}
                             <div class="invalid-feedback">
-                                {% for err in password_form.old_password.errors %}
+                                {% for err in edit_profile_form.new_password.errors %}
                                     <span>{{ err }}</span>
                                 {% endfor %}
                             </div>
                         {% else %}
-                            {{ password_form.old_password(class="form-control bg-light ") }}
+                            {{ edit_profile_form.new_password(class="form-control bg-light ") }}
                         {% endif %}
                     </div>
                     <div class="form-group border-box-sizing">
-                        {{ password_form.new_password.label(class="form-control-label") }}
-                        {% if password_form.new_password.errors %}
-                            {{ password_form.new_password(class="form-control bg-light is-invalid") }}
+                        {{ edit_profile_form.confirm_password.label(class="form-control-label") }}
+                        {% if edit_profile_form.confirm_password.errors %}
+                            {{ edit_profile_form.confirm_password(class="form-control bg-light is-invalid") }}
                             <div class="invalid-feedback">
-                                {% for err in password_form.new_password.errors %}
+                                {% for err in edit_profile_form.confirm_password.errors %}
                                     <span>{{ err }}</span>
                                 {% endfor %}
                             </div>
                         {% else %}
-                            {{ password_form.new_password(class="form-control bg-light ") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group border-box-sizing">
-                        {{ password_form.confirm_password.label(class="form-control-label") }}
-                        {% if password_form.confirm_password.errors %}
-                            {{ password_form.confirm_password(class="form-control bg-light is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for err in password_form.confirm_password.errors %}
-                                    <span>{{ err }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ password_form.confirm_password(class="form-control bg-light ") }}
+                            {{ edit_profile_form.confirm_password(class="form-control bg-light ") }}
                         {% endif %}
                     </div>
                     <div class="form-group">
-                        {{ password_form.submit(class='btn btn-danger title-color border-0 mt-2 mb-2 p-3')}}
+                        {{ edit_profile_form.submit(class='btn btn-success title-color border-0 mt-2 mb-2 p-3')}}
                     </div>
                   </form>
-                </div>
            </div>
+        </div>
      <!--   edit template END here-->
 
      <!-- Reserved for the home footer   -->

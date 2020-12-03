@@ -10,9 +10,8 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .app import bcrypt, db
-from .forms import LoginForm, RegistrationForm, EditPasswordForm, EditProfileForm
+from .forms import LoginForm, RegistrationForm, EditProfileForm
 from .models import BMI, User, Calorie, Nutrition
-
 
 bp = Blueprint('web', __name__, url_prefix='/web')
 import random
@@ -73,10 +72,12 @@ def home():
 def healthTracker():
     return render_template('web/healthTracker.html')
 
+
 @bp.route('/music')
 @login_required
 def musicPlayer():
     return render_template('web/musicPlayer.html')
+
 
 @bp.route('/profile')
 @login_required
@@ -90,21 +91,25 @@ def profile():
 def edit():
     photo = url_for('static', filename=f'profile_pics/{current_user.image_file}')
     edit_profile_form = EditProfileForm()
-    password_form = EditPasswordForm()
     if edit_profile_form.validate_on_submit():
         current_user.username = edit_profile_form.username.data
         current_user.email = edit_profile_form.email.data
         current_user.about = edit_profile_form.about.data
+        if edit_profile_form.new_password.data == '':
+            current_user.password = current_user.password
+        else:
+            current_user.password = bcrypt.generate_password_hash(edit_profile_form.new_password.data).decode('utf-8')
         db.session.commit()
-        flash('your account has been updated!', 'success')
+        flash('your account data has been updated!', 'success')
         return redirect(url_for('web.profile'))
     elif request.method == 'GET':
         edit_profile_form.username.data = current_user.username
         edit_profile_form.email.data = current_user.email
         edit_profile_form.about.data = current_user.about
+        edit_profile_form.new_password.data = current_user.password
+        edit_profile_form.confirm_password.data = current_user.password
     return render_template('web/edit.html', title='Edit page', photo=photo,
-                           edit_profile_form=edit_profile_form,
-                           password_form=password_form)
+                           edit_profile_form=edit_profile_form)
 
 
 @bp.route('/exercises')
@@ -149,8 +154,8 @@ def profile_data_generator():
 @bp.route('/add_and_get_entries', methods=['GET', 'POST'])
 @login_required
 def nutrition_data():
-    #Get reqest
-    #Gets all food items from the current user and sends them back to the JavaScript file
+    # Get reqest
+    # Gets all food items from the current user and sends them back to the JavaScript file
     if request.method == "GET":
         nutrition_object = {}
         for i in range(len(current_user.nutrition_intake)):
@@ -164,8 +169,8 @@ def nutrition_data():
             curr_nutrient_object['protein'] = curNutrient.protein
             nutrition_object['item ' + str(i)] = curr_nutrient_object
         return json.dumps(nutrition_object)
-    #Post reqest
-    #Takes a food item and stores it into the database under the current user
+    # Post reqest
+    # Takes a food item and stores it into the database under the current user
     else:
         data = json.loads(request.form['entry'])
         description = str(data['description'])
@@ -177,10 +182,12 @@ def nutrition_data():
             return 'Method Not Allowed', 405
         if calories > 10000 or fat > 10000 or carbs > 10000 or protein > 10000:
             return 'Method Not Allowed', 405
-        nutrition_entry = Nutrition(description=description, calories=calories, fat=fat, carbs=carbs, protein=protein, user_id=current_user.id)
+        nutrition_entry = Nutrition(description=description, calories=calories, fat=fat, carbs=carbs, protein=protein,
+                                    user_id=current_user.id)
         db.session.add(nutrition_entry)
         db.session.commit()
         return 'OK', 200
+
 
 @bp.route('/delete_entries', methods=['POST'])
 @login_required
@@ -196,13 +203,11 @@ def delete_entry():
         return 'Method Not Allowed', 405
     if calories > 10000 or fat > 10000 or carbs > 10000 or protein > 10000:
         return 'Method Not Allowed', 405
-    entry = Nutrition.query.filter_by(id=id,description=description).first()
+    entry = Nutrition.query.filter_by(id=id, description=description).first()
     print(entry)
     db.session.delete(entry)
     db.session.commit()
     return 'OK', 200
-        
-
 
 
 @bp.route('profile/get_data')
@@ -251,7 +256,7 @@ def forum_api_create():
     response = FAPI.create()
     return jsonify({
         "redirect":
-        url_for("web.forum_thread", thread_id=response["thread_id"])
+            url_for("web.forum_thread", thread_id=response["thread_id"])
     }) if "thread_id" in response else jsonify(response)
 
 
@@ -260,7 +265,7 @@ def forum_api_create_post():
     response = FAPI.create_post()
     return jsonify({
         "redirect":
-        url_for("web.forum_thread", thread_id=response["thread_id"])
+            url_for("web.forum_thread", thread_id=response["thread_id"])
     }) if "thread_id" in response else jsonify(response)
 
 

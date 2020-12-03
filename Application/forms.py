@@ -4,6 +4,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from flask_login import current_user
 from .models import User
+from .app import bcrypt
 
 
 class RegistrationForm(FlaskForm):
@@ -36,6 +37,8 @@ class EditProfileForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField("Email", validators=[DataRequired(), Email()])
     about = TextAreaField("About", validators=[Length(max=280)])
+    new_password = PasswordField('New Password', validators=[])
+    confirm_password = PasswordField("Confirm new password", validators=[EqualTo("new_password")])
     # link = photo = FileField(validators=[FileAllowed(photos, 'Image only!'), FileRequired('File was empty!')])
     submit = SubmitField("Save Changes")
 
@@ -50,10 +53,3 @@ class EditProfileForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken, Please choose a different email')
-
-
-class EditPasswordForm(FlaskForm):
-    old_password = PasswordField('Old Password', validators=[DataRequired()])
-    new_password = PasswordField('New Password', validators=[DataRequired()])
-    confirm_password = PasswordField("Confirm new password", validators=[DataRequired(), EqualTo("new_password")])
-    submit = SubmitField("Save Changes")
