@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from flask_wtf.file import FileField, FileRequired, FileAllowed
+from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from .models import User
 from .app import bcrypt
@@ -39,7 +39,7 @@ class EditProfileForm(FlaskForm):
     about = TextAreaField("About", validators=[Length(max=280)])
     new_password = PasswordField('New Password', validators=[])
     confirm_password = PasswordField("Confirm new password", validators=[EqualTo("new_password")])
-    # link = photo = FileField(validators=[FileAllowed(photos, 'Image only!'), FileRequired('File was empty!')])
+    photo = FileField('Update profile picture', validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
     submit = SubmitField("Save Changes")
 
     def validate_username(self, username):

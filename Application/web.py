@@ -14,7 +14,8 @@ from .forms import LoginForm, RegistrationForm, EditProfileForm
 from .models import BMI, User, Calorie, Nutrition
 
 bp = Blueprint('web', __name__, url_prefix='/web')
-import random
+import random, secrets, os
+from PIL import Image
 
 
 @bp.route('/register', methods=['GET', 'POST'])
@@ -86,12 +87,29 @@ def profile():
     return render_template('web/profile.html', photo=photo)
 
 
+def save_photo(form_photo):
+    random_hex = secrets.token_hex(8)
+    _, file_ext = os.path.splitext(form_photo.filename)
+    photo_filename = random_hex + file_ext
+    _dir_ = os.path.dirname(os.path.realpath(__file__))
+    _root_ = os.path.join(_dir_)
+    picture_path = os.path.join(_root_, 'static/profile_pics', photo_filename)
+    output_size = (250, 250)
+    i = Image.open(form_photo)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+    return photo_filename
+
+
 @bp.route('/edit', methods=['GET', 'POST'])
 @login_required
 def edit():
     photo = url_for('static', filename=f'profile_pics/{current_user.image_file}')
     edit_profile_form = EditProfileForm()
     if edit_profile_form.validate_on_submit():
+        if edit_profile_form.photo.data:
+            photo_filename = save_photo(edit_profile_form.photo.data)
+            current_user.image_file = photo_filename
         current_user.username = edit_profile_form.username.data
         current_user.email = edit_profile_form.email.data
         current_user.about = edit_profile_form.about.data
