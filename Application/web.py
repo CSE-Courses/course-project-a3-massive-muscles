@@ -106,6 +106,10 @@ def timer():
 def contactPage():
     return render_template('web/contactPage.html')
 
+@bp.route('/recipes')
+def recipes():
+    return render_template('web/recipes.html')
+
 
 @bp.route('profile/generateData')
 @login_required
