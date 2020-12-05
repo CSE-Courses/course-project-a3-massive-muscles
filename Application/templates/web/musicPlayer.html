@@ -6,13 +6,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
 	<title id="pagetitle">Music Player</title>
-	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
-	<link rel="stylesheet" href="../../static/CSS/musicPlayer.css">
+    <link rel="stylesheet" href="../../static/CSS/musicPlayer.css">
+    <link rel="stylesheet" href="../../static/CSS/main.css">
 	<script src="https://kit.fontawesome.com/1951006a4b.js" SameSite="None" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body onload="">
+<body onload="init_Audio()">
 	<!-- Canvas -->
 	<div class="canvas-wrap">
 		<canvas id="visualizer_render">
@@ -50,11 +50,18 @@
                             <a class="dropdown-item" href="{{ url_for('web.healthTracker') }}">Calculate BMI or Body Fat</a>
                         </div>
                     </li>
-            <!-- dropdown item end -->
+                    <!-- dropdown item end -->
+                    <!-- right aligned login/signup buttons -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('web.forum') }}">Forum</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('web.profile') }}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('web.logout') }}">Log out</a>
+                    </li>
                 </ul>
-            <!-- right aligned login/signup buttons -->
-                <a href="{{ url_for('web.login') }}" class="accountBtn btn mr-2">Register</a> <!-- the mr-2 is space between buttons -->
-                <a href="{{ url_for('web.profile') }}" class="accountBtn btn">Profile</a>
             </div>
         </nav>
     <!-- NAVBAR END -->
@@ -63,7 +70,15 @@
         <div class="logo">
             <img id="logoID" src="../../static/images/muscleBanner.jpg" alt="Massive Muscles">
         </div>
-		<!-- Audio Controls -->
+
+    <!-- Search results -->
+        <div class="resultsContainer">
+            <ul>
+                <h3>No Search Results</h3>
+            </ul>
+        </div>
+
+	<!-- Audio Controls -->
 		<div class="navControl">
 			<div clas="navContainer">
 				<div class="form-group">
@@ -75,32 +90,27 @@
 						class="form-control textbox"
 						name="URL"
 						value="https://soundcloud.com/user/track"
-						onclick=""
+						onclick="textboxAuto_Highlight()"
 					/>
 				</div>
 				<div class="middleLine"></div>
-				<input  onmouseover="mouseOver = true" onmouseout="mouseOver = false" onclick="" type="range" id="audioSlider"/>
+				<input  onmouseover="mouseOver = true" onmouseout="mouseOver = false" onclick="sliderTime()" type="range" id="audioSlider"/>
 				<div class="controlsContainer">
-					<button type="button" class="button" id="toggle" onclick="">
+					<button type="button" class="button" id="toggle" onclick="togglePlay()">
 						&#x23f5;
 					</button>
-					<button type="button" class="button" id="submitButton" onclick="">
+					<button type="button" class="button" id="submitButton" onclick="handleSubmit_Button()">
 						Find Track
 					</button>
 					<h1 id="audioTimer"></h1>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- Track Info -->
-	<div class="trackInfo">
-		<img id="artwork" width="150" height="150">
-		<h1 id="artistname"></h1>
-		<h1 id="songname"></h1>
-	</div>
+    </div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../../static/JS/musicPlayer.js"></script>
 </body>
 
 </html>

@@ -8,7 +8,8 @@
     {% else %}
         <title>Home</title>
     {% endif %}
-
+    <!-- Tab Icon -->
+    <link rel="icon" type="image/ico" href="../../static/images/favicon.ico">
     {% block headers %}
     {% endblock %}
 </head>
@@ -44,6 +45,8 @@
                         <a class="nav-link" href="{{ url_for('web.recipes') }}">Find Recipes</a>
                     </li>
                     <!-- dropdown item start -->
+                        <a class="nav-link" href="{{ url_for('web.forum') }}">Forum</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('web.profile') }}">Profile</a>
                     </li>
