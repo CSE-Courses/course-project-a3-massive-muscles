@@ -140,3 +140,32 @@ form input {
     color: #FFFFFF;
     text-align: center;
 }
+
+/* styling for the text that appears when there are no results to display */ 
+.no-results {
+    text-align: center;
+    font-size: 48px;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+.footer {
+    margin-bottom: 150px;
+    margin-left: 23%;
+    margin-right: 23%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+/*
+.footer {
+    width: 100%;
+    max-width: 1000px;
+    margin-left: 5%;            
+    margin-right: 5%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+*/ 
