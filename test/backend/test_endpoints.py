@@ -44,6 +44,18 @@ class TestForumCreate(unittest.TestCase):
         res = self.client.get("/web/forum/api/thread/1")
         self.assertEqual(res.status_code, 200),
 
+    def test_statistics(self):
+        res = self.client.get("/api/statistics")
+        self.assertEqual(res.status_code, 200),
+
+    def test_user_statistics(self):
+        res = self.client.get("/api/statistics/1")
+        self.assertEqual(res.status_code, 200),
+
+    def test_metrics(self):
+        res = self.client.get("/api/metrics")
+        self.assertEqual(res.status_code, 200),
+
 
 if __name__ == '__main__':
     unittest.main()
