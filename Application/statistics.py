@@ -1,10 +1,14 @@
 from time import time_ns
 
-from flask import g, request
+from flask import g, jsonify, request
 from flask_login import current_user
 
 import Application.models as DBModels
 from Application.app import db
+from Application.models import Statistics
+from Application.web import bp
+
+MAXIMUM_ENTRIES = 100
 
 
 def pre_req():
@@ -26,3 +30,26 @@ def post_req(response):
 
     db.session.commit()
     return response
+
+
+@bp.route('/api/metrics')
+def get_metrics():
+    print("Fetching latest metrics ...")
+    latency_collection = db.session\
+        .query(DBModels.RequestLatency)\
+        .order_by(DBModels.RequestLatency.time)\
+        .limit(MAXIMUM_ENTRIES).all()
+    """
+    Most recent (up to 100) request latencies
+
+    - Array of the following form
+        - request_id
+        - latency
+    """
+    latency_list = list(
+        map(lambda x: {
+            "request_id": x.request_id,
+            "latency": x.latency
+        }, latency_collection))
+
+    return jsonify(latency_list)
