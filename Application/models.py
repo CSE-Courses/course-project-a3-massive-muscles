@@ -60,6 +60,7 @@ class Statistics(db.Model):
 class RequestLatency(db.Model):
     request_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     latency = db.Column(db.Float, nullable=False)
+    time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 
 # Forum
