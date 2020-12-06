@@ -1,4 +1,5 @@
 import os
+import tempfile
 from flask_sqlalchemy import SQLAlchemy
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for, Flask
@@ -15,12 +16,10 @@ login_manager = LoginManager()
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='muscles',
-        SQLALCHEMY_DATABASE_URI='sqlite:///' +
-        os.path.join(os.path.dirname(os.path.realpath(__file__)), '..',
-                     'server.sqlite'),
-        SQLALCHEMY_TRACK_MODIFICATIONS=False)
+    app.config.from_mapping(SECRET_KEY='muscles',
+                            SQLALCHEMY_DATABASE_URI='sqlite:///' +
+                            os.path.join(tempfile.mkdtemp(), 'server.sqlite'),
+                            SQLALCHEMY_TRACK_MODIFICATIONS=False)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing

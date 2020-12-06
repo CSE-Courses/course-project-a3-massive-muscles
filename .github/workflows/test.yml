@@ -29,9 +29,9 @@ jobs:
           npm install selenium-webdriver
           sudo apt-get install python3 python3-pip
           pip3 install -r requirements.txt
-      - name: forum backend reachability test
+      - name: backend reachability test
         run: |
-          python3 test/backend/forum/test_endpoints.py
+          python3 test/backend/test_endpoints.py
       - name: forum frontend reachability test
         run: |
           python3 test/frontend/forum/test_host.py
