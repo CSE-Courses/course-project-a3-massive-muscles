@@ -32,6 +32,26 @@ def post_req(response):
     return response
 
 
+@bp.route('/api/statistics')
+def get_statistics():
+    print("Fetching latest statistics ...")
+    statistics_collection = db.session\
+        .query(DBModels.Statistics)\
+        .order_by(DBModels.Statistics.event_id.desc())\
+        .limit(MAXIMUM_ENTRIES).all()
+    statistics_list = list(
+        map(
+            lambda x: {
+                "user_id": x.user_id,
+                "url": x.url,
+                "path": x.path,
+                "protocol": x.protocol,
+                "user_agent": x.user_agent
+            }, statistics_collection))
+
+    return jsonify(statistics_list)
+
+
 @bp.route('/api/metrics')
 def get_metrics():
     print("Fetching latest metrics ...")
