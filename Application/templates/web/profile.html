@@ -13,14 +13,20 @@
 
         <!--    bootstrap chart.js script from CDN-->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+        <script src="../../static/JS/cookie.js"></script>
     {% endblock headers %}
     {% block content %}
         <!--   profile template starts here-->
         <div class="container mt-0">
           <div class=" shadow-sm row ml-0 mr-0 pt-4 pb-3 pl-0 rounded-top title-color">
             <!-- user photo -->
-            <img src="https://images.unsplash.com/photo-1445583934509-4ad5ffe6ef08?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" class="shadow-lg rounded-circle ml-5 " id="userPhoto" width="100px" height="90px">
-            <h3 class="pt-4 pl-3">{{current_user.username}}</h3>
+            <img src="{{photo}}" class="shadow-lg rounded-circle ml-5 " id="userPhoto" width="100px" height="90px">
+              <di>
+                  <h3 class="pt-4 pl-3">{{current_user.username}}</h3>
+                  <h6 class="pt-1 pl-3">{{current_user.email}}</h6>
+              </di>
+
            </div>
 
             <!-- nav buttons for profile and settings -->
@@ -40,13 +46,17 @@
                   <div class="shadow card mt-2 border-0 ">
                     <h5 class="card-header title-color">About</h5>
                     <div class="card-body">
-                      <p class="card-text">Some story about the user  describing themselves to other users. </p>
+                      <p class="card-text">{{current_user.about}}</p>
                       <p></p>
                     </div>
                   </div>
                 </div>
-                <div class="col mt-4">
-                       <div class="col"></div>
+              {% if current_user.BMIs%}
+                  <div id="generateData" >
+                  </div>
+              {% else %}
+                  <div class="col mt-4">
+                      <div class="col"></div>
                   <div class="shadow card mt-2 border-0 ">
                     <h5 class="card-header title-color">Generate data</h5>
                     <div class="card-body">
@@ -54,6 +64,7 @@
                     </div>
                   </div>
                 </div>
+              {% endif %}
            </div>
            <!--  Displayable charts -->
            <div class="row pb-2">
@@ -77,19 +88,6 @@
                 </div>
            </div>
 
-{#           <div class="row pb-2">#}
-{#                <div class="col mt-4">#}
-{#                       <div class="col"></div>#}
-{#                  <div class="shadow card mt-2  border-0">#}
-{#                    <h5 class="card-header title-color">Daily steps chart</h5>#}
-{#                    <div class="card-body">#}
-{#                      <canvas id="stepsChart"></canvas>#}
-{#                    </div>#}
-{#                  </div>#}
-{#                </div>#}
-{#           </div>#}
-
-           <!-- chart generator code -->
            <script src="{{url_for("static", filename='JS/chartGenerator.js')}}" defer></script>
         </div>
     {% endblock content %}

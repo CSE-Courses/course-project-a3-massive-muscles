@@ -148,12 +148,16 @@ footer{
     .banner {
         visibility: hidden;
     }
+    #wrapper {
+        width:500px;
+        height:125px;
+    }
 }
 
 @media screen and (max-width: 700px) {
     #wrapper{
-        width: 450;
-        height: 100;
+        width: 350;
+        height: 80;
     }
 }
 

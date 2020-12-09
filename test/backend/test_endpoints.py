@@ -7,14 +7,19 @@ import tempfile
 import unittest
 
 _dir_ = os.path.dirname(os.path.realpath(__file__))
-_root_ = os.path.join(_dir_, '..', '..', '..')
+_root_ = os.path.join(_dir_, '..', '..')
 
 sys.path.append(_root_)
 
+import Application.statistics as _SAPI
 from Application.app import create_app
 
 app = create_app()
 app.config['TESTING'] = True
+
+# Hooks for every request
+app.before_request(_SAPI.pre_req)
+app.after_request(_SAPI.post_req)
 
 
 class TestForumCreate(unittest.TestCase):
@@ -42,6 +47,18 @@ class TestForumCreate(unittest.TestCase):
 
     def test_forum_api_thread(self):
         res = self.client.get("/web/forum/api/thread/1")
+        self.assertEqual(res.status_code, 200),
+
+    def test_statistics(self):
+        res = self.client.get("/web/api/statistics")
+        self.assertEqual(res.status_code, 200),
+
+    def test_user_statistics(self):
+        res = self.client.get("/web/api/statistics/1")
+        self.assertEqual(res.status_code, 200),
+
+    def test_metrics(self):
+        res = self.client.get("/web/api/metrics")
         self.assertEqual(res.status_code, 200),
 
 
