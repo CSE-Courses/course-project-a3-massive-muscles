@@ -1,14 +1,34 @@
 var source, context, analyser, frequencyArray, inputURL,
     trackName, audio, toggle_Play, artist, title, img_url,
-    mouseOver, search_results;
+    mouseOver, search_results, canvas, canvasCtx, rads,
+    center_x, center_y, radius, bgBar_Count, bar_x_term, 
+    ar_y_term, bar_width, bar_height, react_x, react_y, 
+    curFrequency, rotations, shapeRotation;
 
-var client_id = "8df0d68fcc1920c92fc389b89e7ce20f";
+// Not a private API key for Massive Muscles - SoundCloud
+// no longer gives exclusive API keys while they rework
+// their system.
+const client_id = "8df0d68fcc1920c92fc389b89e7ce20f";
 
 // init variables
+bgBar_Count = 200;
+shapeRotation = 0;
+react_x = 0;
+react_y = 0;
+radius = 0;
+rotations = 0;
+curFrequency = 0;
 toggle_Play = false;
 mouseOver = false;
+rotateNeg = true;
 
 function init_Audio() {
+    // Canvas
+    canvas = $("#visualizer_render")[0];
+	canvasCtx = canvas.getContext("2d");
+    refresh_canvasSize();
+
+    // Audio
 	audio = new Audio();
 	audio.crossOrigin = "anonymous";
 	audio.controls = true;
@@ -176,5 +196,92 @@ function canvasUpdater() {
 	let minute = Math.floor(audio.currentTime / 60),
 	tenthsSec = Math.floor(audio.currentTime % 60) < 10 ? "0" : "",
 	hundredthsSec = Math.floor(audio.currentTime % 60);
-	$('#audioTimer').html(minute + ':' + tenthsSec + hundredthsSec);
+    $('#audioTimer').html(minute + ':' + tenthsSec + hundredthsSec);
+    
+    // Draw Canvas
+	canvasCtx.fillStyle = "#4e9cf5";
+	canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+		
+	rotations = rotations + curFrequency * 0.0000001;
+		
+	react_x = 0;
+	react_y = 0;
+	curFrequency = 0;
+
+	analyser.getByteFrequencyData(frequencyArray);
+
+	for (var i = 0; i < bgBar_Count; i++) {
+		rads = Math.PI * 2 / bgBar_Count;
+
+		bar_height = Math.max((frequencyArray[i] * 2.5 - 200), 0);
+		bar_width = bar_height * 0.08;
+
+		bar_x_term = center_x + Math.cos(rads * i + rotations) * (radius + bar_height);
+		bar_y_term = center_y + Math.sin(rads * i + rotations) * (radius + bar_height);
+						
+		canvasCtx.strokeStyle = "rgba(" + (frequencyArray[i] - 100).toString() + ", " + 100 + ", " + 250 + "," + .3 + ")";
+		canvasCtx.lineWidth = bar_width;
+		canvasCtx.beginPath();
+		canvasCtx.moveTo(center_x, center_y);
+		canvasCtx.lineTo(bar_x_term, bar_y_term);
+		canvasCtx.stroke();
+					
+		react_x += Math.cos(rads * i + rotations) * (radius + bar_height);
+		react_y += Math.sin(rads * i + rotations) * (radius + bar_height);
+					
+		curFrequency += bar_height;
+	}
+
+	center_x = $(window).width() / 2 - (react_x * 0.007);
+    center_y = $(window).height() / 2 - (react_y * 0.007);
+	let radiusMultiplier = $('body').width() / 25;
+    radius = radiusMultiplier + (curFrequency * 0.003);
+    // Make shapes rotate
+    if(rotateNeg){shapeRotation += 1;}
+    else {shapeRotation -= 1;}
+    if (shapeRotation > 200){rotateNeg = false;}
+    if (shapeRotation < -200){rotateNeg = true;}
+
+	// Elipse middle
+	canvasCtx.fillStyle = "white";
+	canvasCtx.beginPath();
+	canvasCtx.ellipse(center_x, center_y - 20, radius * (curFrequency * .000015), radius * (curFrequency * .00005), -( Math.PI / (2 + (shapeRotation/3)*.01)), 0, 2 * Math.PI);
+	canvasCtx.fill();
+	//Elipse right 3
+	canvasCtx.fillStyle = "#ff0000";
+	canvasCtx.beginPath();
+	canvasCtx.ellipse(center_x + 30, center_y - 20, radius * (curFrequency * .000015), radius * (curFrequency * .00005), Math.PI / (4 + shapeRotation*.01), 0, 2 * Math.PI);
+	canvasCtx.fill();
+	//Elipse right 2
+	canvasCtx.fillStyle = "#00ff37";
+	canvasCtx.beginPath();
+	canvasCtx.ellipse(center_x - 30, center_y - 20, radius * (curFrequency * .000015), radius * (curFrequency * .00005), Math.PI / (4 + shapeRotation*.01), 0, 2 * Math.PI);
+	canvasCtx.fill();
+	//Elipse right 1
+	canvasCtx.fillStyle = "#ffea00";
+	canvasCtx.beginPath();
+	canvasCtx.ellipse(center_x, center_y - 20, radius * (curFrequency * .000015), radius * (curFrequency * .00005), Math.PI / (4 + shapeRotation*.01), 0, 2 * Math.PI);
+	canvasCtx.fill();
+	// Elipse left 3
+	canvasCtx.fillStyle = "#00ccff";
+	canvasCtx.beginPath();
+	canvasCtx.ellipse(center_x - 30, center_y - 20, radius * (curFrequency * .000015), radius * (curFrequency * .00005), -( Math.PI / (4 + shapeRotation*.01)), 0, 2 * Math.PI);
+	canvasCtx.fill();
+	// Elipse left 2
+	canvasCtx.fillStyle = "#f700ff";
+	canvasCtx.beginPath();
+	canvasCtx.ellipse(center_x + 30, center_y - 20, radius * (curFrequency * .000015), radius * (curFrequency * .00005), -( Math.PI / (4 + shapeRotation*.01)), 0, 2 * Math.PI);
+	canvasCtx.fill();
+	// Elipse left 1
+	canvasCtx.fillStyle = "#0011ff";
+	canvasCtx.beginPath();
+	canvasCtx.ellipse(center_x, center_y - 20, radius * (curFrequency * .000015), radius * (curFrequency * .00005), -( Math.PI / (4 + shapeRotation*.01)), 0, 2 * Math.PI);
+	canvasCtx.fill();
+
+
+	// Circle 1	
+	canvasCtx.fillStyle = "#072861";
+	canvasCtx.beginPath();
+	canvasCtx.arc(center_x, center_y, radius + 2, 0, Math.PI * 2);
+	canvasCtx.fill();
 }
