@@ -78,7 +78,7 @@ body{
 
 img {
     width: 100%;
-    height: 100%;
+    height: 250px;
     object-fit: cover;
 }
 
@@ -112,7 +112,7 @@ form input {
 }
 
 .all-recipes {
-    /* width: 100%;  */
+    width: 100%;
     display: grid;                  /* display results in a grid */
     grid-gap: 30px;                 /* gap between rows, columns */      
     grid-template: auto / repeat(auto-fit, minmax(250px, 1fr));  
