@@ -49,13 +49,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('web.recipes') }}">Find Recipes</a>
                     </li>
-                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('web.forum') }}">Forum</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('web.profile') }}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('web.logout') }}">Log out</a>
+                    </li>
                 </ul>
-            <!-- right aligned login/signup buttons -->
-                <a href="{{ url_for('web.login') }}" class="accountBtn btn mr-2">Register</a> <!-- the mr-2 is space between buttons -->
-                <a href="{{ url_for('web.profile') }}" class="accountBtn btn">Profile</a>
+
             </div>
         </nav>
 <!-- NAVBAR END -->
