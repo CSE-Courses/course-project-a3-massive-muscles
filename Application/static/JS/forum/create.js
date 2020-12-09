@@ -7,16 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   req.onreadystatechange = function () {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      const response = JSON.parse(req.response)
+    if (this.readyState === XMLHttpRequest.DONE) {
+      if (this.status === 200) {
+        const response = JSON.parse(req.response)
 
-      if (response.redirect) {
-        // Request was successful
-        window.location.replace(response.redirect);
-      } else {
-        // Request wasn't successful, so reopen the connection
-        init_req();
+        if (response.redirect) {
+          // Request was successful
+          window.location.replace(response.redirect);
+        }
       }
+      // Request wasn't successful, so reopen the connection
+      init_req();
     }
   }
 

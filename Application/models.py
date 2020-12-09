@@ -20,8 +20,9 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+    image_file = db.Column(db.String(20), nullable=False, default='default.jpeg')
     password = db.Column(db.String(60), nullable=False)
+    about = db.Column(db.String(280), nullable=False, default='Tells about yourself...')
     BMIs = db.relationship('BMI', backref='user', lazy=True)
     calories = db.relationship('Calorie', backref='user', lazy=True)
     nutrition_intake = db.relationship('Nutrition', backref='user',lazy=True)
@@ -46,7 +47,24 @@ class BMI(db.Model):
         return f"BMI({self.date}, {self.measurement})"
 
 
+# Statistics / Matrics
+class Statistics(db.Model):
+    event_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, nullable=False)
+    url = db.Column(db.UnicodeText, nullable=False)
+    path = db.Column(db.UnicodeText, nullable=False)
+    protocol = db.Column(db.UnicodeText, nullable=False)
+    user_agent = db.Column(db.UnicodeText, nullable=False)
+
+
+class RequestLatency(db.Model):
+    request_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    latency = db.Column(db.Float, nullable=False)
+    time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+
 # Forum
+
 
 class Forum(db.Model):
     post_id = db.Column(db.Integer, nullable=False, primary_key=True)
