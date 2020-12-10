@@ -1,4 +1,4 @@
-from time import time_ns
+from time import time
 
 from flask import g, jsonify, request
 from flask_login import current_user
@@ -12,11 +12,11 @@ MAXIMUM_ENTRIES = 100
 
 
 def pre_req():
-    g.req_tick = time_ns()  # Track request "latency"
+    g.req_tick = time()  # Track request "latency"
 
 
 def post_req(response):
-    tick = time_ns()
+    tick = time()
     req_latency = tick - g.req_tick
     db.session.add(DBModels.RequestLatency(latency=req_latency))
 
